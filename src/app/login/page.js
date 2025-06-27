@@ -1,6 +1,7 @@
 'use client';
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
 
 export default function LoginPage() {
   const [email, setEmail] = React.useState("");
@@ -10,14 +11,8 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
+      const response = await axios.post("/api/login", { email, password });
+      const data = response.data;
       if (data.error) {
         setError(data.error);
       } else {
@@ -71,3 +66,4 @@ export default function LoginPage() {
     </div>
   );
 }
+
