@@ -6,6 +6,7 @@ import Image from 'next/image';
 // import trainImage from '@/public/assets/train-hero.jpg'; // optional image
 import Navbar from '@/components/Navbar';
 import MiddleContent from '@/components/MiddleContent';
+import Footer from '@/components/Footer';
 
 export default function HomePage() {
   const [source, setSource] = useState('');
@@ -20,7 +21,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-start">
+      <div className=" bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-start">
 
         <div className="w-full max-w-4xl px-6 py-12">
           <div className="flex flex-col items-center text-center">
@@ -65,6 +66,7 @@ export default function HomePage() {
         </div>
       </div>
       <MiddleContent />
+      <Footer />
     </>
   );
 }
