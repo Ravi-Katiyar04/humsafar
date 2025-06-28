@@ -1,6 +1,6 @@
-export default function Home() {
+export default function MiddleContent() {
   return (
-    <main className="p-4 max-w-4xl mx-auto text-gray-800">
+    <main className="p-4 max-w-7xl mx-auto text-gray-800">
       <h1 className="text-3xl font-bold mb-4">IRCTC Ticket Booking on ixigo</h1>
       <p className="mb-6">
         ixigo is one of the top-rated apps for a seamless IRCTC ticket booking experience. Book general, tatkal, premium tatkal, and more tickets easily.

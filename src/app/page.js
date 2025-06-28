@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 // import trainImage from '@/public/assets/train-hero.jpg'; // optional image
 import Navbar from '@/components/Navbar';
+import MiddleContent from '@/components/MiddleContent';
 
 export default function HomePage() {
   const [source, setSource] = useState('');
@@ -63,6 +64,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+      <MiddleContent />
     </>
   );
 }
