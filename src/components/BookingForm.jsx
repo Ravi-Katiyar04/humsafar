@@ -78,7 +78,3 @@ export default function BookingForm({ onSubmit, availableClasses = [] }) {
   );
 }
 
-BookingForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  availableClasses: PropTypes.arrayOf(PropTypes.string),
-};
