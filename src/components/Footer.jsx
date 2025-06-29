@@ -1,96 +1,116 @@
-import Link from 'next/link';
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-const Footer = () => {
+export default function Footer() {
+  const router = useRouter();
+  const [open, setOpen] = useState({});
+
+  const sections = {
+    Features: [
+      { label: 'Live Train Status', path: '/live-status' },
+      { label: 'PNR Status', path: '/pnr-status' },
+      { label: 'Train Time Table', path: '/timetable' },
+      { label: 'Seat Availability', path: '/seat-availability' },
+      { label: 'Train between Stations', path: '/between-stations' },
+      { label: 'Arrival Departure', path: '/arrival-departure' },
+      { label: 'Travel Advisory', path: '/advisory' },
+    ],
+    'Book with Us': [
+      { label: 'Bus Tickets', path: '/bus-tickets' },
+      { label: 'Train Tickets', path: '/train-tickets' },
+      { label: 'Food on Train', path: '/food-on-train' },
+    ],
+    Info: [
+      { label: 'About Us', path: '/about' },
+      { label: 'Contact Us', path: '/contact' },
+      { label: 'FAQs', path: '/faqs' },
+      { label: 'Partners', path: '/partners' },
+      { label: 'Advertise With Us', path: '/advertise' },
+      { label: 'Work With Us', path: '/careers' },
+      { label: 'Media', path: '/media' },
+    ],
+    'Our Family': [
+      { label: 'IntrCity Smart Bus', path: '/intrcity-bus' },
+    ],
+  };
+
+  const toggle = (key) => {
+    setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const navigate = (path) => router.push(path);
+
   return (
-    <footer className="bg-blue-700 pt-8 text-sm text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Sections */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 pb-8 border-b border-gray-600">
-          {/* Column 1 */}
-          <div>
-            <h3 className="font-semibold text-blue-400 mb-3 border-b-2 border-blue-400 inline-block">
-              Popular Train Routes
-            </h3>
-            <ul className="space-y-1">
-              <li><Link href="#">Bengaluru To Mysore Trains</Link></li>
-              <li><Link href="#">Chandigarh To Delhi Trains</Link></li>
-              <li><Link href="#">Jammu To Delhi Trains</Link></li>
-              <li><Link href="#">Bengaluru To Delhi Trains</Link></li>
+    <footer className="bg-blue-50 border-t border-gray-300 px-6 py-10 text-gray-800">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-5 gap-6">
+        {Object.entries(sections).map(([section, items]) => (
+          <div key={section}>
+            <div
+              className="flex justify-between items-center md:block cursor-pointer"
+              onClick={() => toggle(section)}
+            >
+              <h3 className="font-semibold mb-3">{section}</h3>
+              {open[section] ? (
+                <span className="md:hidden">
+                  <i className="fas fa-chevron-up" />
+                </span>
+              ) : (
+                <span className="md:hidden">
+                  <i className="fas fa-chevron-down" />
+                </span>
+              )}
+
+
+            </div>
+
+            <ul
+              className={`space-y-2 md:block ${open[section] ? 'block' : 'hidden'
+                }`}
+            >
+              {items.map((item, i) => (
+                <li
+                  key={i}
+                  onClick={() => navigate(item.path)}
+                  className="cursor-pointer text-sm hover:underline"
+                >
+                  {item.label}
+                </li>
+              ))}
             </ul>
           </div>
+        ))}
 
-          {/* Column 2 */}
-          <div>
-            <h3 className="font-semibold mb-3">Top Train Routes</h3>
-            <ul className="space-y-1">
-              <li><Link href="#">Bengaluru To Chennai Trains</Link></li>
-              <li><Link href="#">Jaipur To Jodhpur Trains</Link></li>
-              <li><Link href="#">Jodhpur To Jaipur Trains</Link></li>
-              <li><Link href="#">Mumbai To Surat Trains</Link></li>
-            </ul>
+        {/* Right Section - Company Info */}
+        <div>
+          <div className="flex items-center mb-6 text-xl font-semibold">
+            <img src="/assets/logo.svg" alt="humsafar" />
+          </div>
+          <p className="text-sm text-gray-600">
+            HumSafar is a one-stop solution for travel discovery. Smart Bus booking, Train services & more.
+          </p>
+          <div className="text-sm my-4">
+            <p className="font-semibold">Stelling Technologies Private Limited</p>
+            <p>CIN: U72200UP2011PTC087404</p>
+          </div>
+          <div className="text-sm mb-4">
+            <p className="font-semibold">Registered Office:</p>
+            <p>
+              Amco Tower, Plot No A - 5, 6 & 7, Sector 9,<br />
+              Gautam Buddha Nagar, Noida, UP, India, 201301
+            </p>
           </div>
 
-          {/* Column 3 */}
-          <div>
-            <h3 className="font-semibold mb-3">Top IRCTC Trains</h3>
-            <ul className="space-y-1">
-              <li><Link href="#">Delhi To Jaipur Trains</Link></li>
-              <li><Link href="#">Lucknow To Delhi Trains</Link></li>
-              <li><Link href="#">Ahmedabad To Delhi Trains</Link></li>
-              <li><Link href="#">Surat To Mumbai Trains</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 4 */}
-          <div>
-            <h3 className="font-semibold mb-3">Popular Trains</h3>
-            <ul className="space-y-1">
-              <li><Link href="#">Jaipur To Delhi Trains</Link></li>
-              <li><Link href="#">Mumbai To Ahmedabad Trains</Link></li>
-              <li><Link href="#">Delhi To Ahmedabad Trains</Link></li>
-              <li><Link href="#">Mumbai To Jaipur Trains</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 5 */}
-          <div>
-            <h3 className="font-semibold mb-3">Plan Your Trip</h3>
-            <ul className="space-y-1">
-              <li><Link href="#">Chennai To Coimbatore Trains</Link></li>
-              <li><Link href="#">Coimbatore To Chennai Trains</Link></li>
-              <li><Link href="#">Goa To Mumbai Trains</Link></li>
-              <li><Link href="#">Nagpur To Mumbai Trains</Link></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center mt-4 text-xs text-gray-400">
-          <div className="mb-4">
-            © 2025 Le Travenues Technology Ltd. India. All brands are trademarks of their respective owners. •
-            <span className="ml-1">
-              <Link href="#">Privacy</Link> • 
-              <Link href="#">Terms of Use</Link> • 
-              <Link href="#">Career</Link> • 
-              <Link href="#">Customer Service</Link> • 
-              <Link href="#">About Us</Link> • 
-              <Link href="#">Investor Relations</Link> • 
-              <Link href="#">CSR</Link>
-            </span>
-          </div>
-
-          {/* Social Icons */}
-          <div className="flex gap-3 mt-2 md:mt-0">
-            <Link href="#"><i className="fab fa-facebook-f hover:text-blue-500"></i></Link>
-            <Link href="#"><i className="fab fa-twitter hover:text-blue-500"></i></Link>
-            <Link href="#"><i className="fab fa-instagram hover:text-pink-500"></i></Link>
-            <Link href="#"><i className="fab fa-linkedin-in hover:text-blue-600"></i></Link>
-            <Link href="#"><i className="fab fa-youtube hover:text-red-500"></i></Link>
+          <div className="flex gap-4 text-xl text-gray-600 mt-2">
+            <i className="fab fa-facebook-f hover:text-blue-600 cursor-pointer" />
+            <i className="fas fa-times hover:text-red-600 cursor-pointer" />
+            <i className="fab fa-instagram hover:text-pink-600 cursor-pointer" />
+            <i className="fab fa-linkedin-in hover:text-blue-700 cursor-pointer" />
+            <i className="fab fa-youtube hover:text-red-500 cursor-pointer" />
           </div>
         </div>
       </div>
     </footer>
   );
-};
+}
 
-export default Footer;

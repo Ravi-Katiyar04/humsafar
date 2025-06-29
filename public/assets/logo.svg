@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 152" width="700" height="152" style="display: block">
+  <defs>
+    <linearGradient id="blueGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00AEEF" />
+      <stop offset="100%" stop-color="#0074C1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#003B5C" />
+      <stop offset="100%" stop-color="#005F8C" />
+    </linearGradient>
+  </defs>
+
+  <!-- Train Icon -->
+  <g transform="translate(0,20)">
+    <path d="M0 60 Q20 0 120 0 H210 Q230 0 245 20 L265 50 Q270 60 265 70 Q260 80 245 80 H30 Q5 80 0 60 Z" fill="url(#blueGradient)" />
+    <rect x="40" y="25" width="45" height="15" rx="3" ry="3" fill="white"/>
+    <rect x="100" y="25" width="45" height="15" rx="3" ry="3" fill="white"/>
+    <circle cx="70" cy="90" r="9" fill="#003B5C"/>
+    <circle cx="170" cy="90" r="9" fill="#003B5C"/>
+    <rect x="110" y="-10" width="35" height="6" rx="2" fill="#0074C1"/>
+    <!-- Track -->
+    <line x1="20" y1="105" x2="260" y2="105" stroke="#003B5C" stroke-width="4"/>
+  </g>
+
+  <!-- Brand Name -->
+  <text x="290" y="112" font-family="Segoe UI, sans-serif" font-size="84" fill="url(#textGradient)" font-weight="600" letter-spacing="1">
+    Humsafar
+  </text>
+</svg>
