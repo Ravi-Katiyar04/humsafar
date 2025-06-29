@@ -184,7 +184,7 @@ export default function HomePage() {
         <h2 className="text-xl font-semibold mb-2 text-black">Top Features You Must Know!</h2>
         <ul className="list-disc ml-5 space-y-1 text-[14px]">
           <li><strong className="text-black text-[16px] block">Live Train Running Status</strong>
-            Check your Train Running Status on ixigo by just adding the train number and get your train details through <Link href="/pnr-status-enquiry" className="text-blue-600">Live Running Train Status.</Link>  
+            Check your Train Running Status on ixigo by just adding the train number and get your train details through <Link href="/running-status" className="text-blue-600">Live Running Train Status.</Link>  
           </li>
           <li><strong className="text-black text-[16px] block">Free Cancellation & Booking Modification</strong>Get full refunds on your train ticket cancellations by choosing Assured Flex. You can also modify your booking.</li>
           <li><strong className="text-black text-[16px] block">Check PNR Status</strong> <Link href="/pnr-status-enquiry" className="text-blue-600">PNR Status</Link> allows you to check the current status of your booked ticket, letting you know if it&#39;s confirmed or not. ixigo helps you to find out the Indian Railways PNR Status Prediction with high accuracy of booked train ticket through its app or its website.</li>
