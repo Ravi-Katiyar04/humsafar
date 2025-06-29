@@ -8,7 +8,7 @@ export default function ServiceTiles() {
 
   const services = [
     { label: 'Running Status', icon: 'fa-map-marker-alt', badge: 'Live', link: '/running-status' },
-    { label: 'PNR Status Enquiry', icon: 'fa-ticket-alt', link: '/pnr-status' },
+    { label: 'PNR Status Enquiry', icon: 'fa-ticket-alt', link: '/pnr-status-enquiry' },
     { label: 'Train Seat Availability', icon: 'fa-chair', link: '/seat-availability' },
     { label: 'Search By Name/Number', icon: 'fa-search', link: '/search-train' },
     { label: 'Search By Station', icon: 'fa-subway', link: '/search-station' },
