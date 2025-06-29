@@ -4,6 +4,7 @@ import Booking from '@/components/Booking';
 import { Inter } from "next/font/google";
 import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
+import Services from '@/components/Services';
 
 export default function HomePage() {
   
@@ -11,7 +12,8 @@ export default function HomePage() {
   return (
     <>
       <Booking />
-      <main className={`${inter.className} p-4 max-w-7xl mx-auto text-gray-600 font-serif font-semibold`}>
+      <Services />
+      <main className={`${inter.className} p-4 max-w-11/12 mx-auto text-gray-600 font-serif font-semibold`}>
       <h1 className="text-3xl font-bold mb-4 text-black">IRCTC Ticket Booking on HumSafar</h1>
       <p className="mb-6 text-[14px]">
         HumSafar is one of the top-rated apps for a seamless IRCTC ticket booking experience. You can book your IRCTC train tickets quickly with the HumSafar Trains app or website using IRCTC login credentials.
