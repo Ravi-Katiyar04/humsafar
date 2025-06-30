@@ -7,10 +7,10 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <nav className="bg-blue-700 text-white py-4 shadow-md">
+    <nav className="bg-blue-100 sticky top-0 z-10 text-blue-700 py-4 shadow-md">
       <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold tracking-tight">
-          Indian Railways
+          <img src="/assets/logo.svg" alt="logo" className="h-10" />
         </Link>
 
         <div className="space-x-4">
