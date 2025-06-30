@@ -29,6 +29,7 @@ export default function ServiceTiles() {
 
   return (
     <div className="relative w-11/12 mx-auto my-10">
+      <h2 className="text-xl font-bold mb-4 text-black">Explore More With HumSafar</h2>
       {/* Left Arrow */}
       <button
         onClick={() => scroll('left')}

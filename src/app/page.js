@@ -14,7 +14,7 @@ export default function HomePage() {
       <Booking />
       <Services />
       <main className={`${inter.className} p-4 max-w-11/12 mx-auto text-gray-600 font-serif font-semibold`}>
-      <h1 className="text-3xl font-bold mb-4 text-black">IRCTC Ticket Booking on HumSafar</h1>
+      <h1 className="text-xl font-bold mb-4 text-black">IRCTC Ticket Booking on HumSafar</h1>
       <p className="mb-6 text-[14px]">
         HumSafar is one of the top-rated apps for a seamless IRCTC ticket booking experience. You can book your IRCTC train tickets quickly with the HumSafar Trains app or website using IRCTC login credentials.
         As an IRCTC authorised partner, HumSafar offers ₹0 PG fee on UPI payments, exclusive offers on debit/credit cards, and Tatkal ticket booking on the app and the website.
