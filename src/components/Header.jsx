@@ -8,12 +8,12 @@ export default function Header() {
         
         <nav className="hidden md:block">
           <ul className="flex space-x-6">
-            <li><Link href="#" className="text-gray-700 hover:text-blue-600 font-medium">IRCTC Train Booking</Link></li>
-            <li><Link href="#" className="text-gray-700 hover:text-blue-600 font-medium">PNR Status</Link></li>
+            <li><Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">IRCTC Train Booking</Link></li>
+            <li><Link href="/pnr-status-enquiry" className="text-gray-700 hover:text-blue-600 font-medium">PNR Status</Link></li>
             <li><Link href="#" className="text-blue-600 font-bold border-b-2 border-blue-600 pb-1">Running Status</Link></li>
-            <li><Link href="#" className="text-gray-700 hover:text-blue-600 font-medium">Seat Availability</Link></li>
-            <li><Link href="#" className="text-gray-700 hover:text-blue-600 font-medium">Tatkal Ticket Booking</Link></li>
-            <li><Link href="#" className="text-gray-700 hover:text-blue-600 font-medium">Platform Locator</Link></li>
+            <li><Link href="/seat-availability" className="text-gray-700 hover:text-blue-600 font-medium">Seat Availability</Link></li>
+            <li><Link href="/tatkal-reservation" className="text-gray-700 hover:text-blue-600 font-medium">Tatkal Ticket Booking</Link></li>
+            <li><Link href="/platform-locator" className="text-gray-700 hover:text-blue-600 font-medium">Platform Locator</Link></li>
           </ul>
         </nav>
       </div>
