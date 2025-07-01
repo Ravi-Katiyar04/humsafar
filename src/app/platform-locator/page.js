@@ -28,7 +28,7 @@ export default function PlatformLocator() {
         <div className="min-h-screen bg-white">
             {/* Header Section */}
             <div className="bg-gradient-to-r from-purple-900 to-pink-700 py-10 text-center ">
-                <h1 className="text-3xl font-semibold mb-6">Platform Locator</h1>
+                <h1 className="text-3xl font-semibold mb-6 text-white">Platform Locator</h1>
 
                 <div className="bg-white rounded-md max-w-5xl mx-auto p-6 flex flex-col md:flex-row gap-8 items-end shadow text-left">
 
@@ -72,8 +72,7 @@ export default function PlatformLocator() {
             {/* Breadcrumbs */}
             <div className="max-w-11/12 mx-auto px-4 mt-4 text-sm text-gray-500">
                 <span className="text-orange-500">Home</span> &nbsp;»&nbsp;
-                <span>Trains</span> &nbsp;»&nbsp;
-                <span className="text-gray-700 font-medium">Platform Locator</span>
+                <span className="text-gray-700 font-medium ">Platform Locator</span>
             </div>
 
             {/* Content Section */}
