@@ -191,7 +191,7 @@ export default function HomePage() {
 
           <li><strong className="text-black text-[16px] block">Seat Availability and Enquiry</strong> Use our <Link href="/seat-availability" className="text-blue-600">train seat availability</Link>    feature to find out the seat or berth availability on your train and check the lowest train ticket price. You can make online IRCTC train ticket reservations according to your preferred options - date of travel, train halt in minutes and IRCTC train route.</li>
 
-          <li><strong className="text-black text-[16px] block">Order Food on Train</strong>Get fresh &amp; delicious meals delivered right to your seat with our <Link href="https://www.ecatering.irctc.co.in" className="text-blue-600">&#39;Order Food on Train&#39;</Link>  feature.</li>
+          <li><strong className="text-black text-[16px] block">Order Food on Train</strong>Get fresh &amp; delicious meals delivered right to your seat with our <Link href="https://www.ecatering.irctc.co.in" target="_blank" className="text-blue-600">&#39;Order Food on Train&#39;</Link>  feature.</li>
 
           <li><strong className="text-black text-[16px] block">Order Food on Train</strong> <Link href="/travel-guarantee" className="text-blue-600">&#39;Travel Guarantee&#39;</Link>  by ixigo is a unique feature that ensures either a confirmed seat or a refund* if your waitlisted booking is not confirmed during chart preparation. The refund amount varies based on the selected travel mode (3X for flights, 3X for buses, or 2X for trains).
 

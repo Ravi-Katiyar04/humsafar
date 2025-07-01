@@ -19,7 +19,7 @@ export default function Footer() {
     'Book with Us': [
       { label: 'Bus Tickets', path: '/bus-tickets' },
       { label: 'Train Tickets', path: '/train-tickets' },
-      { label: 'Food on Train', path: '/food-on-train' },
+      { label: 'Food on Train', path: 'https://www.ecatering.irctc.co.in' },
     ],
     Info: [
       { label: 'About Us', path: '/about' },
