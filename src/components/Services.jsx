@@ -15,7 +15,7 @@ export default function ServiceTiles() {
     { label: 'Train Platform Locator', icon: 'fa-train-subway', link: '/platform-locator' },
     { label: 'Tatkal Railway Reservation', icon: 'fa-bolt', link: '/tatkal-reservation' },
     { label: 'Vande Bharat Express', icon: 'fa-train', link: '/vande-bharat' },
-    { label: 'IRCTC Food Booking', icon: 'fa-utensils', link: '/food-booking' },
+    { label: 'IRCTC Food Booking', icon: 'fa-utensils', link: 'https://www.ecatering.irctc.co.in' },
   ];
 
   const scroll = (dir) => {
