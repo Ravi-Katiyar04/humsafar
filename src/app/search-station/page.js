@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import FAQSection from "@/components/FAQSection";
-
+import MoreTrainInformation from "@/components/MoreTrainInformation";
+import Link from "next/link";
 
 export default function TatkalBooking() {
     const [source, setSource] = useState("Bengaluru (YPR)");
@@ -236,6 +237,8 @@ export default function TatkalBooking() {
                             </tbody>
                         </table>
                     </section>
+
+                    <MoreTrainInformation/>
 
                     < FAQSection />
 
