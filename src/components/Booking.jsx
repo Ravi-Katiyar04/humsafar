@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function Booking() {
+export default function Booking(prop) {
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
   const [journeyDate, setJourneyDate] = useState('');
@@ -16,48 +16,62 @@ export default function Booking() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex flex-col items-center justify-start"
+      className="min-h-fit bg-cover bg-center flex flex-col items-center justify-start"
       style={{
-        backgroundImage: "url('/assets/train.jpg')", 
+        backgroundImage: "url('/assets/train.jpg')",
       }}
     >
-      <div className="w-full max-w-4xl px-6 py-12 bg-white/80 backdrop-blur-md rounded-lg mt-10 shadow-lg">
-        <div className="flex flex-col items-center text-center">
-          <h1 className="text-4xl font-bold text-blue-800 mb-2">Book Your Train Tickets</h1>
-          <p className="text-gray-600 text-lg mb-6">Search and book Indian Railways tickets in seconds.</p>
-        </div>
+      <div className="bg-gradient-to-r py-16 w-full max-w-7xl text-center">
+        <h1 className="text-3xl font-semibold mb-8  text-white">{prop.title}</h1>
 
-        <div className="bg-white shadow-lg rounded-xl p-6 space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={handleSearch} className="bg-white rounded-lg p-4 shadow max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
+          <div className="flex-1 text-left">
+            <label className="text-xs text-gray-500 mb-1" htmlFor="source">From</label>
             <input
+              id="source"
               type="text"
-              placeholder="From (e.g., Delhi)"
-              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border-b border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
               value={source}
               onChange={(e) => setSource(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="To (e.g., Mumbai)"
-              className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
+              required
             />
           </div>
-          <input
-            type="date"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={journeyDate}
-            onChange={(e) => setJourneyDate(e.target.value)}
-          />
+
+          <div>
+            <i className="fas fa-exchange-alt text-gray-600 text-lg"></i>
+          </div>
+
+          <div className="flex-1 px-4 text-left">
+            <label className="text-xs text-gray-500 mb-1" htmlFor="destination">To</label>
+            <input
+              id="destination"
+              type="text"
+              className="w-full border-b border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="flex-1 px-4 text-left">
+            <label className="text-xs text-gray-500 mb-1" htmlFor="journeyDate">Departure Date</label>
+            <input
+              id="journeyDate"
+              type="date"
+              className="w-full border-b border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
+              value={journeyDate}
+              onChange={(e) => setJourneyDate(e.target.value)}
+              required
+            />
+          </div>
 
           <button
-            onClick={handleSearch}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200"
+            type="submit"
+            className="bg-blue-700 hover:bg-blue-800 cursor-pointer text-white font-semibold px-6 py-4 md:rounded-l-none md:rounded-r-lg w-full md:w-auto"
           >
-            Search Trains
+            {prop.btntext}
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

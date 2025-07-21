@@ -11,7 +11,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Booking />
+      <Booking title={"IRCTC Ticket Booking on HumSafar"} btntext={"Search"} />
       <Services />
       <main className={`${inter.className} p-4 max-w-11/12 mx-auto text-gray-600 font-serif font-semibold`}>
       <h1 className="text-xl font-bold mb-4 text-black">IRCTC Ticket Booking on HumSafar</h1>
