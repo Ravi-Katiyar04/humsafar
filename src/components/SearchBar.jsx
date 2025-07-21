@@ -22,7 +22,7 @@ export default function SearchBar({ onSearch }) {
       />
       <button
         type="submit"
-        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out"
+        className="bg-blue-700 hover:bg-blue-800 cursor-pointer text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out"
       >
         Check Live Status
       </button>

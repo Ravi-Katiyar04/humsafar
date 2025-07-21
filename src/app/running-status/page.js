@@ -1,5 +1,4 @@
 "use client"
-import Head from 'next/head';
 import { useState } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
@@ -8,7 +7,7 @@ import FAQSection from '@/components/FAQSection';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 
-export default function Home() {
+export default function RunningStatus() {
   const [trainStatus, setTrainStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -117,7 +116,7 @@ export default function Home() {
     <div className="min-h-screen  bg-gray-100 text-gray-600  text-[14px] ">
 
 
-      <Header />
+      <Header currentPath="/running-status" />
 
       <div className="min-h-fit p-2 bg-cover bg-center flex flex-col items-center justify-start "
         style={{
@@ -282,7 +281,7 @@ export default function Home() {
                 Tap on the <span className="font-semibold">More Info</span> tab to access the Station Timetable, Average Delays, and information about Heritage Trains.
               </li>
             </ul>
-            <p className='my-2'>Next time you opt for <Link href="/train" className='text-blue-600 font-semibold'>train ticket booking</Link> (or <Link href="/train" className='text-blue-600 font-semibold'>tatkal ticket booking</Link>), use ixigo money to save on tickets. Once you have checked the current running status of your train, you can also make a <Link href="/train" className='text-blue-600 font-semibold'>PNR status</Link> enquiry. On ixigo, you can also <Link href="/train" className='text-blue-600 font-semibold'>check seat availability</Link>  in your train.</p>
+            <p className='my-2'>Next time you opt for <Link href="/" className='text-blue-600 font-semibold'>train ticket booking</Link> (or <Link href="/tatkal-reservation" className='text-blue-600 font-semibold'>tatkal ticket booking</Link>), use ixigo money to save on tickets. Once you have checked the current running status of your train, you can also make a <Link href="/pnr-status-enquiry" className='text-blue-600 font-semibold'>PNR status</Link> enquiry. On ixigo, you can also <Link href="/seat-availability" className='text-blue-600 font-semibold'>check seat availability</Link>  in your train.</p>
           </section>
 
           <FAQSection />
