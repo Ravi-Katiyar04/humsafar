@@ -21,12 +21,12 @@ export default function Booking(prop) {
         backgroundImage: "url('/assets/train.jpg')",
       }}
     >
-      <div className="bg-gradient-to-r py-16 w-full max-w-7xl text-center">
+      <div className="bg-gradient-to-r py-16 px-4 w-full max-w-7xl text-center">
         <h1 className="text-3xl font-semibold mb-8  text-white">{prop.title}</h1>
 
         <form onSubmit={handleSearch} className="bg-white rounded-lg p-4 shadow max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="flex-1 text-left">
-            <label className="text-xs text-gray-500 mb-1" htmlFor="source">From</label>
+            <label className="text-xs text-black font-semibold mb-1" htmlFor="source">From</label>
             <input
               id="source"
               type="text"
@@ -42,7 +42,7 @@ export default function Booking(prop) {
           </div>
 
           <div className="flex-1 px-4 text-left">
-            <label className="text-xs text-gray-500 mb-1" htmlFor="destination">To</label>
+            <label className="text-xs text-black font-semibold mb-1" htmlFor="destination">To</label>
             <input
               id="destination"
               type="text"
@@ -53,8 +53,8 @@ export default function Booking(prop) {
             />
           </div>
 
-          <div className="flex-1 px-4 text-left">
-            <label className="text-xs text-gray-500 mb-1" htmlFor="journeyDate">Departure Date</label>
+          <div className="flex-1 px-4 py-4 text-left">
+            <label className="text-xs text-black font-semibold mb-1" htmlFor="journeyDate">Departure Date</label>
             <input
               id="journeyDate"
               type="date"
