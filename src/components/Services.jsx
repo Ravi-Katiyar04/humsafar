@@ -58,7 +58,7 @@ export default function ServiceTiles() {
                 </span>
               )}
               <div className="relative">
-                <i className={`fas ${s.icon} text-indigo-600 text-2xl`} title={s.label} />
+                <i className={`fas ${s.icon} text-blue-700 text-2xl`} title={s.label} />
                 <div className="absolute bottom-full mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
                   {s.label}
                 </div>
