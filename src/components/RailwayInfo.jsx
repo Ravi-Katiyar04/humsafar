@@ -9,7 +9,7 @@ function RailwayInfo() {
         { icon: 'fa-train', label: 'Tatkal Railway Reservation', href: '/tatkal-reservation' },
     ];
     return (
-        <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
+        <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 w-full mx-auto">
             <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
             <ul className="space-y-4">
                 {links.map((link, idx) => (
