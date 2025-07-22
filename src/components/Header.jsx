@@ -8,7 +8,7 @@ export default function Header({ currentPath }) {
     { href: "/running-status", label: "Running Status" },
     { href: "/seat-availability", label: "Seat Availability" },
     { href: "/tatkal-reservation", label: "Tatkal Ticket Booking" },
-    { href: "/platform-locator", label: "Platform Locator" },
+    { href: "/vande-bharat", label: "Vande Bharat Trains" },
   ];
 
   return (

@@ -54,7 +54,7 @@ export default function Booking(prop) {
           </div>
 
           <div className="flex-1 px-4 py-4 text-left">
-            <label className="text-xs text-black font-semibold mb-1" htmlFor="journeyDate">Departure Date</label>
+            <label className="text-xs text-gray-500 mb-1" htmlFor="journeyDate">Departure Date</label>
             <input
               id="journeyDate"
               type="date"

@@ -72,7 +72,7 @@ export default function VandeBharat() {
         <div className="min-h-screen bg-gray-100 text-gray-600  text-[14px] ">
 
 
-            <Header />
+            <Header currentPath={'/vande-bharat'} />
 
             <Booking title={"Vande Bharat Express Trains"} btntext={"Search"}/>
 
