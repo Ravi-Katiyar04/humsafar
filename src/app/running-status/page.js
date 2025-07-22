@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import TrainStatusDisplay from '@/components/TrainStatusDisplay';
 import FAQSection from '@/components/FAQSection';
+import RailwayInfo from '@/components/RailwayInfo';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 
@@ -38,13 +39,6 @@ export default function RunningStatus() {
       title: 'IRCTC Authorised Partner',
       description: 'Enjoy a fast and seamless train ticket booking experience with the official IRCTC partner.',
     },
-  ];
-
-  const links = [
-    { icon: 'fa-train-subway', label: 'IRCTC Train Booking', href: '#' },
-    { icon: 'fa-ticket', label: 'PNR Status Enquiry', href: '#' },
-    { icon: 'fa-chair', label: 'Train Seat Availability', href: '#' },
-    { icon: 'fa-train', label: 'Tatkal Railway Reservation', href: '#' },
   ];
 
   const topRoutes = [
@@ -288,19 +282,7 @@ export default function RunningStatus() {
         </div>
 
         <div className=' border-b-2 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
-          <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
-            <ul className="space-y-4">
-              {links.map((link, idx) => (
-                <li key={idx} className="flex items-center gap-3">
-                  <i className={`fas ${link.icon} text-blue-600 text-lg`} />
-                  <a href={link.href} className="text-blue-600 hover:underline text-sm font-medium">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
+          <RailwayInfo />
 
           <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
             <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
