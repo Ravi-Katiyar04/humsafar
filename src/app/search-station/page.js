@@ -2,19 +2,14 @@
 import { useState } from "react";
 import FAQSection from "@/components/FAQSection";
 import MoreTrainInformation from "@/components/MoreTrainInformation";
+import RailwayInfo from '@/components/RailwayInfo';
+import TopTrainRoutes from '@/components/TopTrainRoutes';
 import Link from "next/link";
 
-export default function TatkalBooking() {
+export default function SearchTrain() {
     const [source, setSource] = useState("Bengaluru (YPR)");
     const [destination, setDestination] = useState("Mysore (MYS)");
     const [journeyDate, setJourneyDate] = useState("01 Jul, Tue");
-
-    const links = [
-        { icon: 'fa-train-subway', label: 'IRCTC Train Booking', href: '#' },
-        { icon: 'fa-ticket', label: 'PNR Status Enquiry', href: '#' },
-        { icon: 'fa-chair', label: 'Train Seat Availability', href: '#' },
-        { icon: 'fa-train', label: 'Tatkal Railway Reservation', href: '#' },
-    ];
 
     const stations = [
         { code: 'SDNR', name: 'Seydunganallur', city: 'Seydunganallur', trains: 10 },
@@ -45,39 +40,6 @@ export default function TatkalBooking() {
     ];
 
 
-    const topRoutes = [
-        { label: 'New Delhi to Ayodhya', href: '/train/new-delhi-ayodhya' },
-        { label: 'Varanasi to Ayodhya', href: '/train/varanasi-ayodhya' },
-        { label: 'Mumbai to Goa', href: '/train/mumbai-goa' },
-        { label: 'Lucknow to Ayodhya', href: '/train/lucknow-ayodhya' },
-        { label: 'New Delhi to Mumbai', href: '/train/new-delhi-mumbai' },
-        { label: 'New Delhi to Goa', href: '/train/new-delhi-goa' },
-        { label: 'New Delhi to Jammu', href: '/train/new-delhi-jammu' },
-        { label: 'Pune to Mumbai', href: '/train/pune-mumbai' },
-        { label: 'New Delhi to Haridwar', href: '/train/new-delhi-haridwar' },
-        { label: 'New Delhi to Amritsar', href: '/train/new-delhi-amritsar' },
-        { label: 'New Delhi to Agra', href: '/train/new-delhi-agra' },
-        { label: 'Mumbai to New Delhi', href: '/train/mumbai-new-delhi' },
-        { label: 'Mumbai to Pune', href: '/train/mumbai-pune' },
-        { label: 'Ayodhya to Varanasi', href: '/train/ayodhya-varanasi' },
-        { label: 'New Delhi to Ujjain', href: '/train/new-delhi-ujjain' },
-        { label: 'Bengaluru to Ayodhya', href: '/train/bengaluru-ayodhya' },
-        { label: 'New Delhi to Varanasi', href: '/train/new-delhi-varanasi' },
-        { label: 'New Delhi to Chandigarh', href: '/train/new-delhi-chandigarh' },
-        { label: 'New Delhi to Jaipur', href: '/train/new-delhi-jaipur' },
-    ];
-
-    const pnrStatus = [
-        { code: 'CNF', desc: 'The train ticket status shows as ‘CNF’ when seats are confirmed.' },
-        { code: 'RAC', desc: '	It stands for ‘Reservation Against Cancellation’ meaning the train ticket has a confirmed seat but waitlisted berth. If tickets are booked under RAC status, the allocated berth is split into two seats.' },
-        { code: 'CAN', desc: 'Cancelled: the ticket has been cancelled.' },
-        { code: 'WL', desc: 'Waiting List: gets confirmed only if passengers before you cancel their tickets.' },
-        { code: 'GNWL', desc: 'General Waiting List: high probability of confirmation.' },
-        { code: 'PQWL', desc: '‘Pooled Quota Waiting List’ status is given to passengers travelling from the origin station to a station before the last station, from an intermediate station to the destination station, or between any two intermediate stations.' },
-        { code: 'RLWL', desc: '	‘Remote Location Waiting List’ refers to a ticket issued to a passenger for intermediate stations (between the origin and terminating stations). These intermediate stations are typically the most important towns along the route.' },
-        { code: 'TQWL', desc: '	It refers to the ‘Tatkal Quota Waiting List,’ which applies to tatkal ticket bookings. Tickets under the Tatkal Quota are confirmed directly without going through RAC. However, during chart preparation, GNWL (General Waiting List) is given priority over TQWL (Tatkal Quota Waiting List).' },
-        { code: 'NOSB', desc: 'It stands for ‘No Seat Berth,’ which indicates that the journey is permitted without a seat. This train PNR status is designated for child passengers under the age of 11 years.' }
-    ];
 
     const handleSearch = () => {
         // Your logic here
@@ -87,16 +49,16 @@ export default function TatkalBooking() {
     return (
         <div className="min-h-screen bg-gray-200">
             {/* Header Section */}
-            <div className="bg-gradient-to-r from-purple-900 to-pink-700 py-10 text-center">
+            <div className="bg-gradient-to-r from-purple-900 to-pink-700 py-10 px-4 text-center">
                 <h1 className="text-3xl font-semibold mb-8">Indian Railway Stations</h1>
 
                 <form onSubmit={handleSearch} className="bg-white rounded-lg p-4 shadow max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">
-                    <div className="flex-1 text-left pr-6">
-                        <label className="text-xs text-gray-500 mb-1 font-semibold" htmlFor="source">STATION NAME/CODE</label>
+                    <div className="flex-1 text-left py-2 pr-6">
+                        <label className="text-xs text-black mb-1 font-semibold" htmlFor="source">STATION NAME/CODE</label>
                         <input
                             id="source"
                             type="text"
-                            className="w-full border-b border-gray-300 focus:outline-none focus:border-orange-500 transition-colors"
+                            className="w-full border-b border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
                             placeholder="Enter Station name or code"
                             value={source}
                             onChange={(e) => setSource(e.target.value)}
@@ -107,7 +69,7 @@ export default function TatkalBooking() {
 
                     <button
                         type="submit"
-                        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-4 md:rounded-l-none md:rounded-r-lg w-full md:w-auto"
+                        className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 my-2 py-4 md:rounded-l-none md:rounded-r-lg w-full md:w-auto"
                     >
                         Search
                     </button>
@@ -115,14 +77,14 @@ export default function TatkalBooking() {
             </div>
 
             <div className=" w-full max-w-11/12 mx-auto my-4 text-gray-500">
-                <span className="text-orange-500">Home</span> &nbsp;»&nbsp;
+                <span className="text-blue-700">Home</span> &nbsp;»&nbsp;
                 <span className="text-gray-700 font-medium ">Stations</span>
             </div>
 
             {/* Content Section */}
             <main className='max-w-11/12 mx-auto  pb-8 md:flex gap-10 text-[14px] text-gray-700'>
 
-                <div className=' border-b-2 w-full md:w-4/5 min-h-screen' >
+                <div className=' w-full md:w-4/5 min-h-screen' >
 
                     <section className="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
                         <h2 className="text-xl font-semibold mb-2 text-black">Train Stations and Station Codes</h2>
@@ -134,34 +96,39 @@ export default function TatkalBooking() {
                     </section>
 
                     <section className="mb-8 bg-white pb-6 rounded-lg shadow-sm border border-gray-200">
-                        <table className="w-full  text-center font-semibold">
-                            <thead >
-                                <tr className="bg-gray-300 text-black">
-                                    <th className=" px-4 py-4">Station Code</th>
-                                    <th className=" px-4 py-4">Station Name</th>
-                                    <th className=" px-4 py-4">City</th>
-                                    <th className=" px-4 py-4">Trains Passing Through</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {stations.map((station) => (
-                                    <tr key={station.code}>
-                                        <td className=" px-4 py-4">{station.code}</td>
-                                        <td className=" px-4 py-4">{station.name}</td>
-                                        <td className=" px-4 py-4">{station.city}</td>
-                                        <td className=" px-4 py-4">{station.trains}</td>
+                        <div className="overflow-x-auto">
+                            <table className="min-w-[600px] w-full text-center font-semibold text-sm sm:text-base">
+                                <thead>
+                                    <tr className="bg-gray-300 text-black">
+                                        <th className="px-4 py-3 sm:py-4">Station Code</th>
+                                        <th className="px-4 py-3 sm:py-4">Station Name</th>
+                                        <th className="px-4 py-3 sm:py-4">City</th>
+                                        <th className="px-4 py-3 sm:py-4">Trains Passing Through</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {stations.map((station) => (
+                                        <tr key={station.code} className="hover:bg-gray-100">
+                                            <td className="px-4 py-3 sm:py-4">{station.code}</td>
+                                            <td className="px-4 py-3 sm:py-4">{station.name}</td>
+                                            <td className="px-4 py-3 sm:py-4">{station.city}</td>
+                                            <td className="px-4 py-3 sm:py-4">{station.trains}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
 
-                        <div className="text-center align-center mt-4">
-                            <button onClick={() => setLimit(limit + 10)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <div className="text-center mt-4">
+                            <button
+                                onClick={() => setLimit(limit + 10)}
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition duration-200"
+                            >
                                 Show More
                             </button>
                         </div>
                     </section>
+
 
 
                     <section className="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
@@ -238,39 +205,16 @@ export default function TatkalBooking() {
                         </table>
                     </section>
 
-                    <MoreTrainInformation/>
+                    <MoreTrainInformation />
 
                     < FAQSection />
 
                 </div>
 
-                <div className=' border-b-2 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
-                    <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
-                        <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
-                        <ul className="space-y-4">
-                            {links.map((link, idx) => (
-                                <li key={idx} className="flex items-center gap-3">
-                                    <i className={`fas ${link.icon} text-blue-600 text-lg`} />
-                                    <a href={link.href} className="text-blue-600 hover:underline text-sm font-medium">
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
+                <div className=' mb-4 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
+                    <RailwayInfo />
+                    <TopTrainRoutes />
 
-                    <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
-                        <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
-                        <ul className="space-y-4">
-                            {topRoutes.map((link, idx) => (
-                                <li key={idx} className="flex items-center gap-3">
-                                    <a href={link.href} className="text-blue-600 hover:underline text-sm font-medium">
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
                 </div>
             </main>
 
