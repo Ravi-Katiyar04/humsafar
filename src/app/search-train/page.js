@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";
+import Link from "next/link";
 
 
 export default function SearchTrain() {
@@ -23,7 +24,7 @@ export default function SearchTrain() {
     <div className="min-h-screen bg-gray-100 p-4">
       {/* Back Arrow and Search */}
       <div className="flex items-center mb-4">
-        <i className="fas fa-arrow-left text-xl mr-2 cursor-pointer"></i>
+        <Link href="/"><i className="fas fa-arrow-left text-xl mr-2 cursor-pointer"></i></Link>
         <input
           type="text"
           placeholder="Search trains by name or number"
