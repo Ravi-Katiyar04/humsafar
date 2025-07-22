@@ -4,11 +4,13 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
 import TrainStatusDisplay from '@/components/TrainStatusDisplay';
+import RailwayInfo from '@/components/RailwayInfo';
+import TopTrainRoutes from '@/components/TopTrainRoutes';
 import FAQSection from '@/components/FAQSection';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 
-export default function Home() {
+export default function PNRStatus() {
     const [trainStatus, setTrainStatus] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -42,34 +44,6 @@ export default function Home() {
         },
     ];
 
-    const links = [
-        { icon: 'fa-train-subway', label: 'IRCTC Train Booking', href: '#' },
-        { icon: 'fa-ticket', label: 'PNR Status Enquiry', href: '#' },
-        { icon: 'fa-chair', label: 'Train Seat Availability', href: '#' },
-        { icon: 'fa-train', label: 'Tatkal Railway Reservation', href: '#' },
-    ];
-
-    const topRoutes = [
-        { label: 'New Delhi to Ayodhya', href: '/train/new-delhi-ayodhya' },
-        { label: 'Varanasi to Ayodhya', href: '/train/varanasi-ayodhya' },
-        { label: 'Mumbai to Goa', href: '/train/mumbai-goa' },
-        { label: 'Lucknow to Ayodhya', href: '/train/lucknow-ayodhya' },
-        { label: 'New Delhi to Mumbai', href: '/train/new-delhi-mumbai' },
-        { label: 'New Delhi to Goa', href: '/train/new-delhi-goa' },
-        { label: 'New Delhi to Jammu', href: '/train/new-delhi-jammu' },
-        { label: 'Pune to Mumbai', href: '/train/pune-mumbai' },
-        { label: 'New Delhi to Haridwar', href: '/train/new-delhi-haridwar' },
-        { label: 'New Delhi to Amritsar', href: '/train/new-delhi-amritsar' },
-        { label: 'New Delhi to Agra', href: '/train/new-delhi-agra' },
-        { label: 'Mumbai to New Delhi', href: '/train/mumbai-new-delhi' },
-        { label: 'Mumbai to Pune', href: '/train/mumbai-pune' },
-        { label: 'Ayodhya to Varanasi', href: '/train/ayodhya-varanasi' },
-        { label: 'New Delhi to Ujjain', href: '/train/new-delhi-ujjain' },
-        { label: 'Bengaluru to Ayodhya', href: '/train/bengaluru-ayodhya' },
-        { label: 'New Delhi to Varanasi', href: '/train/new-delhi-varanasi' },
-        { label: 'New Delhi to Chandigarh', href: '/train/new-delhi-chandigarh' },
-        { label: 'New Delhi to Jaipur', href: '/train/new-delhi-jaipur' },
-    ];
 
     const pnrStatus = [
         { code: 'CNF', desc: 'The train ticket status shows as ‘CNF’ when seats are confirmed.' },
@@ -130,7 +104,7 @@ export default function Home() {
         <div className="min-h-screen  bg-gray-100 text-gray-600  text-[14px] ">
 
 
-            <Header />
+            <Header currentPath="/pnr-status-enquiry" />
 
             <div className="min-h-fit p-2 bg-cover bg-center flex flex-col items-center justify-start "
                 style={{
@@ -152,7 +126,7 @@ export default function Home() {
 
             <main className='max-w-11/12 mx-auto  py-8 md:flex gap-10 '>
 
-                <div className=' border-b-2 w-full md:w-4/5 min-h-screen' >
+                <div className=' w-full md:w-4/5 min-h-screen' >
 
                     <h1 className="text-xl font-bold mb-4 text-black">Why Check PNR Status with Humsafar?</h1>
                     <div className='border-2 h-fit border-gray-300 rounded-4xl p-8 mb-6'>
@@ -306,9 +280,6 @@ export default function Home() {
                         <p className="mt-2" >If you cannot get a confirmed ticket, <Link href="/seat-availability" className="text-blue-600 font-bold">check seat availability</Link> on other trains.</p>
                     </section>
 
-
-
-
                     <section className="mb-8">
                         <h1 className="text-xl font-bold mb-4 text-black">Check PNR Prediction and Waitlist Trends</h1>
                         <p className="my-2" >PNR prediction helps estimate the chances of your waitlisted or RAC ticket getting confirmed before your journey. It analyses historical trends and real-time data, and provides a probability score, enabling you to make informed travel decisions.</p>
@@ -323,42 +294,13 @@ export default function Home() {
                         </ul>
                     </section>
 
-
-
                     <FAQSection />
                 </div>
 
-                <div className=' border-b-2 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
-                    <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
-                        <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
-                        <ul className="space-y-4">
-                            {links.map((link, idx) => (
-                                <li key={idx} className="flex items-center gap-3">
-                                    <i className={`fas ${link.icon} text-blue-600 text-lg`} />
-                                    <a href={link.href} className="text-blue-600 hover:underline text-sm font-medium">
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-
-                    <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
-                        <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
-                        <ul className="space-y-4">
-                            {topRoutes.map((link, idx) => (
-                                <li key={idx} className="flex items-center gap-3">
-                                    <a href={link.href} className="text-blue-600 hover:underline text-sm font-medium">
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
+                <div className=' mb-4 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
+                    <RailwayInfo/>
+                    <TopTrainRoutes />
                 </div>
-
-
-
             </main>
 
 
