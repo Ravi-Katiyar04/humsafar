@@ -17,24 +17,24 @@ export default function TrainDetailsCard({
             {/* Left Section */}
             <div className="flex flex-col flex-grow max-w-2xl">
                 <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600 mb-1">
-                    <span className="text-[16px] font-semibold text-orange-600">{trainNumber} {trainName}</span>
-                    <span className="text-gray-400">•</span>
-                    <span>Runs on:
-                        <span className="ml-1 font-medium space-x-1">
+                    <span className="text-[16px] font-semibold text-blue-700">{trainNumber} {trainName}</span>
+                    
+                    <span> <span className="text-gray-400 pr-2 ">•</span>Runs on:
+                        <span className="ml-1 font-medium  space-x-1">
                             {runDays.map((day, i) => (
                                 <span key={i} className="inline-block">{day}</span>
                             ))}
                         </span>
                     </span>
-                    <span className="text-gray-400">•</span>
-                    <a href="#" className="text-orange-500 hover:underline">({trainNumber} Running Status)</a>
+                    
+                    <a href="#" className="text-blue-700 hover:underline"><span className="text-gray-400 pr-2">•</span>({trainNumber} Running Status)</a>
                 </div>
 
                 {/* Timeline */}
                 <div className="flex items-center justify-between mt-2">
                     {/* Source */}
                     <div className="text-center">
-                        <div className="text-sm text-orange-600 font-semibold">{fromCode}</div>
+                        <div className="text-sm text-blue-700 font-semibold">{fromCode}</div>
                         <div className="text-lg font-bold text-black">{fromTime}</div>
                     </div>
 
@@ -47,7 +47,7 @@ export default function TrainDetailsCard({
 
                     {/* Destination */}
                     <div className="text-center">
-                        <div className="text-sm text-orange-600 font-semibold">{toCode}</div>
+                        <div className="text-sm text-blue-700 font-semibold">{toCode}</div>
                         <div className="text-lg font-bold text-black">{toTime}</div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ export default function TrainDetailsCard({
             <div className="w-fit p-4 sm:w-auto">
                 <button
                     onClick={onShowAvailability}
-                    className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-2 rounded shadow-sm text-sm"
+                    className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-6 py-2 rounded shadow-sm text-sm"
                 >
                     SHOW AVAILABILITY
                 </button>
