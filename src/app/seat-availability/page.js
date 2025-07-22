@@ -1,9 +1,10 @@
 "use client"
 import { useState } from 'react';
 import Header from '@/components/Header';
-import SearchBar from '@/components/SearchBar';
-import TrainStatusDisplay from '@/components/TrainStatusDisplay';
+import RailwayInfo from '@/components/RailwayInfo';
+import TopTrainRoutes from '@/components/TopTrainRoutes';
 import FAQSection from '@/components/FAQSection';
+import Booking from '@/components/Booking';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 
@@ -11,35 +12,6 @@ export default function SeatAvailability() {
   const [trainStatus, setTrainStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const links = [
-    { icon: 'fa-train-subway', label: 'IRCTC Train Booking', href: '#' },
-    { icon: 'fa-ticket', label: 'PNR Status Enquiry', href: '#' },
-    { icon: 'fa-chair', label: 'Train Seat Availability', href: '#' },
-    { icon: 'fa-train', label: 'Tatkal Railway Reservation', href: '#' },
-  ];
-
-  const topRoutes = [
-    { label: 'New Delhi to Ayodhya', href: '/train/new-delhi-ayodhya' },
-    { label: 'Varanasi to Ayodhya', href: '/train/varanasi-ayodhya' },
-    { label: 'Mumbai to Goa', href: '/train/mumbai-goa' },
-    { label: 'Lucknow to Ayodhya', href: '/train/lucknow-ayodhya' },
-    { label: 'New Delhi to Mumbai', href: '/train/new-delhi-mumbai' },
-    { label: 'New Delhi to Goa', href: '/train/new-delhi-goa' },
-    { label: 'New Delhi to Jammu', href: '/train/new-delhi-jammu' },
-    { label: 'Pune to Mumbai', href: '/train/pune-mumbai' },
-    { label: 'New Delhi to Haridwar', href: '/train/new-delhi-haridwar' },
-    { label: 'New Delhi to Amritsar', href: '/train/new-delhi-amritsar' },
-    { label: 'New Delhi to Agra', href: '/train/new-delhi-agra' },
-    { label: 'Mumbai to New Delhi', href: '/train/mumbai-new-delhi' },
-    { label: 'Mumbai to Pune', href: '/train/mumbai-pune' },
-    { label: 'Ayodhya to Varanasi', href: '/train/ayodhya-varanasi' },
-    { label: 'New Delhi to Ujjain', href: '/train/new-delhi-ujjain' },
-    { label: 'Bengaluru to Ayodhya', href: '/train/bengaluru-ayodhya' },
-    { label: 'New Delhi to Varanasi', href: '/train/new-delhi-varanasi' },
-    { label: 'New Delhi to Chandigarh', href: '/train/new-delhi-chandigarh' },
-    { label: 'New Delhi to Jaipur', href: '/train/new-delhi-jaipur' },
-  ];
 
 
   const [source, setSource] = useState("Bengaluru (YPR)");
@@ -95,64 +67,20 @@ export default function SeatAvailability() {
     <div className="min-h-screen  bg-gray-100 text-gray-600  text-[14px] ">
 
 
-      <Header />
+      <Header currentPath="/seat-availability" />
 
-      <div className="bg-gradient-to-r py-10 text-center">
-        <h1 className="text-3xl font-semibold mb-8 ">Check Seat Availability</h1>
+      <Booking title="Check Seat Availability" btntext="Check Availability" />
 
-        <form onSubmit={handleSearch} className="bg-white rounded-lg p-4 shadow max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="flex-1 text-left">
-            <label className="text-xs text-gray-500 mb-1" htmlFor="source">From</label>
-            <input
-              id="source"
-              type="text"
-              className="w-full border-b border-gray-300 focus:outline-none focus:border-orange-500 transition-colors"
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
-              required
-            />
-          </div>
-
-          <div>
-            <i className="fas fa-exchange-alt text-gray-600 text-lg"></i>
-          </div>
-
-          <div className="flex-1 px-4 text-left">
-            <label className="text-xs text-gray-500 mb-1" htmlFor="destination">To</label>
-            <input
-              id="destination"
-              type="text"
-              className="w-full border-b border-gray-300 focus:outline-none focus:border-orange-500 transition-colors"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="flex-1 px-4 text-left">
-            <label className="text-xs text-gray-500 mb-1" htmlFor="journeyDate">Departure Date</label>
-            <input
-              id="journeyDate"
-              type="date"
-              className="w-full border-b border-gray-300 focus:outline-none focus:border-orange-500 transition-colors"
-              value={journeyDate}
-              onChange={(e) => setJourneyDate(e.target.value)}
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-4 md:rounded-l-none md:rounded-r-lg w-full md:w-auto"
-          >
-            Check Availability
-          </button>
-        </form>
+      <div className="max-w-11/12 mx-auto my-4 text-gray-500">
+        <span className="text-blue-700">Home</span> &nbsp;»&nbsp;
+        <span className="text-gray-700 font-medium ">Check Seat Availability</span>
       </div>
 
-      <main className='max-w-11/12 mx-auto  py-8 md:flex gap-10 '>
 
-        <div className=' border-b-2 w-full md:w-4/5 min-h-screen' >
+      <main className='max-w-11/12 mx-auto  py-2 md:flex gap-10 '>
+
+
+        <div className=' w-full md:w-4/5 min-h-screen' >
           <h1 className="text-xl font-bold mb-4 text-black">Train Seat Availability</h1>
           <p className="mb-6 text-[14px] font-semibold">
             <span className='mb-4 block'>Whenever it’s travel time, everyone seems to go in overdrive for finding out train seat availability. So beat the crowd and book your ticket as early as possible. However, booking tickets in advance is a good option only if you are sure about your travel plans. For many travellers, this is often not the case. </span>
@@ -216,39 +144,11 @@ export default function SeatAvailability() {
           <FAQSection />
         </div>
 
-        <div className=' border-b-2 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
-          <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
-            <ul className="space-y-4">
-              {links.map((link, idx) => (
-                <li key={idx} className="flex items-center gap-3">
-                  <i className={`fas ${link.icon} text-blue-600 text-lg`} />
-                  <a href={link.href} className="text-blue-600 hover:underline text-sm font-medium">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 max-w-xs mx-auto">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Railway Information</h2>
-            <ul className="space-y-4">
-              {topRoutes.map((link, idx) => (
-                <li key={idx} className="flex items-center gap-3">
-                  <a href={link.href} className="text-blue-600 hover:underline text-sm font-medium">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
+        <div className=' md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
+          <RailwayInfo />
+          <TopTrainRoutes />
         </div>
-
-
-
       </main>
-
 
     </div>
   );
