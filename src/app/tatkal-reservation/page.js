@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Booking from "@/components/Booking";
 import Link from 'next/link';
 
 export default function TatkalBooking() {
@@ -15,64 +16,13 @@ export default function TatkalBooking() {
     return (
         <div className="min-h-screen bg-gray-100">
             {/* Header Section */}
-            <div className="bg-gradient-to-r from-purple-900 to-pink-700 py-10 text-center">
-                <h1 className="text-3xl font-semibold mb-8">Tatkal Ticket Booking</h1>
-
-                <form onSubmit={handleSearch} className="bg-white rounded-lg p-4 shadow max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">
-                    <div className="flex-1 text-left">
-                        <label className="text-xs text-gray-500 mb-1" htmlFor="source">From</label>
-                        <input
-                            id="source"
-                            type="text"
-                            className="w-full border-b border-gray-300 focus:outline-none focus:border-orange-500 transition-colors"
-                            value={source}
-                            onChange={(e) => setSource(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <i className="fas fa-exchange-alt text-gray-600 text-lg"></i>
-                    </div>
-
-                    <div className="flex-1 px-4 text-left">
-                        <label className="text-xs text-gray-500 mb-1" htmlFor="destination">To</label>
-                        <input
-                            id="destination"
-                            type="text"
-                            className="w-full border-b border-gray-300 focus:outline-none focus:border-orange-500 transition-colors"
-                            value={destination}
-                            onChange={(e) => setDestination(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div className="flex-1 px-4 text-left">
-                        <label className="text-xs text-gray-500 mb-1" htmlFor="journeyDate">Departure Date</label>
-                        <input
-                            id="journeyDate"
-                            type="date"
-                            className="w-full border-b border-gray-300 focus:outline-none focus:border-orange-500 transition-colors"
-                            value={journeyDate}
-                            onChange={(e) => setJourneyDate(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-4 md:rounded-l-none md:rounded-r-lg w-full md:w-auto"
-                    >
-                        Search
-                    </button>
-                </form>
-            </div>
+            <Booking title={"Tatkal Railway Reservation"} btntext={"Search"}/>
 
             {/* Content Section */}
             <div className="bg-gray-100 max-w-11/12 mx-auto px-4 text-[16px]">
 
                 <div className=" mx-auto my-4 text-gray-500">
-                    <span className="text-orange-500">Home</span> &nbsp;»&nbsp;
+                    <span className="text-blue-700">Home</span> &nbsp;»&nbsp;
                     <span className="text-gray-700 font-medium ">Tatkal Railway Reservation</span>
                 </div>
 
@@ -94,10 +44,10 @@ export default function TatkalBooking() {
                         <li>Print your e-ticket</li>
                     </ul>
 
-                    <p className="my-4">Tatkal booking is available for all classes like 3A, 2A, 1A, Sleeper and Chair Car. Tatkal ticket booking is available on payment of an extra charge on a first-come-first-served basis for all but first AC seats. Tickets are issued for the actual distance of travel, subject to the distance restriction applicable to the train. Once you have booked your tickets, you can check your PNR status. Click here for normal <Link href="/" className="text-orange-500">train ticket booking</Link>.</p>
+                    <p className="my-4">Tatkal booking is available for all classes like 3A, 2A, 1A, Sleeper and Chair Car. Tatkal ticket booking is available on payment of an extra charge on a first-come-first-served basis for all but first AC seats. Tickets are issued for the actual distance of travel, subject to the distance restriction applicable to the train. Once you have booked your tickets, you can check your PNR status. Click here for normal <Link href="/" className="text-blue-700">train ticket booking</Link>.</p>
                 </section>
 
-                <hr className="my-14 border-t-2 border-dotted border-gray-400" />
+                <hr className="my-6 md:my-16 border-t-2 border-dotted border-gray-400" />
 
                 <section className="mb-8">
                     <h1 className="text-xl font-bold my-6 text-black">Tatkal Ticket Booking Time</h1>
@@ -142,14 +92,14 @@ export default function TatkalBooking() {
                     <p className="mt-4">Tatkal tickets can be booked one day in advance, excluding the date of journey from the train originating station. Tatkal booking time for AC and non-AC classes is different and must be followed strictly to ensure availability.</p>
                 </section>
 
-                <hr className="my-14 border-t-2 border-dotted border-gray-400" />
+                <hr className="my-6 md:my-16 border-t-2 border-dotted border-gray-400" />
 
                 <section className="mb-8">
                     <h1 className="text-xl font-bold my-6 text-black">Tatkal Ticket Cancellation</h1>
                     <p className="my-2" >For confirmed Tatkal tickets, there is no refund on cancellation of tickets. Waitlisted Tatkal ticket cancellation do have some deductions as per IRCTC rules. You can cancel your waiting list or RAC Tatkal tickets up to 30 minutes before the departure of the train. If waitlisted Tatkal tickets do not get confirmed or RAC, they automatically get cancelled, and the passenger gets a refund. If your train is running late by 3 hours or is cancelled by Indian Railways, you are entitled to file Ticket Deposit Receipt (TDR) for claiming a refund.</p>
                 </section>
 
-                <hr className="my-14 border-t-2 border-dotted border-gray-400" />
+                <hr className="my-6 md:my-16 border-t-2 border-dotted border-gray-400" />
 
                 <section className="mb-8">
                     <h1 className="text-xl font-bold my-6 text-black">Tatkal Ticket Booking Rules</h1>
@@ -169,14 +119,14 @@ export default function TatkalBooking() {
 
                 </section>
 
-                <hr className="my-14 border-t-2 border-dotted border-gray-400" />
+                <hr className="my-6 md:my-16 border-t-2 border-dotted border-gray-400" />
 
                 <section className="mb-8">
                     <h1 className="text-xl font-bold my-6 text-black">How to Authenticate Aadhaar in Your IRCTC Account</h1>
                     <p className="my-2" >Follow these simple steps to complete Aadhaar authentication on the IRCTC website or app:</p>
 
                     <ul className="list-disc ml-8 space-y-1">
-                        <li><strong>Step 1:</strong> Visit the official <Link href="https://www.irctc.co.in/" target="_blank" className="text-orange-600 font-semibold">IRCTC website</Link> or open the IRCTC app. Log in using your account credentials.</li>
+                        <li><strong>Step 1:</strong> Visit the official <Link href="https://www.irctc.co.in/" target="_blank" className="text-blue-700 font-semibold">IRCTC website</Link> or open the IRCTC app. Log in using your account credentials.</li>
                         <li><strong>Step 2:</strong> Go to the ‘My Account’ section and click on ‘Authenticate User’.</li>
                         <li><strong>Step 3:</strong> Enter your Aadhaar Number or Virtual ID in the required field.</li>
                         <li><strong>Step 4:</strong> Click on ‘Verify Details’ to proceed.</li>
@@ -186,7 +136,7 @@ export default function TatkalBooking() {
 
                 </section>
 
-                <hr className="my-14 border-t-2 border-dotted border-gray-400" />
+                <hr className="my-6 md:my-16 border-t-2 border-dotted border-gray-400" />
 
                 <section className="mb-8">
                     <h1 className="text-xl font-bold my-6 text-black">Tatkal Ticket Booking Charges</h1>
@@ -235,7 +185,7 @@ export default function TatkalBooking() {
                     </table>
                 </section>
 
-                <hr className="my-14 border-t-2 border-dotted border-gray-400" />
+                <hr className="my-6 md:my-16 border-t-2 border-dotted border-gray-400" />
 
                 <section className="pb-16">
                     <h1 className="text-xl font-bold my-6 text-black">Frequently Asked Questions (FAQs)</h1>
@@ -255,7 +205,7 @@ export default function TatkalBooking() {
                     </ul>
 
                     <p className="mt-6 text-black font-semibold" >Q. Can we book a Tatkal ticket on the same day as the journey?</p>
-                    <p className="my-2" >Tatkal ticket booking starts one day in advance of the date of journey from the originating station of the train. First, check the <Link href="/running-status" className="text-orange-500 font-semibold">train running status</Link> feature. If you are travelling on the 3rd, Tatkal ticket booking time would be 10:00 hrs on the 2nd. However, the date of journey means the date on which the chart of the train is prepared. Therefore, if the train starts from its origin on the 3rd and reaches the station from which you are boarding on the 4th, then the IRCTC Tatkal booking will begin on the 2nd and not on the 3rd. Another thing to keep in mind is that the Tatkal reservation begins at 10:00 hrs for AC classes and 11:00 hrs for non-AC classes.</p>
+                    <p className="my-2" >Tatkal ticket booking starts one day in advance of the date of journey from the originating station of the train. First, check the <Link href="/running-status" className="text-blue-700 font-semibold">train running status</Link> feature. If you are travelling on the 3rd, Tatkal ticket booking time would be 10:00 hrs on the 2nd. However, the date of journey means the date on which the chart of the train is prepared. Therefore, if the train starts from its origin on the 3rd and reaches the station from which you are boarding on the 4th, then the IRCTC Tatkal booking will begin on the 2nd and not on the 3rd. Another thing to keep in mind is that the Tatkal reservation begins at 10:00 hrs for AC classes and 11:00 hrs for non-AC classes.</p>
 
                     <p className="mt-6 text-black font-semibold" >Q. How do I cancel Tatkal tickets?</p>
                     <p className="my-2" >Confirmed tickets do not get a refund upon cancellation. In case of RAC or waitlisted tickets refund is available if the same are cancelled up to 30 minutes prior to the scheduled departure. If waitlisted Tatkal tickets do not get confirmed or RAC, they automatically get cancelled, and the passenger gets a refund.</p>
