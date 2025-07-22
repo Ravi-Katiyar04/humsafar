@@ -144,7 +144,7 @@ export default function SeatAvailability() {
           <FAQSection />
         </div>
 
-        <div className=' md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
+        <div className='mb-4 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
           <RailwayInfo />
           <TopTrainRoutes />
         </div>
