@@ -23,11 +23,11 @@ export default function PlatformLocator() {
 
                     {/* Train Input */}
                     <div className="w-full md:w-1/2">
-                        <label className="block text-sm font-medium text-gray-700 mb-2 ">Train name or number</label>
+                        <label className="block text-sm font-semibold text-black mb-2 ">Train name or number</label>
                         <input
                             type="text"
                             placeholder="Enter the train name or number"
-                            className="w-full border-b border-gray-400 focus:outline-none focus:border-b-2 focus:border-orange-500  transition-colors"
+                            className="w-full border-b border-gray-400 focus:outline-none focus:border-b-2 focus:border-blue-700 transition-colors"
                             value={train}
                             onChange={(e) => setTrain(e.target.value)}
                         />
@@ -35,11 +35,11 @@ export default function PlatformLocator() {
 
                     {/* Station Input */}
                     <div className="w-full md:w-1/2">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Station (optional)</label>
+                        <label className="block text-sm font-semibold text-black mb-2">Station (optional)</label>
                         <input
                             type="text"
                             placeholder="Select Station"
-                            className="w-full border-b border-gray-400 focus:outline-none focus:border-orange-500 transition-colors"
+                            className="w-full border-b border-gray-400 focus:border-b-2 focus:outline-none focus:border-blue-700 transition-colors"
                             value={station}
                             onChange={(e) => setStation(e.target.value)}
                         />
@@ -49,7 +49,7 @@ export default function PlatformLocator() {
                     <div className="w-full md:w-auto ">
                         <button
                             onClick={handleSearch}
-                            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-2 rounded shadow"
+                            className="w-full bg-blue-700 hover:bg-blue-800 cursor-pointer text-white font-semibold px-6 py-2 rounded shadow"
                         >
                             SEARCH PLATFORM
                         </button>
@@ -60,7 +60,7 @@ export default function PlatformLocator() {
 
             {/* Breadcrumbs */}
             <div className="max-w-11/12 mx-auto px-4 mt-4 text-sm text-gray-500">
-                <span className="text-orange-500">Home</span> &nbsp;»&nbsp;
+                <span className="text-blue-700">Home</span> &nbsp;»&nbsp;
                 <span className="text-gray-700 font-medium ">Platform Locator</span>
             </div>
 
@@ -82,7 +82,7 @@ export default function PlatformLocator() {
                     about your journey. You can be confident that you are receiving the most accurate information available with our train platform finder.
                 </p>
                 <p className="mb-4">
-                    Our <span className="text-orange-600 font-semibold">Live Running Status</span> feature also allows you to perform a train platform number check. It provides real-time updates on the train’s exact location along with the platform number at each station throughout the journey.
+                    Our <span className="text-blue-700 cursor-pointer font-semibold">Live Running Status</span> feature also allows you to perform a train platform number check. It provides real-time updates on the train’s exact location along with the platform number at each station throughout the journey.
                 </p>
                 <p className="mb-4">
                     An IRCTC platform number enquiry can also be made at railway station counters. Alternatively, you can check it beside the train timetable on the display screens at the station, but not all stations have them. Using this online feature, on the other hand, can help you save time and you can head straight to the platform where the train will be arriving.
@@ -97,7 +97,6 @@ export default function PlatformLocator() {
 
                 <FAQSection />
             </section>
-
 
         </div>
     );
