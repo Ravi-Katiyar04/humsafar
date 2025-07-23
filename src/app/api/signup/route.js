@@ -1,5 +1,5 @@
 import { connectDB } from '@/lib/db';
-import User from '@/models/user';
+import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 
 export async function POST(req) {
@@ -27,3 +27,6 @@ export async function POST(req) {
     return Response.json({ error: 'Something went wrong' }, { status: 500 });
   }
 }
+
+const hashedPassword = await bcrypt.hash(password, 10);
+const newUser = await User.create({ name, email, password: hashedPassword });
