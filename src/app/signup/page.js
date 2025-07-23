@@ -2,7 +2,6 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
