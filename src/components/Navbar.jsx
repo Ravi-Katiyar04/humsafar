@@ -1,24 +1,34 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  // Simulate login status (replace with real logic later)
-  const isLoggedIn = false;
+  // Check login status from localStorage
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(loggedIn);
+  }, []);
 
   // Disable scrolling when menu is open
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
   }, [menuOpen]);
+
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+    setShowProfileMenu(false);
+    router.push('/login');
+  };
 
   return (
     <nav className="bg-blue-100 sticky top-0 z-10 text-blue-700 p-4 shadow-md">
@@ -42,14 +52,31 @@ export default function Navbar() {
           >
             My Bookings
           </Link>
-          {isLoggedIn ? (
-            <Link href="/signup" className="bg-white text-blue-700 px-3 py-1 rounded hover:bg-gray-100">
-              Signup
-            </Link>
-          ) : (
+
+          {!isLoggedIn ? (
             <Link href="/login" className="bg-white text-blue-700 px-3 py-1 rounded hover:bg-gray-100">
               Login
             </Link>
+          ) : (
+            <div className="relative">
+              <button
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+                className="text-2xl"
+              >
+                <i className="fas text-black text-4xl cursor-pointer fa-user-circle"></i>
+              </button>
+
+              {showProfileMenu && (
+                <div className="absolute right-0 mt-2 bg-white border shadow-md rounded p-2">
+                  <button
+                    onClick={handleLogout}
+                    className="text-red-600 hover:underline"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           )}
         </div>
 
@@ -79,15 +106,8 @@ export default function Navbar() {
           >
             My Bookings
           </Link>
-          {isLoggedIn ? (
-            <Link
-              href="/signup"
-              className="block bg-white text-blue-700 px-3 py-1 rounded hover:bg-gray-100"
-              onClick={() => setMenuOpen(false)}
-            >
-              Signup
-            </Link>
-          ) : (
+
+          {!isLoggedIn ? (
             <Link
               href="/login"
               className="block bg-white text-blue-700 px-3 py-1 rounded hover:bg-gray-100"
@@ -95,10 +115,18 @@ export default function Navbar() {
             >
               Login
             </Link>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="block text-red-600 hover:underline"
+            >
+              Logout
+            </button>
           )}
         </div>
       )}
     </nav>
   );
 }
+
 
