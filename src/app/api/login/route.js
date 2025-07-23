@@ -20,7 +20,6 @@ export async function POST(req) {
 
  
   const isMatch = await bcrypt.compare(password, user.password);
-  console.log('Password match:', isMatch);
   if (!isMatch) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 200 });
   }
