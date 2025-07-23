@@ -21,6 +21,7 @@ export default function SignupPage() {
       if (response.data?.error) {
         setError(response.data.error);
       } else {
+        toast.success("Account created successfully!");
         window.location.href = "/login";
       }
     } catch (err) {
@@ -32,7 +33,7 @@ export default function SignupPage() {
     <div className="min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 flex items-center justify-center px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 md:p-10"
+        className="w-full max-w-md my-6 bg-white rounded-2xl shadow-lg p-8 md:p-10"
       >
         <div className="flex justify-center mb-6">
           <i className="fas fa-user-plus text-3xl text-blue-600"></i>
