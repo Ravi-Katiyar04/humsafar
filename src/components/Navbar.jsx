@@ -11,6 +11,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [user, setUser] = useState(null);
 
   // Check if user is logged in
   useEffect(() => {
@@ -19,6 +20,7 @@ export default function Navbar() {
         const res = await axios.get('/api/me');
         console.log('Auth check response:', res.data);
         if(res.data.user) {
+          setUser(res.data.user);
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
@@ -77,9 +79,15 @@ export default function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
-                className="text-2xl"
+                className="text-2xl flex items-center justify-center text-blue-700 px-3 py-1"
               >
                 <i className="fas text-black text-4xl cursor-pointer fa-user-circle"></i>
+                {user && (
+                  <div className="text-sm text-gray-600 cursor-pointer">
+                    <span className="ml-2 text-black text-xl block">Hello</span>
+                    <span className="ml-2 text-black text-xl">{user.name}</span>
+                  </div>
+                )}
               </button>
 
               {showProfileMenu && (
