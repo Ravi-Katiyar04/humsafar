@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import Link from 'next/link';
+import ProfileMenu from './ProfileMenu';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -19,7 +20,7 @@ export default function Navbar() {
       try {
         const res = await axios.get('/api/me');
         console.log('Auth check response:', res.data);
-        if(res.data.user) {
+        if (res.data.user) {
           setUser(res.data.user);
           setIsLoggedIn(true);
         } else {
@@ -38,14 +39,6 @@ export default function Navbar() {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
   }, [menuOpen]);
-
-  // Logout function
-  const handleLogout = async () => {
-    await axios.post('/api/logout');
-    setIsLoggedIn(false);
-    setShowProfileMenu(false);
-    router.push('/login');
-  };
 
 
   return (
@@ -91,14 +84,10 @@ export default function Navbar() {
               </button>
 
               {showProfileMenu && (
-                <div className="absolute right-0 mt-2 bg-white border shadow-md rounded p-2">
-                  <button
-                    onClick={handleLogout}
-                    className="text-red-600 hover:underline"
-                  >
-                    Logout
-                  </button>
+                <div className="absolute right-0 mt-2 z-50">
+                  <ProfileMenu />
                 </div>
+
               )}
             </div>
           )}
@@ -140,12 +129,7 @@ export default function Navbar() {
               Login
             </Link>
           ) : (
-            <button
-              onClick={handleLogout}
-              className="block text-red-600 hover:underline"
-            >
-              Logout
-            </button>
+            <ProfileMenu />
           )}
         </div>
       )}
