@@ -1,26 +1,40 @@
+import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import User from '@/models/User';
-import dbConnect from './dbconnect';
 
-export default async function authenticate(req) {
-  await dbConnect();
+const PUBLIC_ROUTES = ['/login', '/signup', '/'];
 
-  const token = req.cookies.get('token')?.value;
+export function authMiddleware(request) {
+  const { pathname } = request.nextUrl;
 
+  // Allow public routes
+  if (PUBLIC_ROUTES.includes(pathname)) {
+    return NextResponse.next();
+  }
+
+  // Read token from cookies
+  const token = request.cookies.get('token')?.value;
+
+  // If no token, redirect to login
   if (!token) {
-    throw new Error('Not authenticated');
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id).select('-password');
-
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    return user; // return authenticated user object
+    // Verify token
+    jwt.verify(token, process.env.JWT_SECRET);
+    return NextResponse.next();
   } catch (err) {
-    throw new Error('Invalid token');
+    // Invalid token — redirect
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 }
+
+export const config = {
+  matcher: [
+    // Apply middleware to protected routes only
+    '/dashboard/:path*',
+    '/profile/:path*',
+    '/bookings/:path*',
+  ],
+};
+

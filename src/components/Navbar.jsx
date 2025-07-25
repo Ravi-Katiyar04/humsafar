@@ -1,5 +1,6 @@
 'use client';
 
+import axios from 'axios';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -11,11 +12,25 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  // Check login status from localStorage
+  // Check if user is logged in
   useEffect(() => {
-    const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    setIsLoggedIn(loggedIn);
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get('/api/me');
+        console.log('Auth check response:', res.data);
+        if(res.data.user) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkAuth();
   }, []);
+
 
   // Disable scrolling when menu is open
   useEffect(() => {
@@ -23,12 +38,13 @@ export default function Navbar() {
   }, [menuOpen]);
 
   // Logout function
-  const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
+  const handleLogout = async () => {
+    await axios.post('/api/logout');
     setIsLoggedIn(false);
     setShowProfileMenu(false);
     router.push('/login');
   };
+
 
   return (
     <nav className="bg-blue-100 sticky top-0 z-10 text-blue-700 p-4 shadow-md">

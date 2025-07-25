@@ -1,7 +1,14 @@
-import { NextResponse } from 'next/server';
+import { serialize } from 'cookie';
 
 export async function POST() {
-  const response = NextResponse.json({ message: 'Logged out' });
-  response.cookies.set('token', '', { maxAge: 0, path: '/' });
-  return response;
+  return new Response(JSON.stringify({ message: 'Logged out' }), {
+    status: 200,
+    headers: {
+      'Set-Cookie': serialize('token', '', {
+        path: '/',
+        maxAge: 0,
+      }),
+      'Content-Type': 'application/json',
+    },
+  });
 }
