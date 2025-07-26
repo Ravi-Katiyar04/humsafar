@@ -1,6 +1,7 @@
 'use client';
 
 import axios from 'axios';
+import { set } from 'mongoose';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -11,8 +12,9 @@ export default function ProfilePage() {
     const handleLogout = async () => {
         try {
             await axios.post('/api/logout');
-            router.push('/login');
-            window.location.reload();
+            router.push('/');
+            setTimeout(() => window.location.reload(), 600);
+            setLoading(false);
         } catch (error) {
             console.error('Logout failed:', error);
             alert('Logout failed. Please try again.');
