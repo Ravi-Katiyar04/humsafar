@@ -30,13 +30,14 @@ export default function ProfileMenu() {
     const handleLogout = async () => {
         try {
             await axios.post('/api/logout');
-            router.push('/');
-            window.location.reload();
+            router.push('/'); // Navigate to home
+            setTimeout(() => window.location.reload(), 100);
         } catch (error) {
             console.error('Logout failed:', error);
             alert('Logout failed. Please try again.');
         }
     };
+
 
     return (
         <div className="w-72 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden text-gray-800">
