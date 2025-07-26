@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -56,12 +55,6 @@ export default function Navbar() {
             className={`hover:underline ${pathname === '/' ? 'underline' : ''}`}
           >
             Home
-          </Link>
-          <Link
-            href="/user/profile"
-            className={`hover:underline ${pathname === '/user/profile' ? 'underline' : ''}`}
-          >
-            My Bookings
           </Link>
 
           {!isLoggedIn ? (
