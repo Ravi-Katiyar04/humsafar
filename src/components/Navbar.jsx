@@ -78,7 +78,7 @@ export default function Navbar() {
 
               {showProfileMenu && (
                 <div className="absolute right-0 mt-2 z-50">
-                  <ProfileMenu />
+                  <ProfileMenu setShowProfileMenu={setShowProfileMenu} />
                 </div>
 
               )}

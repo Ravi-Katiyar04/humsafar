@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-export default function ProfileMenu() {
+export default function ProfileMenu({setShowProfileMenu}) {
     const router = useRouter();
 
     const menuItems = [
@@ -48,6 +48,7 @@ export default function ProfileMenu() {
                         className="flex items-start gap-4 p-4 hover:bg-gray-200 transition-colors cursor-pointer"
                         onClick={() => {
                             router.push(item.url);
+                            setShowProfileMenu(false);
                         }}
                     >
                         <i className={`fa ${item.icon} text-blue-600 text-lg mt-1`} />
