@@ -1,8 +1,6 @@
 "use client"
-import { useState } from 'react';
 import Header from '@/components/Header';
 import SearchBar from '@/components/SearchBar';
-import TrainStatusDisplay from '@/components/TrainStatusDisplay';
 import FAQSection from '@/components/FAQSection';
 import RailwayInfo from '@/components/RailwayInfo';
 import TopTrainRoutes from '@/components/TopTrainRoutes';
@@ -10,9 +8,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 
 export default function RunningStatus() {
-  const [trainStatus, setTrainStatus] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const features = [
     {
@@ -42,47 +37,7 @@ export default function RunningStatus() {
     },
   ];
 
-  const handleSearch = async (trainNumber) => {
-    setLoading(true);
-    setError(null);
-    setTrainStatus(null);
-    try {
-      // In a real app, you'd call your backend API here
-      // const response = await fetch(`/api/train-status?trainNumber=${trainNumber}`);
-      // if (!response.ok) {
-      //   throw new Error('Failed to fetch train status');
-      // }
-      // const data = await response.json();
-      // setTrainStatus(data);
 
-      // --- Mock data for demonstration ---
-      setTimeout(() => {
-        if (trainNumber === '12345') {
-          setTrainStatus({
-            trainNumber: '12345',
-            trainName: 'Express Superfast',
-            currentStatus: 'Running Late by 30 mins, expected arrival at Delhi Jn in 15 mins.',
-            lastUpdated: new Date().toLocaleString(),
-            eta: '2:30 PM',
-            platform: 'Platform 3',
-            halts: [
-              { station: 'Station A', arrival: '10:00 AM', departure: '10:05 AM' },
-              { station: 'Station B', arrival: '11:30 AM', departure: '11:35 AM' },
-            ],
-            // ... more detailed data as per screenshots
-          });
-        } else {
-          setError('Train not found or no data available.');
-        }
-        setLoading(false);
-      }, 1000);
-      // --- End Mock data ---
-
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen  bg-gray-100 text-gray-600  text-[14px] ">
@@ -97,25 +52,29 @@ export default function RunningStatus() {
         <p className=" my-4 text-blue-50  ">Home / Running Status</p>
         <section className="bg-white p-6 w-full max-w-7xl rounded-lg shadow-md mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">Train Running Status</h1>
-          <SearchBar onSearch={handleSearch} />
 
-          {loading && <p className="text-center text-blue-600 mt-4">Loading train status...</p>}
-          {error && <p className="text-center text-red-600 mt-4">{error}</p>}
+          <SearchBar />
 
-          {trainStatus && <TrainStatusDisplay status={trainStatus} />}
+          {/* {loading && <p className="text-center text-blue-600 mt-4">Loading train status...</p>}
+          {error && <p className="text-center text-red-600 mt-4">{error}</p>} */}
+
         </section>
 
       </div>
 
       <main className='max-w-11/12 mx-auto  py-8 md:flex gap-10 '>
 
-        <div className=' border-b-2 w-full md:w-4/5 min-h-screen' >
+        <div className=' w-full md:w-4/5 min-h-screen' >
           <h1 className="text-xl font-bold mb-4 text-black">IRCTC Live Train Running Status</h1>
           <p className="mb-6 text-[14px] font-semibold">
             <span className='mb-4 block'>IRCTC Live Train Running Status is a system created by the Indian Railways that allows passengers to easily track their train&rsquo;s exact location. </span>
 
             <span className='mb-4 block'>To spot your train, you simply have to enter the five-digit train number or the name of the train in the &rsquo;Train Running Status&rsquo; form. Select the date of journey from the source railway station. This will display the arrival and departure time of your train for your boarding railway station. Get additional details on Indian railways trains like info on real-time delays, boarding platform number, and last-reported location.</span>
           </p>
+
+          {/* <section className="my-8">
+            {trainStatus && <TrainStatusDisplay status={trainStatus} />}
+          </section> */}
 
           <h1 className="text-xl font-bold mb-4 text-black">Why Check Running Status Online with Humsafar?</h1>
           <div className='border-2 h-fit border-gray-300 rounded-4xl p-8 mb-6'>
