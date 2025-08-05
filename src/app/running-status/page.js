@@ -55,6 +55,10 @@ export default function RunningStatus() {
 
           <SearchBar />
 
+
+
+          
+
           {/* {loading && <p className="text-center text-blue-600 mt-4">Loading train status...</p>}
           {error && <p className="text-center text-red-600 mt-4">{error}</p>} */}
 
