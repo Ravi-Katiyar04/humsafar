@@ -2,8 +2,6 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import Header from '@/components/Header';
-import SearchBar from '@/components/SearchBar';
-import TrainStatusDisplay from '@/components/TrainStatusDisplay';
 import RailwayInfo from '@/components/RailwayInfo';
 import TopTrainRoutes from '@/components/TopTrainRoutes';
 import FAQSection from '@/components/FAQSection';
@@ -11,9 +9,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 
 export default function PNRStatus() {
-    const [trainStatus, setTrainStatus] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [pnrNumber, setPnrNumber] = useState('');
 
 
     const features = [
@@ -114,12 +110,24 @@ export default function PNRStatus() {
                 <section className="bg-white p-6 w-full max-w-7xl rounded-lg shadow-md mb-8">
                     <h1 className="text-3xl font-bold text-gray-800 mb-4">PNR Status</h1>
 
-                    <SearchBar onSearch={handleSearch} />
+                    <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <input
+                            type="text"
+                            placeholder="Enter your 10 digit PNR number"
+                            className="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={pnrNumber}
+                            onChange={(e) => setPnrNumber(e.target.value)}
+                        />
+                        <Link href={`/pnr-status-enquiry/${pnrNumber}`} className="flex-shrink-0">
+                            <button
+                                type="submit"
+                                className="bg-blue-700 hover:bg-blue-800 cursor-pointer text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out"
+                            >
+                                Check PNR Status
+                            </button>
+                        </Link>
+                    </div>
 
-                    {loading && <p className="text-center text-blue-600 mt-4">Loading train status...</p>}
-                    {error && <p className="text-center text-red-600 mt-4">{error}</p>}
-
-                    {trainStatus && <TrainStatusDisplay status={trainStatus} />}
                 </section>
 
             </div>
@@ -298,7 +306,7 @@ export default function PNRStatus() {
                 </div>
 
                 <div className=' mb-4 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >
-                    <RailwayInfo/>
+                    <RailwayInfo />
                     <TopTrainRoutes />
                 </div>
             </main>
