@@ -3,15 +3,16 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Booking(prop) {
+  const router = useRouter();
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
   const [journeyDate, setJourneyDate] = useState('');
-  const router = useRouter();
+  
 
   const handleSearch = () => {
     if (!source || !destination || !journeyDate)
       return alert('Please enter source, destination, and date.');
-    router.push(`/train/search?source=${source}&destination=${destination}&date=${journeyDate}`);
+    router.push(`/search/${source}&d/${destination}&/${journeyDate}`);
   };
 
   return (
@@ -24,7 +25,7 @@ export default function Booking(prop) {
       <div className="bg-gradient-to-r py-16 px-4 w-full max-w-7xl text-center">
         <h1 className="text-3xl font-semibold mb-8  text-white">{prop.title}</h1>
 
-        <form onSubmit={handleSearch} className="bg-white rounded-lg p-4 shadow max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
+        <div className="bg-white rounded-lg p-4 shadow max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="flex-1 text-left">
             <label className="text-xs text-black font-semibold mb-1" htmlFor="source">From</label>
             <input
@@ -66,12 +67,12 @@ export default function Booking(prop) {
           </div>
 
           <button
-            type="submit"
+            onClick={handleSearch}
             className="bg-blue-700 hover:bg-blue-800 cursor-pointer text-white font-semibold px-6 py-4 md:rounded-l-none md:rounded-r-lg w-full md:w-auto"
           >
             {prop.btntext}
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
