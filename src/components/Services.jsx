@@ -33,7 +33,7 @@ export default function ServiceTiles() {
       {/* Left Arrow */}
       <button
         onClick={() => scroll('left')}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-0 hidden md:flex items-center justify-center w-10 h-10 bg-white shadow-md rounded-full hover:bg-gray-100 transition"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 bg-white shadow-md rounded-full hover:bg-gray-100 transition"
       >
         <i className="fas fa-chevron-left text-gray-700 text-lg" />
       </button>
@@ -74,7 +74,7 @@ export default function ServiceTiles() {
       {/* Right Arrow */}
       <button
         onClick={() => scroll('right')}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-0 hidden md:flex items-center justify-center w-10 h-10 bg-white shadow-md rounded-full hover:bg-gray-100 transition"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-10 h-10 bg-white shadow-md rounded-full hover:bg-gray-100 transition"
       >
         <i className="fas fa-chevron-right text-gray-700 text-lg" />
       </button>
