@@ -1,9 +1,11 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Booking(prop) {
   const router = useRouter();
+  // const date = new Date();
+  // const formattedDate = date.toISOString().split('-').reverse().join('-'); // Format date as DD-MM-YYYY
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
   const [journeyDate, setJourneyDate] = useState('');
@@ -14,6 +16,12 @@ export default function Booking(prop) {
       return alert('Please enter source, destination, and date.');
     router.push(`/search/${source}&d/${destination}&/${journeyDate}`);
   };
+
+    useEffect(() => {
+    const date = new Date();
+    const formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD (for <input type="date">)
+    setJourneyDate(formattedDate);
+  }, [])
 
   return (
     <div
@@ -55,7 +63,7 @@ export default function Booking(prop) {
           </div>
 
           <div className="flex-1 px-4 py-4 text-left">
-            <label className="text-xs text-gray-500 mb-1" htmlFor="journeyDate">Departure Date</label>
+            <label className="text-xs text-black font-semibold mb-1" htmlFor="journeyDate">Departure Date</label>
             <input
               id="journeyDate"
               type="date"
