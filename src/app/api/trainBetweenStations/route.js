@@ -2,15 +2,17 @@ import axios from 'axios';
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
-    const trainNumber = searchParams.get('trainNumber');
+    const fromStation = searchParams.get('fromStation');
+    const toStation = searchParams.get('toStation');
+    const dateOfJourney = searchParams.get('dateOfJourney');
 
     const options = {
         method: 'GET',
         url: 'https://irctc1.p.rapidapi.com/api/v3/trainBetweenStations',
         params: {
-            fromStationCode: trainNumber,
-            toStationCode: '1',
-            dateOfJourney: '2023-10-01' 
+            fromStationCode: fromStation,
+            toStationCode: toStation,
+            dateOfJourney: dateOfJourney,
         },
         headers: {
             'x-rapidapi-key': process.env.RAPIDAPI_KEY,
