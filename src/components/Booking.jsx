@@ -55,7 +55,7 @@ export default function Booking(prop) {
 
           <div 
           onClick={handleExchange}
-          className='hidden md:block'
+          className='hidden md:block crusor-poiner'
           >
             <i className="fas fa-exchange-alt text-gray-600 text-lg"></i>
           </div>
