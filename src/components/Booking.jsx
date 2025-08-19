@@ -46,7 +46,7 @@ export default function Booking(prop) {
             <input
               id="source"
               type="text"
-              className="w-full border-b border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
+              className="w-full border-b cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
               value={source}
               onChange={(e) => setSource(e.target.value)}
               required
@@ -55,7 +55,7 @@ export default function Booking(prop) {
 
           <div 
           onClick={handleExchange}
-          className='hidden md:block crusor-poiner'
+          className='hidden md:block cursor-pointer'
           >
             <i className="fas fa-exchange-alt text-gray-600 text-lg"></i>
           </div>
@@ -65,7 +65,7 @@ export default function Booking(prop) {
             <input
               id="destination"
               type="text"
-              className="w-full border-b border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
+              className="w-full border-b cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
               required
@@ -77,7 +77,7 @@ export default function Booking(prop) {
             <input
               id="journeyDate"
               type="date"
-              className="w-full border-b border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
+              className="w-full border-b cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
               value={journeyDate}
               onChange={(e) => setJourneyDate(e.target.value)}
               required
