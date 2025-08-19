@@ -9,7 +9,7 @@ export default function Booking(prop) {
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
   const [journeyDate, setJourneyDate] = useState('');
-  
+
 
   const handleSearch = () => {
     if (!source || !destination || !journeyDate)
@@ -17,11 +17,12 @@ export default function Booking(prop) {
     router.push(`/search/${source}&d/${destination}&/${journeyDate}`);
   };
 
-    useEffect(() => {
+  useEffect(() => {
     const date = new Date();
     const formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD (for <input type="date">)
     setJourneyDate(formattedDate);
   }, [])
+
 
   return (
     <div
@@ -46,11 +47,13 @@ export default function Booking(prop) {
             />
           </div>
 
-          <div>
+          <div 
+
+          className='hidden md:block'>
             <i className="fas fa-exchange-alt text-gray-600 text-lg"></i>
           </div>
 
-          <div className="flex-1 px-4 text-left">
+          <div className="flex-1 px-4 text-left my-4">
             <label className="text-xs text-black font-semibold mb-1" htmlFor="destination">To</label>
             <input
               id="destination"
