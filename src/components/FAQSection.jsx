@@ -24,9 +24,7 @@ const faqData = [
     answer: (
       <span>
         Information about rescheduled, diverted, or cancelled trains is usually available on the
-        <Link href="/train/reschedule">
-          <a className="text-blue-600 hover:underline">official NTES website</a>
-        </Link>
+          <Link href="https://www.ntesindia.com/" className="text-blue-600 hover:underline"> official NTES website</Link>
         , IRCTC website, and also on third-party apps like ixigo. Look for specific sections on 'Train Reschedule' or 'Diverted Trains'.
       </span>
     )
@@ -60,7 +58,7 @@ export default function FAQSection() {
               onClick={() => toggleFAQ(index)}
             >
               <span>{faq.question}</span>
-              <span>{openIndex === index ? '-' : '+'}</span>
+              <span className='text-xl'>{openIndex === index ? '-' : '+'}</span>
             </button>
             {openIndex === index && (
               <div className="p-4 pt-0 text-gray-700 border-t border-gray-200">
