@@ -46,6 +46,7 @@ export default function Booking(prop) {
             <input
               id="source"
               type="text"
+              placeholder='Enter Source Station'
               className="w-full border-b cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
               value={source}
               onChange={(e) => setSource(e.target.value)}
@@ -65,6 +66,7 @@ export default function Booking(prop) {
             <input
               id="destination"
               type="text"
+              placeholder='Enter Destination Station'
               className="w-full border-b cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
