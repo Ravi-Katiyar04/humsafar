@@ -17,6 +17,12 @@ export default function Booking(prop) {
     router.push(`/search/${source}&d/${destination}&/${journeyDate}`);
   };
 
+    const handleExchange=() => {
+    const temp = source;
+    setSource(destination);
+    setDestination(temp);
+  }
+
   useEffect(() => {
     const date = new Date();
     const formattedDate = date.toISOString().split('T')[0]; // YYYY-MM-DD (for <input type="date">)
@@ -48,8 +54,9 @@ export default function Booking(prop) {
           </div>
 
           <div 
-
-          className='hidden md:block'>
+          onClick={handleExchange}
+          className='hidden md:block'
+          >
             <i className="fas fa-exchange-alt text-gray-600 text-lg"></i>
           </div>
 
