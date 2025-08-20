@@ -2,9 +2,9 @@ import axios from 'axios';
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
-    const fromStation = searchParams.get('fromStation');
-    const toStation = searchParams.get('toStation');
-    const dateOfJourney = searchParams.get('dateOfJourney');
+    const fromStation = searchParams.get('src');
+    const toStation = searchParams.get('dstn');
+    const dateOfJourney = searchParams.get('date');
 
     const options = {
         method: 'GET',

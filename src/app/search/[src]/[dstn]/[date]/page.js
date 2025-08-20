@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, use } from "react";
 import Booking from "@/components/Booking";
 import TrainFilters from "@/components/TrainFilters";
 import DateAvailabilitySlider from "@/components/DateAvailabilitySlider";
@@ -7,33 +7,43 @@ import SearchTrainCard from "@/components/SearchTrainCard";
 import Link from "next/link";
 import axios from "axios";
 
-export default function SearchPage() {
-  const [results, setResults] = useState([]);
+export default function SearchPage({ params }) {
+  const { src: src } = use(params);
+  const { dstn: dstn } = use(params);
+  const { date:date } = use(params);
+
+  const [results, setResults] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSearch = async () => {
+  useEffect(() => {
+    setResults([]);
     setLoading(true);
     setError(null);
-    try {
-      const response = await axios.get("/api/search");
-      setResults(response.data);
-    } catch (err) {
-      setError("Error fetching search results.");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const fetchTrains = async () => {
+      try {
+        const response = await axios.get(`/api/trainBetweenStations?src=${src}&dstn=${dstn}&date=${date}`); 
+        setResults(response.data);
+      } catch (err) {
+        setError("Failed to fetch trains. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTrains();
+  }, [])
+  
+  
 
   return (
     <div className="min-h-screen bg-gray-100">
       <Booking title={""} btntext={"Search"} />
       <main>
         <div className="max-w-6xl  flex flex-col gap-4 mx-auto py-6 sm:px-6 lg:px-8">
-          <TrainFilters/>
-            <DateAvailabilitySlider />
-            {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <TrainFilters />
+          <DateAvailabilitySlider />
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {loading ? (
                     <div className="col-span-3 text-center text-gray-500">Loading...</div>
                 ) : error ? (
@@ -46,7 +56,7 @@ export default function SearchPage() {
                     <div className="col-span-3 text-center text-gray-500">No trains found.</div>
                 )}
             </div> */}
-            <SearchTrainCard/>
+          <SearchTrainCard />
         </div>
       </main>
     </div>
