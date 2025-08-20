@@ -8,7 +8,6 @@ import SearchTrainCard from "@/components/SearchTrainCard";
 import axios from "axios";
 
 export default function SearchPage({ params }) {
-  const router = useRouter();
   const { src: src } = use(params);
   const { dstn: dstn } = use(params);
   const { date: date } = use(params);
@@ -17,10 +16,6 @@ export default function SearchPage({ params }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleDateChange = (newDate) => {
-    // Navigate to same route with updated date
-    router.push(`/search/${src}&d/${dstn}&/${newDate}`);
-  };
 
   useEffect(() => {
     setResults([]);
@@ -48,7 +43,7 @@ export default function SearchPage({ params }) {
       <main>
         <div className="max-w-6xl  flex flex-col gap-4 mx-auto py-6 sm:px-6 lg:px-8">
           <TrainFilters />
-          <SortFilterBar onDateChange={handleDateChange} />
+          <SortFilterBar />
           {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {loading ? (
                     <div className="col-span-3 text-center text-gray-500">Loading...</div>
