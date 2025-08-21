@@ -8,12 +8,13 @@ import SearchTrainCard from "@/components/SearchTrainCard";
 import axios from "axios";
 
 
+
 export default function SearchPage({ params }) {
   const { src: src } = use(params);
   const { dstn: dstn } = use(params);
   const { date: date } = use(params);
 
-  const [results, setResults] = useState();
+  const [results, setResults] = useState( []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

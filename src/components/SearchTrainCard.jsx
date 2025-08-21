@@ -10,8 +10,82 @@ function formatDuration(timeStr) {
     return result.trim();
 }
 
+const data ={
+    "status": true,
+    "message": "Success",
+    "timestamp": 1755760292656,
+    "data": {
+        "trainCode": "12420",
+        "availabilityClassList": [
+            {
+                "reservationClass": "2S",
+                "charges": {
+                    "totalCollectibleAmount": 92.7,
+                    "baseFare": 45,
+                    "superfastCharge": 15,
+                    "fuelAmount": 0,
+                    "totalConcession": 0,
+                    "tatkalFare": 0,
+                    "serviceTax": 0,
+                    "otherCharge": 0,
+                    "cateringCharge": 0,
+                    "reservationCharge": 15,
+                    "totalFare": 75,
+                    "travelInsuranceCharge": 0,
+                    "travelInsuranceServiceTax": 0,
+                    "wpServiceCharge": 15,
+                    "wpServiceTax": 2.7,
+                    "dynamicFare": 0
+                },
+                "availabilities": [
+                    {
+                        "date": "2025-09-09",
+                        "status": "AVAILABLE-180",
+                        "type": "CNF",
+                        "confirmedAvailability": true
+                    },
+                    {
+                        "date": "2025-09-10",
+                        "status": "AVAILABLE-177",
+                        "type": "CNF",
+                        "confirmedAvailability": true
+                    },
+                    {
+                        "date": "2025-09-11",
+                        "status": "AVAILABLE-177",
+                        "type": "CNF",
+                        "confirmedAvailability": true
+                    },
+                    {
+                        "date": "2025-09-12",
+                        "status": "AVAILABLE-173",
+                        "type": "CNF",
+                        "confirmedAvailability": true
+                    },
+                    {
+                        "date": "2025-09-13",
+                        "status": "AVAILABLE-164",
+                        "type": "CNF",
+                        "confirmedAvailability": true
+                    },
+                    {
+                        "date": "2025-09-14",
+                        "status": "AVAILABLE-178",
+                        "type": "CNF",
+                        "confirmedAvailability": true
+                    }
+                ]
+            }
+        ]
+    }
+}
+
 const SearchTrainCard = ({ train }) => {
-    const dateStr = train?.train_date || "15-08-2023"; // Default date if not provided
+    const dateStr = train?.train_date || "01-01-2025"; // Default date if not provided
+
+    const [selectedClass, setSelectedClass] = useState(train?.class_type[0]);
+    const [availability, setAvailability] = useState(data.availabilityClassList);
+    const [selectedDate, setSelectedDate] = useState(dateStr);
 
     const [showAvailability, setShowAvailability] = useState(false);
 
