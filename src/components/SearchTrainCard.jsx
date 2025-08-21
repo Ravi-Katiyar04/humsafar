@@ -83,8 +83,12 @@ const data ={
 const SearchTrainCard = ({ train }) => {
     const dateStr = train?.train_date || "01-01-2025"; // Default date if not provided
 
+    const [availability, setAvailability] = useState(data.data);
+
     const [selectedClass, setSelectedClass] = useState(train?.class_type[0]);
-    const [availability, setAvailability] = useState(data.availabilityClassList);
+    const [quota, setQuota] = useState("GN");
+    const [trainNo, setTrainNo] = useState(train?.train_number || "");
+    
     const [selectedDate, setSelectedDate] = useState(dateStr);
 
     const [showAvailability, setShowAvailability] = useState(false);
@@ -102,6 +106,34 @@ const SearchTrainCard = ({ train }) => {
         }));
     }, [dateStr]);
 
+    const dateFormatter = (date) => {
+        const [day, month, year] = date.split("-").map(Number);
+        const newdate = new Date(year, month - 1, day);
+        const formattedDate = newdate.toLocaleDateString("en-GB", {
+            weekday: "short",
+            day: "2-digit",
+            month: "short",
+        });
+        return formattedDate;
+    }
+
+    // const handleAvailabilityClick = () => {
+    //     setShowAvailability(!showAvailability);
+    //     const fetchTrains = async () => {
+    //   try {
+    //     const response = await axios.get(`/api/checkSeatAvailability?classType=${selectedClass}&src=${src}&quota=${quota}&dstn=${dstn}&trainNo=${trainNo}&date=${date}`);
+    //     setResults(response.data);
+    //   } catch (err) {
+    //     setError("Failed to fetch trains. Please try again later.");
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+
+    // fetchTrains();
+
+    // };
+
     useEffect(() => {
         if (train) {
             const [day, month, year] = dateStr.split("-").map(Number);
@@ -118,18 +150,18 @@ const SearchTrainCard = ({ train }) => {
         }
     }, [train]);
 
-    const dateAvailability = [
-        { date: "Fri, 15 Aug", tag: "Tatkal", status: "NOT AVL", color: "text-red-500" },
-        { date: "Fri, 15 Aug", status: "NOT AVL", color: "text-red-500" },
-        { date: "Sun, 17 Aug", status: "WL7", sub: "Travel Guarantee", color: "text-green-600" },
-        { date: "Mon, 18 Aug", status: "REGRET", color: "text-red-500" },
-        { date: "Tue, 19 Aug", status: "REGRET", color: "text-red-500" },
-        { date: "Thu, 21 Aug", status: "REGRET", color: "text-red-500" },
-        { date: "Sun, 17 Aug", status: "WL7", sub: "Travel Guarantee", color: "text-green-600" },
-        { date: "Mon, 18 Aug", status: "REGRET", color: "text-red-500" },
-        { date: "Tue, 19 Aug", status: "REGRET", color: "text-red-500" },
-        { date: "Thu, 21 Aug", status: "REGRET", color: "text-red-500" },
-    ];
+    // const dateAvailability = [
+    //     { date: "Fri, 15 Aug", tag: "Tatkal", status: "NOT AVL", color: "text-red-500" },
+    //     { date: "Fri, 15 Aug", status: "NOT AVL", color: "text-red-500" },
+    //     { date: "Sun, 17 Aug", status: "WL7", sub: "Travel Guarantee", color: "text-green-600" },
+    //     { date: "Mon, 18 Aug", status: "REGRET", color: "text-red-500" },
+    //     { date: "Tue, 19 Aug", status: "REGRET", color: "text-red-500" },
+    //     { date: "Thu, 21 Aug", status: "REGRET", color: "text-red-500" },
+    //     { date: "Sun, 17 Aug", status: "WL7", sub: "Travel Guarantee", color: "text-green-600" },
+    //     { date: "Mon, 18 Aug", status: "REGRET", color: "text-red-500" },
+    //     { date: "Tue, 19 Aug", status: "REGRET", color: "text-red-500" },
+    //     { date: "Thu, 21 Aug", status: "REGRET", color: "text-red-500" },
+    // ];
 
     if (!train) return null;
     return (
@@ -177,12 +209,16 @@ const SearchTrainCard = ({ train }) => {
             <div className="flex gap-3 overflow-x-auto pb-3">
                 {train.class_type.map((c, i) => (
                     <div
+                        onClick={() => {
+                            setSelectedClass(c);
+                            setShowAvailability(true);
+                        }}
                         key={i}
                         className="min-w-[160px] border rounded-lg p-2 text-start shadow-sm bg-gray-50"
                     >
                         <div className="flex justify-between items-center mb-2">
                             <div>{c}</div>
-                            <div>₹ 444</div>
+                            <div>₹ 75</div>
                         </div>
                         <p className="text-green-800 ">AVL 70</p>
                         <p className="text-green-700 text-sm ">Avaible</p>
@@ -193,21 +229,21 @@ const SearchTrainCard = ({ train }) => {
             {/* Date Availability */}
             {showAvailability && (
                 <div className="mt-4 border-t pt-4">
-                    <div className="flex gap-3 overflow-x-auto pb-3">
-                        {dateAvailability.map((d, i) => (
+                    <div className="flex gap-6 overflow-x-auto pb-3">
+                        {availability.availabilityClassList[0]?.availabilities.map((d, i) => (
                             <div
                                 key={i}
-                                className="min-w-[120px] bg-gray-50 border rounded-lg p-3 text-center shadow-sm"
+                                className="min-w-[140px] bg-gray-50 border rounded-lg p-3 text-center shadow-sm"
                             >
                                 {d.tag && (
                                     <span className="bg-green-600 text-white px-2 py-0.5 text-xs rounded-full">
                                         {d.tag}
                                     </span>
                                 )}
-                                <p className="font-medium">{d.date}</p>
-                                <p className={`${d.color} font-semibold`}>{d.status}</p>
-                                {d.sub && (
-                                    <p className="text-green-500 text-xs">{d.sub}</p>
+                                <p className="font-medium">{dateFormatter(d.date)}</p>
+                                <p className={` font-semibold`}>{d.status}</p>
+                                {d.confirmedAvailability && (
+                                    <p className="text-green-700 text-xs">Available</p>
                                 )}
                                 <button className="bg-orange-500 text-white w-full mt-2 py-1 rounded hover:bg-orange-600">
                                     BOOK

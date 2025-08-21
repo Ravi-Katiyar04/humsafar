@@ -14,28 +14,28 @@ export default function SearchPage({ params }) {
   const { dstn: dstn } = use(params);
   const { date: date } = use(params);
 
-  const [results, setResults] = useState( []);
+  const [results, setResults] = useState(data.data || []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
 
-  useEffect(() => {
-    setResults([]);
-    setLoading(true);
-    setError(null);
-    const fetchTrains = async () => {
-      try {
-        const response = await axios.get(`/api/trainBetweenStations?src=${src}&dstn=${dstn}&date=${date}`);
-        setResults(response.data);
-      } catch (err) {
-        setError("Failed to fetch trains. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   setResults([]);
+  //   setLoading(true);
+  //   setError(null);
+  //   const fetchTrains = async () => {
+  //     try {
+  //       const response = await axios.get(`/api/trainBetweenStations?src=${src}&dstn=${dstn}&date=${date}`);
+  //       setResults(response.data);
+  //     } catch (err) {
+  //       setError("Failed to fetch trains. Please try again later.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchTrains();
-  }, [])
+  //   fetchTrains();
+  // }, [])
 
 
 
