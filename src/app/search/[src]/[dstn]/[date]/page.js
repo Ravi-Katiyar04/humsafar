@@ -7,6 +7,7 @@ import SortFilterBar from "@/components/SortFilterBar";
 import SearchTrainCard from "@/components/SearchTrainCard";
 import axios from "axios";
 
+
 export default function SearchPage({ params }) {
   const { src: src } = use(params);
   const { dstn: dstn } = use(params);
@@ -44,19 +45,14 @@ export default function SearchPage({ params }) {
         <div className="max-w-6xl  flex flex-col gap-4 mx-auto py-6 sm:px-6 lg:px-8">
           <TrainFilters />
           <SortFilterBar />
-          {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {loading ? (
-                    <div className="col-span-3 text-center text-gray-500">Loading...</div>
-                ) : error ? (
-                    <div className="col-span-3 text-center text-red-500">{error}</div>
-                ) : results.length > 0 ? (
-                    results.map((train) => (
-                    <SearchTrainCard key={train._id} train={train} />
-                    ))
-                ) : (
-                    <div className="col-span-3 text-center text-gray-500">No trains found.</div>
-                )}
-            </div> */}
+          {loading && <div className="text-center text-gray-500">Loading...</div>}
+          {error && <div className="text-center text-red-500">{error}</div>}
+          {results.length === 0 && !loading && !error && (
+            <div className="text-center text-gray-500">No trains found for the selected route and date.</div>
+          )}
+          {results.length > 0 && results.map((train, index) => (
+            <SearchTrainCard key={index} train={train} />
+          ))}
           <SearchTrainCard />
         </div>
       </main>

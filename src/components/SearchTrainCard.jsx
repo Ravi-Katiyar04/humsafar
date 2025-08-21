@@ -1,23 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, use } from "react";
 
-const SearchTrainCard = () => {
+function formatDuration(timeStr) {
+    const [hours, minutes] = timeStr.split(":").map(Number);
+
+    let result = "";
+    if (hours > 0) result += `${hours}hr `;
+    if (minutes > 0) result += `${minutes}min`;
+
+    return result.trim();
+}
+
+const SearchTrainCard = ({ train }) => {
+    const dateStr = train?.train_date || "15-08-2023"; // Default date if not provided
+
     const [showAvailability, setShowAvailability] = useState(false);
 
-    const coachData = [
-        { type: "SL", price: "₹180", status: "NOT AVL" },
-        { type: "SL", tag: "Tatkal", status: "NOT AVL" },
-        { type: "3E", tag: "Tatkal", status: "NOT AVL" },
-        { type: "3A", tag: "Tatkal", status: "NOT AVL" },
-        { type: "2A", tag: "Tatkal", status: "NOT AVL" },
-        { type: "1A", tag: "Tatkal", status: "NOT AVL" },
-        { type: "3E", price: "₹560", status: "Regret" },
-        { type: "SL", tag: "Tatkal", status: "NOT AVL" },
-        { type: "3E", tag: "Tatkal", status: "NOT AVL" },
-        { type: "3A", tag: "Tatkal", status: "NOT AVL" },
-        { type: "2A", tag: "Tatkal", status: "NOT AVL" },
-        { type: "1A", tag: "Tatkal", status: "NOT AVL" },
-        { type: "3E", price: "₹560", status: "Regret" },
-    ];
+    const [formattedDate, setFormattedDate] = useState("");
+    const [formattedArrivalDate, setFormattedArrivalDate] = useState("");
+
+    useEffect(() => {
+        const [day, month, year] = dateStr.split("-").map(Number);
+        const date = new Date(year, month - 1, day);
+        setFormattedDate(date.toLocaleDateString("en-GB", {
+            weekday: "short",
+            day: "2-digit",
+            month: "short",
+        }));
+    }, [dateStr]);
+
+    useEffect(() => {
+        if (train) {
+            const [day, month, year] = dateStr.split("-").map(Number);
+            const [hours, minutes] = train.from_std.split(":").map(Number);
+             const [durHours, durMinutes] = train.duration.split(":").map(Number);
+             const departure = new Date(year, month - 1, day, hours, minutes);
+             departure.setHours(departure.getHours() + durHours);
+             departure.setMinutes(departure.getMinutes() + durMinutes);
+            setFormattedArrivalDate(departure.toLocaleDateString("en-GB", {
+                weekday: "short",
+                day: "2-digit",
+                month: "short",
+            }));
+        }
+    }, [train]);
 
     const dateAvailability = [
         { date: "Fri, 15 Aug", tag: "Tatkal", status: "NOT AVL", color: "text-red-500" },
@@ -32,34 +57,35 @@ const SearchTrainCard = () => {
         { date: "Thu, 21 Aug", status: "REGRET", color: "text-red-500" },
     ];
 
+    if (!train) return null;
     return (
         <div className="bg-white rounded-xl shadow-md p-4 w-full mx-auto">
             {/* Train Header */}
             <div className="flex justify-between items-center my-4 border-b pb-4">
                 <div>
                     <h2 className="text-orange-500 font-semibold text-lg">
-                        12369 KUMBHA EXPRESS
+                        {train.train_number}  {train.train_name}
                     </h2>
                     <p className="text-gray-600 text-sm">
-                        Runs on: <span className="font-medium">S M T W T F S</span>{" "}
-                        <span className="text-orange-500 ml-1">(12369 Running Status)</span>
+                        Runs on: {train.run_days.join(", ")}
+                        <span className="text-orange-500 ml-1">({train.train_number} Running Status)</span>
                     </p>
                 </div>
 
                 <div className="flex justify-between items-center">
                     <div>
-                        <p className="text-sm font-semibold">SLN</p>
-                        <p className="text-lg font-bold">04:20</p>
-                        <p className="text-gray-500 text-sm">Fri, 15 Aug</p>
+                        <p className="text-sm font-semibold">{train.from}</p>
+                        <p className="text-lg font-bold">{train.from_std}</p>
+                        <p className="text-gray-500 text-sm">{formattedDate}</p>
                     </div>
                     <div className="flex flex-col items-center mx-2">
-                        <span className="text-gray-500 text-sm">3hr</span>
+                        <span className="text-gray-500 text-sm">{formatDuration(train.duration)}</span>
                         <div className="w-24 border-t-2 border-gray-300 my-1"></div>
                     </div>
                     <div>
-                        <p className="text-sm font-semibold">LKO</p>
-                        <p className="text-lg font-bold">07:20</p>
-                        <p className="text-gray-500 text-sm">Fri, 15 Aug</p>
+                        <p className="text-sm font-semibold">{train.to}</p>
+                        <p className="text-lg font-bold">{train.to_sta}</p>
+                        <p className="text-gray-500 text-sm">{formattedArrivalDate}</p>
                     </div>
                 </div>
 
@@ -72,39 +98,20 @@ const SearchTrainCard = () => {
                 </button>
             </div>
 
-            {/* Route Info */}
-            {/* <div className="flex justify-between items-center my-4 border-b pb-4">
-                <div>
-                    <p className="text-lg font-semibold">SLN</p>
-                    <p className="text-xl font-bold">04:20</p>
-                    <p className="text-gray-500 text-sm">Fri, 15 Aug</p>
-                </div>
-                <div className="flex flex-col items-center">
-                    <span className="text-gray-500 text-sm">3hr</span>
-                    <div className="w-24 border-t-2 border-gray-300 my-1"></div>
-                </div>
-                <div>
-                    <p className="text-lg font-semibold">LKO</p>
-                    <p className="text-xl font-bold">07:20</p>
-                    <p className="text-gray-500 text-sm">Fri, 15 Aug</p>
-                </div>
-            </div> */}
 
             {/* Coach Availability */}
             <div className="flex gap-3 overflow-x-auto pb-3">
-                {coachData.map((c, i) => (
+                {train.class_type.map((c, i) => (
                     <div
                         key={i}
-                        className="min-w-[100px] border rounded-lg p-3 text-center shadow-sm bg-gray-50"
+                        className="min-w-[160px] border rounded-lg p-2 text-start shadow-sm bg-gray-50"
                     >
-                        {c.tag && (
-                            <span className="bg-green-600 text-white px-2 py-0.5 text-xs rounded-full">
-                                {c.tag}
-                            </span>
-                        )}
-                        <p className="font-medium mt-1">{c.type}</p>
-                        {c.price && <p className="text-gray-600">{c.price}</p>}
-                        <p className="text-gray-400 text-sm">{c.status}</p>
+                        <div className="flex justify-between items-center mb-2">
+                            <div>{c}</div>
+                            <div>₹ 444</div>
+                        </div>
+                        <p className="text-green-800 ">AVL 70</p>
+                        <p className="text-green-700 text-sm ">Avaible</p>
                     </div>
                 ))}
             </div>
