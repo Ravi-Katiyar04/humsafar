@@ -1,23 +1,60 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getStations } from '@/data.js';
+import axios from 'axios';
 
 export default function Booking(prop) {
   const router = useRouter();
-  // const date = new Date();
-  // const formattedDate = date.toISOString().split('-').reverse().join('-'); // Format date as DD-MM-YYYY
+
+  const [query, setQuery] = useState('');
+  const [stations, setStations] = useState(getStations().data);
   const [source, setSource] = useState('');
+  const [sourceStationCode, setStationSourceCode] = useState('');
+  const [destinationStationCode, setDestinationStationCode] = useState('');
   const [destination, setDestination] = useState('');
   const [journeyDate, setJourneyDate] = useState('');
+  const [activeInput, setActiveInput] = useState(null);
+
+
+  const handleSelect = (station) => {
+    if (activeInput === "source") {
+      setSource(`${station.name} (${station.code})`);
+      setStationSourceCode(station.code);
+    } else if (activeInput === "destination") {
+      setDestination(`${station.name} (${station.code})`);
+      setDestinationStationCode(station.code);
+    }
+    setActiveInput(null); // close dropdown
+  };
 
 
   const handleSearch = () => {
     if (!source || !destination || !journeyDate)
       return alert('Please enter source, destination, and date.');
-    router.push(`/search/${source}&d/${destination}&/${journeyDate}`);
+    router.push(`/search/${sourceStationCode}&d/${destinationStationCode}&/${journeyDate}`);
   };
 
-    const handleExchange=() => {
+  useEffect(() => {
+    const fetchTrainStatus = async () => {
+      if (!query) return;
+      setStations(null);
+
+      try {
+        const res = await axios.get(
+          `/api/searchStation?query=${query}`
+        );
+        setStations(res.data.data);
+      } catch (err) {
+        setError(err.message);
+      }
+      setLoading(false);
+    };
+
+    fetchTrainStatus();
+  }, [query])
+
+  const handleExchange = () => {
     const temp = source;
     setSource(destination);
     setDestination(temp);
@@ -41,7 +78,7 @@ export default function Booking(prop) {
         <h1 className="text-3xl font-semibold mb-8  text-white">{prop.title}</h1>
 
         <div className="bg-white rounded-lg p-4 shadow max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="flex-1 text-left">
+          <div className="flex-1 text-left relative">
             <label className="text-xs text-black font-semibold mb-1" htmlFor="source">From</label>
             <input
               id="source"
@@ -49,19 +86,35 @@ export default function Booking(prop) {
               placeholder='Enter Source Station'
               className="w-full border-b cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
               value={source}
-              onChange={(e) => setSource(e.target.value)}
+              onChange={(e) => setQuery(e.target.value)}
+              onClick={() => setActiveInput("source")}
               required
             />
+            {activeInput === "source" && (
+            <div className="absolute z-10 bg-white border border-gray-300 w-full max-h-48 overflow-y-auto shadow-2xl rounded-md">
+              {stations.map((station) => (
+                <div
+                  key={station.code}
+                  className="px-3 py-2 hover:bg-blue-100 text-sm cursor-pointer"
+                  onClick={() => handleSelect(station)}
+                >
+                  {station.name} ({station.code})
+                </div>
+              ))}
+            </div>
+          )}
           </div>
 
-          <div 
-          onClick={handleExchange}
-          className='hidden md:block cursor-pointer'
+          
+
+          <div
+            onClick={handleExchange}
+            className='hidden md:block cursor-pointer'
           >
             <i className="fas fa-exchange-alt text-gray-600 text-lg"></i>
           </div>
 
-          <div className="flex-1 px-4 text-left my-4">
+          <div className="flex-1 px-4 text-left my-4 relative">
             <label className="text-xs text-black font-semibold mb-1" htmlFor="destination">To</label>
             <input
               id="destination"
@@ -69,10 +122,27 @@ export default function Booking(prop) {
               placeholder='Enter Destination Station'
               className="w-full border-b cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
               value={destination}
-              onChange={(e) => setDestination(e.target.value)}
+              onChange={(e) => setQuery(e.target.value)}
+              onClick={() => setActiveInput("destination")}
               required
             />
+
+            {activeInput === "destination" && (
+            <div className="absolute z-10 bg-white border border-gray-300 w-full max-h-48 overflow-y-auto shadow-lg rounded-md">
+              {stations.map((station) => (
+                <div
+                  key={station.code}
+                  className="px-3 py-2 hover:bg-blue-100 text-sm cursor-pointer"
+                  onClick={() => handleSelect(station)}
+                >
+                  {station.name} ({station.code})
+                </div>
+              ))}
+            </div>
+          )}
           </div>
+
+          
 
           <div className="flex-1 px-4 py-4 text-left">
             <label className="text-xs text-black font-semibold mb-1" htmlFor="journeyDate">Departure Date</label>

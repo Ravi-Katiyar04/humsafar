@@ -5,8 +5,8 @@ import Booking from "@/components/Booking";
 import TrainFilters from "@/components/TrainFilters";
 import SortFilterBar from "@/components/SortFilterBar";
 import SearchTrainCard from "@/components/SearchTrainCard";
+import {getTrainData} from "@/data.js"; // Assuming this is a function that fetches train data
 import axios from "axios";
-
 
 
 export default function SearchPage({ params }) {
@@ -14,7 +14,7 @@ export default function SearchPage({ params }) {
   const { dstn: dstn } = use(params);
   const { date: date } = use(params);
 
-  const [results, setResults] = useState(data.data || []);
+  const [results, setResults] = useState(getTrainData()?.data || []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

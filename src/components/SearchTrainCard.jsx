@@ -1,4 +1,5 @@
 import React, { useState, useEffect, use } from "react";
+import {getSeatAvailability} from "@/data.js";
 
 function formatDuration(timeStr) {
     const [hours, minutes] = timeStr.split(":").map(Number);
@@ -10,80 +11,10 @@ function formatDuration(timeStr) {
     return result.trim();
 }
 
-const data ={
-    "status": true,
-    "message": "Success",
-    "timestamp": 1755760292656,
-    "data": {
-        "trainCode": "12420",
-        "availabilityClassList": [
-            {
-                "reservationClass": "2S",
-                "charges": {
-                    "totalCollectibleAmount": 92.7,
-                    "baseFare": 45,
-                    "superfastCharge": 15,
-                    "fuelAmount": 0,
-                    "totalConcession": 0,
-                    "tatkalFare": 0,
-                    "serviceTax": 0,
-                    "otherCharge": 0,
-                    "cateringCharge": 0,
-                    "reservationCharge": 15,
-                    "totalFare": 75,
-                    "travelInsuranceCharge": 0,
-                    "travelInsuranceServiceTax": 0,
-                    "wpServiceCharge": 15,
-                    "wpServiceTax": 2.7,
-                    "dynamicFare": 0
-                },
-                "availabilities": [
-                    {
-                        "date": "2025-09-09",
-                        "status": "AVAILABLE-180",
-                        "type": "CNF",
-                        "confirmedAvailability": true
-                    },
-                    {
-                        "date": "2025-09-10",
-                        "status": "AVAILABLE-177",
-                        "type": "CNF",
-                        "confirmedAvailability": true
-                    },
-                    {
-                        "date": "2025-09-11",
-                        "status": "AVAILABLE-177",
-                        "type": "CNF",
-                        "confirmedAvailability": true
-                    },
-                    {
-                        "date": "2025-09-12",
-                        "status": "AVAILABLE-173",
-                        "type": "CNF",
-                        "confirmedAvailability": true
-                    },
-                    {
-                        "date": "2025-09-13",
-                        "status": "AVAILABLE-164",
-                        "type": "CNF",
-                        "confirmedAvailability": true
-                    },
-                    {
-                        "date": "2025-09-14",
-                        "status": "AVAILABLE-178",
-                        "type": "CNF",
-                        "confirmedAvailability": true
-                    }
-                ]
-            }
-        ]
-    }
-}
-
 const SearchTrainCard = ({ train }) => {
     const dateStr = train?.train_date || "01-01-2025"; // Default date if not provided
 
-    const [availability, setAvailability] = useState(data.data);
+    const [availability, setAvailability] = useState(getSeatAvailability()?.data);
 
     const [selectedClass, setSelectedClass] = useState(train?.class_type[0]);
     const [quota, setQuota] = useState("GN");
@@ -150,18 +81,6 @@ const SearchTrainCard = ({ train }) => {
         }
     }, [train]);
 
-    // const dateAvailability = [
-    //     { date: "Fri, 15 Aug", tag: "Tatkal", status: "NOT AVL", color: "text-red-500" },
-    //     { date: "Fri, 15 Aug", status: "NOT AVL", color: "text-red-500" },
-    //     { date: "Sun, 17 Aug", status: "WL7", sub: "Travel Guarantee", color: "text-green-600" },
-    //     { date: "Mon, 18 Aug", status: "REGRET", color: "text-red-500" },
-    //     { date: "Tue, 19 Aug", status: "REGRET", color: "text-red-500" },
-    //     { date: "Thu, 21 Aug", status: "REGRET", color: "text-red-500" },
-    //     { date: "Sun, 17 Aug", status: "WL7", sub: "Travel Guarantee", color: "text-green-600" },
-    //     { date: "Mon, 18 Aug", status: "REGRET", color: "text-red-500" },
-    //     { date: "Tue, 19 Aug", status: "REGRET", color: "text-red-500" },
-    //     { date: "Thu, 21 Aug", status: "REGRET", color: "text-red-500" },
-    // ];
 
     if (!train) return null;
     return (
