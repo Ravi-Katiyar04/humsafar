@@ -1,5 +1,5 @@
 import React, { useState, useEffect, use } from "react";
-import {getSeatAvailability} from "@/data.js";
+import { getSeatAvailability } from "@/data.js";
 
 function formatDuration(timeStr) {
     const [hours, minutes] = timeStr.split(":").map(Number);
@@ -19,7 +19,7 @@ const SearchTrainCard = ({ train }) => {
     const [selectedClass, setSelectedClass] = useState(train?.class_type[0]);
     const [quota, setQuota] = useState("GN");
     const [trainNo, setTrainNo] = useState(train?.train_number || "");
-    
+
     const [selectedDate, setSelectedDate] = useState(dateStr);
 
     const [showAvailability, setShowAvailability] = useState(false);
@@ -69,10 +69,10 @@ const SearchTrainCard = ({ train }) => {
         if (train) {
             const [day, month, year] = dateStr.split("-").map(Number);
             const [hours, minutes] = train.from_std.split(":").map(Number);
-             const [durHours, durMinutes] = train.duration.split(":").map(Number);
-             const departure = new Date(year, month - 1, day, hours, minutes);
-             departure.setHours(departure.getHours() + durHours);
-             departure.setMinutes(departure.getMinutes() + durMinutes);
+            const [durHours, durMinutes] = train.duration.split(":").map(Number);
+            const departure = new Date(year, month - 1, day, hours, minutes);
+            departure.setHours(departure.getHours() + durHours);
+            departure.setMinutes(departure.getMinutes() + durMinutes);
             setFormattedArrivalDate(departure.toLocaleDateString("en-GB", {
                 weekday: "short",
                 day: "2-digit",
