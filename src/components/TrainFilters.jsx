@@ -1,16 +1,36 @@
 import React, { useState } from "react";
 
-export default function TrainFilters() {
+export default function TrainFilters({ setFilters, filters }) {
     const [showMore, setShowMore] = useState(false);
 
     const classOptions = ["SL", "3A", "2A", "1A", "3E", "2S", "CC"];
     const quotaOptions = ["General", "Tatkal", "Lower Berth", "Ladies"];
     const timeRanges = [
-        { label: "Early Morning", range: "00:00 - 06:00" },
-        { label: "Morning", range: "06:00 - 12:00" },
-        { label: "Mid Day", range: "12:00 - 18:00" },
-        { label: "Night", range: "18:00 - 24:00" },
+        { label: "Early Morning", range: "00:00 - 06:00", rangekey: [0, 6] },
+        { label: "Morning", range: "06:00 - 12:00", rangekey: [6, 12] },
+        { label: "Mid Day", range: "12:00 - 18:00", rangekey: [12, 18] },
+        { label: "Night", range: "18:00 - 24:00", rangekey: [18, 24] },
     ];
+
+    const handleClassChange = (cls) => {
+        setFilters(prev => {
+            const alreadySelected = prev.classes.includes(cls);
+            return {
+                ...prev,
+                classes: alreadySelected
+                    ? prev.classes.filter(c => c !== cls)
+                    : [...prev.classes, cls]
+            };
+        });
+    };
+
+    const handleQuotaChange = (quota) => {
+        setFilters(prev => ({ ...prev, quota }));
+    };
+
+    const handleTimeRangeChange = (range) => {
+        setFilters(prev => ({ ...prev, timeRange: range }));
+    };
 
     return (
         <div className="bg-white rounded-lg shadow-md p-4 w-full mx-auto">
@@ -29,10 +49,16 @@ export default function TrainFilters() {
                     <div className="grid grid-cols-2 gap-2">
                         {classOptions.map((c) => (
                             <label key={c} className="flex items-center space-x-2">
-                                <input type="checkbox" />
+                                <input
+                                    type="checkbox"
+                                    checked={filters.classes.includes(c)}
+                                    onChange={() => handleClassChange(c)}
+                                />
+
                                 <span>{c}</span>
                             </label>
                         ))}
+
                     </div>
                 </div>
 
@@ -43,7 +69,11 @@ export default function TrainFilters() {
                     </h3>
                     <div className="grid grid-cols-2 gap-2">
                         {quotaOptions.map((q, i) => (
-                            <label key={i} className="flex items-center space-x-2">
+                            <label
+                                key={i}
+                                className="flex items-center space-x-2"
+                                onClick={() => handleQuotaChange(q)}
+                            >
                                 <input type="radio" name="quota" defaultChecked={i === 0} />
                                 <span>{q}</span>
                             </label>
@@ -70,10 +100,12 @@ export default function TrainFilters() {
                         {timeRanges.map((t, i) => (
                             <button
                                 key={i}
-                                className="border rounded-lg py-1 px-2 text-sm hover:bg-blue-50"
+                                className={`border rounded-lg py-1 cursor-pointer px-2 text-sm ${filters.timeRange === t.range ? 'bg-blue-700 border-blue-700 text-white' : ''}`}
+                                onClick={() => handleTimeRangeChange(t.range)}
+
                             >
                                 <div className="font-medium">{t.range}</div>
-                                <div className="text-xs text-gray-500">{t.label}</div>
+                                <div className="text-xs">{t.label}</div>
                             </button>
                         ))}
                     </div>
@@ -93,11 +125,12 @@ export default function TrainFilters() {
                             <h3 className="font-medium mb-2">
                                 <i className="fas fa-train-arrival mr-2 text-gray-600"></i> Arrival at
                             </h3>
-                            <div className="grid grid-cols-4 gap-2 mb-3">
+                            <div className="grid grid-cols-2 gap-2 mb-3">
                                 {timeRanges.map((t, i) => (
                                     <button
                                         key={i}
                                         className="border rounded-lg py-1 px-2 text-sm hover:bg-blue-50"
+                                        onClick={() => handleTimeRangeChange(t.range)}
                                     >
                                         <div className="font-medium">{t.range}</div>
                                         <div className="text-xs text-gray-500">{t.label}</div>

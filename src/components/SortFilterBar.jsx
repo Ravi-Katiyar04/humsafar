@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-export default function SortFilterBar({onSortChange}) {
-  const [activeSort, setActiveSort] = useState("departure");
+export default function SortFilterBar({ activeSort, setActiveSort}) {
   const [onlyConfirmed, setOnlyConfirmed] = useState(false);
 
   const sortOptions = [
@@ -20,10 +19,7 @@ export default function SortFilterBar({onSortChange}) {
           {sortOptions.map((opt) => (
             <button
               key={opt.key}
-              onClick={() => {
-                setActiveSort(opt.key);
-                onSortChange(activeSort);
-              }}
+              onClick={() => setActiveSort(opt.key)}
               className={`cursor-pointer ${
                 activeSort === opt.key
                   ? "text-blue-600"

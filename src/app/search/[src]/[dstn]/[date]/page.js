@@ -15,60 +15,56 @@ export default function SearchPage({ params }) {
   const { date: date } = use(params);
 
   const [results, setResults] = useState(getTrainData()?.data || []);
-  const [sortedResults, setSortedResults] = useState(getTrainData()?.data || []);
+  const [filterResult, setFilterResult] = useState(getTrainData()?.data || [])
+  const [sortedResults, setSortedResults] = useState(filterResult || []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const [activeSort, setActiveSort] = useState("departure");
+  const [filters, setFilters] = useState({
+    classes: [],
+    quota: "",
+    timeRange: ""
+  });
 
+  const toMinutes = (timeStr) => {
+    if (!timeStr || typeof timeStr !== "string") return Number.POSITIVE_INFINITY; // missing times go to bottom
+    const [h = 0, m = 0] = timeStr.split(":").map(Number);
+    return h * 60 + m;
+  };
 
-  const handleSortChange = (sortKey) => {
-    console.log("Sorting by:", sortKey);
-    const keyMapping = {
-      departure: "from_std",
-      arrival: "to_sta",
-      duration: "duration",
-      name: "train_name",
-    };
+  const toDurationMinutes = (durationStr) => {
+    if (!durationStr || typeof durationStr !== "string") return Number.POSITIVE_INFINITY;
+    const parts = durationStr.split(":").map(Number);
+    // support "H:MM" or "HH:MM" (and gracefully handle "D:HH:MM" if it ever appears)
+    if (parts.length === 3) {
+      const [d = 0, h = 0, m = 0] = parts;
+      return d * 24 * 60 + h * 60 + m;
+    }
+    const [h = 0, m = 0] = parts;
+    return h * 60 + m;
+  };
 
-    const parseTime = (timeStr) => {
-      if (!timeStr) return 0;
-      const [h, m] = timeStr.split(":").map(Number);
-      return h * 60 + m;
-    };
-
-    const parseDuration = (durationStr) => {
-      if (!durationStr) return 0;
-      const [h, m] = durationStr.split(":").map(Number);
-      return h * 60 + m;
-    };
-
-    const getValue = (train, key) => {
-      switch (key) {
+  // Sorting effect
+  useEffect(() => {
+    const sorted = [...filterResult].sort((a, b) => {
+      switch (activeSort) {
         case "departure":
-          return parseTime(train.from_std);
+          return toMinutes(a.from_std) - toMinutes(b.from_std);
         case "arrival":
-          return parseTime(train.to_sta);
+          return toMinutes(a.to_sta) - toMinutes(b.to_sta);
         case "duration":
-          return parseDuration(train.duration);
+          return toDurationMinutes(a.duration) - toDurationMinutes(b.duration);
         case "name":
-          return train.train_name.toLowerCase();
+          return (a.train_name || "").localeCompare(b.train_name || "");
         default:
-          return train[keyMapping[key]] || "";
+          return 0;
       }
-    };
-
-    const sorted = [...results].sort((a, b) => {
-      const valA = getValue(a, sortKey);
-      const valB = getValue(b, sortKey);
-
-      if (valA < valB) return -1;
-      if (valA > valB) return 1;
-      return 0;
     });
 
-    setSortedResults(sorted); // ⬅️ save in separate state
-  };
+    setSortedResults(sorted);
+  }, [filterResult, activeSort]);
+
 
 
 
@@ -90,23 +86,54 @@ export default function SearchPage({ params }) {
   //   fetchTrains();
   // }, [])
 
-  // const handleFilterChange = (filters) => {
-  //   setLoading(true);
-  //   setError(null);
-  //   const fetchFilteredTrains = async () => {
-  //     try {
-  //       const response = await axios.get(`/api/trainBetweenStations?src=${src}&dstn=${dstn}&date=${date}&filters=${JSON.stringify(filters)}`);
-  //       setResults(response.data);
-  //     } catch (err) {
-  //       setError("Failed to fetch trains. Please try again later.");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    let filtered = [...results];
 
-  //   fetchFilteredTrains();
-  // };
+    if (filters.classes.length > 0) {
+      filtered = filtered.filter(train =>
+        train.class_type?.some(cls => filters.classes.includes(cls))
+      );
+    }
 
+    if (filters.quota) {
+      filtered = filtered.filter(train =>
+        train.quota?.some(q => q.code === filters.quota)
+      );
+    }
+
+    if (filters.timeRange) {
+
+      const [startStr, endStr] = filters.timeRange.split(" - ");
+      const [startHour, startMinute] = startStr.split(":").map(Number);
+      const [endHour, endMinute] = endStr.split(":").map(Number);
+
+      const startTotalMinutes = startHour * 60 + startMinute;
+      const endTotalMinutes = endHour * 60 + endMinute;
+
+
+
+      filtered = filtered.filter(train => {
+        const [depHour, depMinute] = train.from_std.split(":").map(Number);
+        const depTotalMinutes = depHour * 60 + depMinute;
+
+        // 🔑 Check for overnight range (end < start)
+        if (endTotalMinutes < startTotalMinutes) {
+          // e.g. 18:00 - 06:00
+          return (
+            depTotalMinutes >= startTotalMinutes || depTotalMinutes <= endTotalMinutes
+          );
+        }
+
+        // Normal case
+        return (
+          depTotalMinutes >= startTotalMinutes && depTotalMinutes <= endTotalMinutes
+        );
+      });
+    }
+
+
+    setFilterResult(filtered);
+  }, [filters, results]);
 
 
   return (
@@ -114,9 +141,9 @@ export default function SearchPage({ params }) {
       <Booking title={""} btntext={"Search"} />
       <main>
         <div className="max-w-6xl  flex flex-col gap-4 mx-auto py-6 sm:px-6 lg:px-8">
-          <TrainFilters />
-          
-          <SortFilterBar onSortChange={handleSortChange} />
+          <TrainFilters filters={filters} setFilters={setFilters} />
+
+          <SortFilterBar activeSort={activeSort} setActiveSort={setActiveSort} />
           {loading && <div className="text-center text-gray-500">Loading...</div>}
           {error && <div className="text-center text-red-500">{error}</div>}
           {sortedResults.length === 0 && !loading && !error && (
