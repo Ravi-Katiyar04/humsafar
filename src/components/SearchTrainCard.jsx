@@ -164,7 +164,12 @@ const SearchTrainCard = ({ train }) => {
                                 {d.confirmedAvailability && (
                                     <p className="text-green-700 text-xs">Available</p>
                                 )}
-                                <button className="bg-orange-500 text-white w-full mt-2 py-1 rounded hover:bg-orange-600">
+                                <button 
+                                className="bg-orange-500 text-white w-full mt-2 py-1 rounded hover:bg-orange-600"
+                                onClick={() => {
+                                    
+                                }}
+                                >
                                     BOOK
                                 </button>
                             </div>

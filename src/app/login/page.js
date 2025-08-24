@@ -22,7 +22,6 @@ export default function LoginPage() {
         setError(data.error);
       } else {
         toast.success('Login successful!');
-        localStorage.setItem('isLoggedIn', 'true');
         window.location.href = '/';
       }
     } catch (error) {
