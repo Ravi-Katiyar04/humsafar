@@ -4,10 +4,15 @@ import SearchBar from '@/components/SearchBar';
 import FAQSection from '@/components/FAQSection';
 import RailwayInfo from '@/components/RailwayInfo';
 import TopTrainRoutes from '@/components/TopTrainRoutes';
+import {runningPageFAQ} from '@/data.js';
+import { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 
 export default function RunningStatus() {
+
+  const [faqs, setFaqs] = useState(runningPageFAQ);
+
 
   const features = [
     {
@@ -219,7 +224,7 @@ export default function RunningStatus() {
             <p className='my-2'>Next time you opt for <Link href="/" className='text-blue-600 font-semibold'>train ticket booking</Link> (or <Link href="/tatkal-reservation" className='text-blue-600 font-semibold'>tatkal ticket booking</Link>), use ixigo money to save on tickets. Once you have checked the current running status of your train, you can also make a <Link href="/pnr-status-enquiry" className='text-blue-600 font-semibold'>PNR status</Link> enquiry. On ixigo, you can also <Link href="/seat-availability" className='text-blue-600 font-semibold'>check seat availability</Link>  in your train.</p>
           </section>
 
-          <FAQSection />
+          <FAQSection faqData={faqs} />
         </div>
 
         <div className='md:w-1/5 w-full flex flex-col mb-4 gap-8 min-h-screen' >

@@ -2,6 +2,7 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import Header from '@/components/Header';
+import {PNRPageFAQ} from '@/data.js';
 import RailwayInfo from '@/components/RailwayInfo';
 import TopTrainRoutes from '@/components/TopTrainRoutes';
 import FAQSection from '@/components/FAQSection';
@@ -10,6 +11,7 @@ import Link from 'next/link';
 
 export default function PNRStatus() {
     const [pnrNumber, setPnrNumber] = useState('');
+    const [faqs, setFaqs] = useState(PNRPageFAQ);
 
 
     const features = [
@@ -302,7 +304,7 @@ export default function PNRStatus() {
                         </ul>
                     </section>
 
-                    <FAQSection />
+                    <FAQSection faqData={faqs} />
                 </div>
 
                 <div className=' mb-4 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >

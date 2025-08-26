@@ -8,10 +8,14 @@ import Booking from '@/components/Booking';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from 'next/link';
 
+import {SeatAvailabilityPageFAQ} from '@/data.js';
+
 export default function SeatAvailability() {
   const [trainStatus, setTrainStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [faqs, setFaqs] = useState(SeatAvailabilityPageFAQ);
 
 
   const [source, setSource] = useState("Bengaluru (YPR)");
@@ -141,7 +145,7 @@ export default function SeatAvailability() {
 
           </section>
 
-          <FAQSection />
+          <FAQSection faqData={faqs} />
         </div>
 
         <div className='mb-4 md:w-1/5 w-full flex flex-col gap-8 min-h-screen' >

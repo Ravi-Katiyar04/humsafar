@@ -1,12 +1,17 @@
 "use client";
 import { useState } from "react";
 import Booking from "@/components/Booking";
+import FAQSection from "@/components/FAQSection";
 import Link from 'next/link';
+
+import {tatkalTicketPageFaq} from '@/data.js';
 
 export default function TatkalBooking() {
     const [source, setSource] = useState("Bengaluru (YPR)");
     const [destination, setDestination] = useState("Mysore (MYS)");
     const [journeyDate, setJourneyDate] = useState("01 Jul, Tue");
+
+    const [faqs, setFaqs] = useState(tatkalTicketPageFaq);
 
     const handleSearch = () => {
         // Your logic here
@@ -14,7 +19,7 @@ export default function TatkalBooking() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen py-6 bg-gray-100">
             {/* Header Section */}
             <Booking title={"Tatkal Railway Reservation"} btntext={"Search"}/>
 
@@ -187,41 +192,7 @@ export default function TatkalBooking() {
 
                 <hr className="my-6 md:my-16 border-t-2 border-dotted border-gray-400" />
 
-                <section className="pb-16">
-                    <h1 className="text-xl font-bold my-6 text-black">Frequently Asked Questions (FAQs)</h1>
-                    <p className="my-2 text-black font-semibold" >Q. How can I book Tatkal tickets online?</p>
-                    <p className="my-2" >You can easily book Tatkal tickets online one day before the scheduled departure of your train. Follow the steps below for ticket booking:</p>
-
-                    <ul className="list-disc ml-8 space-y-1">
-                        <li>Log in to your IRCTC account on ixigo</li>
-                        <li>Select your travel source station and destination</li>
-                        <li>Choose your date of journey</li>
-                        <li>Now select quota as ‘Tatkal’ and search for trains</li>
-                        <li>Click on ‘Book Now’ for the preferred train from the list</li>
-                        <li>Fill in the passenger’s details carefully, like Name, Age, Gender, Seat Preference, etc.</li>
-                        <li>Select your payment mode, like internet banking, payment wallet, credit or debit card and pay for the ticket</li>
-                        <li>Enter the OTP received on your Aadhaar-linked mobile number to proceed</li>
-                        <li>Print your e-ticket</li>
-                    </ul>
-
-                    <p className="mt-6 text-black font-semibold" >Q. Can we book a Tatkal ticket on the same day as the journey?</p>
-                    <p className="my-2" >Tatkal ticket booking starts one day in advance of the date of journey from the originating station of the train. First, check the <Link href="/running-status" className="text-blue-700 font-semibold">train running status</Link> feature. If you are travelling on the 3rd, Tatkal ticket booking time would be 10:00 hrs on the 2nd. However, the date of journey means the date on which the chart of the train is prepared. Therefore, if the train starts from its origin on the 3rd and reaches the station from which you are boarding on the 4th, then the IRCTC Tatkal booking will begin on the 2nd and not on the 3rd. Another thing to keep in mind is that the Tatkal reservation begins at 10:00 hrs for AC classes and 11:00 hrs for non-AC classes.</p>
-
-                    <p className="mt-6 text-black font-semibold" >Q. How do I cancel Tatkal tickets?</p>
-                    <p className="my-2" >Confirmed tickets do not get a refund upon cancellation. In case of RAC or waitlisted tickets refund is available if the same are cancelled up to 30 minutes prior to the scheduled departure. If waitlisted Tatkal tickets do not get confirmed or RAC, they automatically get cancelled, and the passenger gets a refund.</p>
-
-                    <p className="mt-6 text-black font-semibold" >Q. Can TDR be filed for Tatkal tickets?</p>
-                    <p className="my-2" >You could claim a refund by filing a Ticket Deposit Receipt (TDR) with the reason stated, in case the train for which you have booked a Tatkal ticket is either cancelled or is more than three hours late.</p>
-
-                    <p className="mt-6 text-black font-semibold" >Q. What is the cost of the Tatkal ticket?</p>
-                    <p className="my-2" >The cost of the Tatkal ticket is different for all the classes. Tatkal ticket prices are 10% of the basic fare for second class and 30% for all other classes. Passengers should note that under the Tatkal ticket scheme, passengers must pay the entire fare. Additionally, passengers having concessional tickets are not allowed to avail the Train Ticket Tatkal Booking scheme.</p>
-
-                    <p className="mt-6 text-black font-semibold" >Q. Is the senior citizen quota available for Tatkal?</p>
-                    <p className="my-2" >No. There is no Senior Citizen Quota available for Tatkal Booking in any train. Tatkal ticket booking does not provide any concession for senior citizens.</p>
-
-                    <p className="mt-6 text-black font-semibold" >Q. Can we book Tatkal tickets online?</p>
-                    <p className="my-2" >Yes. Tatkal tickets can be booked online one day in advance, excluding the date of journey from the train originating station. Tatkal tickets for all Mail, Express, Rajdhani, Duranto, Shatabdi, Jan-Shatabdi trains can be booked on ixigo or by using the ixigo trains app. Tatkal ticket reservations can be done by paying extra charges over the base fare.</p>
-                </section>
+                <FAQSection faqData={faqs} />
 
             </div>
         </div>

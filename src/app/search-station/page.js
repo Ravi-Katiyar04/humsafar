@@ -5,7 +5,12 @@ import RailwayInfo from '@/components/RailwayInfo';
 import TopTrainRoutes from '@/components/TopTrainRoutes';
 import SearchTrainByStation from '@/components/SearchTrainByStation';
 
+import {searchStationPageFaq} from '@/data.js';
+import { useState } from 'react';
+
 export default function SearchTrain() {
+
+    const [faqs, setFaqs] = useState(searchStationPageFaq);
 
     const stations = [
         { code: 'SDNR', name: 'Seydunganallur', city: 'Seydunganallur', trains: 10 },
@@ -172,7 +177,7 @@ export default function SearchTrain() {
 
                     <MoreTrainInformation />
 
-                    < FAQSection />
+                    <FAQSection faqData={faqs} />
 
                 </div>
 

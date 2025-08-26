@@ -3,7 +3,12 @@ import FAQSection from "@/components/FAQSection";
 import MoreTrainInformation from "@/components/MoreTrainInformation";
 import PlatformLocator from "@/components/PlatformLocator";
 
+import {plateformLocatorPageFaq} from '@/data.js';
+import { useState } from "react";
+
 export default function PlatformLocatorPage() {
+
+    const [faqs, setFaqs] = useState(plateformLocatorPageFaq);
 
 
     return (
@@ -49,7 +54,7 @@ export default function PlatformLocatorPage() {
             <section className="max-w-11/12 mx-auto px-4 mb-8">
                 <MoreTrainInformation/>
 
-                <FAQSection />
+                <FAQSection faqData={faqs} />
             </section>
 
         </div>
