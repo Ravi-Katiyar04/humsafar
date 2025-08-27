@@ -1,8 +1,10 @@
 import React, { useState, useEffect, use } from "react";
 import { getSeatAvailability } from "@/data.js";
+import { useRouter } from 'next/navigation';
 
 function formatDuration(timeStr) {
     const [hours, minutes] = timeStr.split(":").map(Number);
+    const router = useRouter();
 
     let result = "";
     if (hours > 0) result += `${hours}hr `;
@@ -12,6 +14,7 @@ function formatDuration(timeStr) {
 }
 
 const SearchTrainCard = ({ train }) => {
+    const router = useRouter();
     const dateStr = train?.train_date || "01-01-2025"; // Default date if not provided
 
     const [availability, setAvailability] = useState(getSeatAvailability()?.data);
@@ -83,6 +86,7 @@ const SearchTrainCard = ({ train }) => {
 
 
     if (!train) return null;
+    
     return (
         <div className="bg-white rounded-xl shadow-md p-4 w-full mx-auto">
             {/* Train Header */}
@@ -166,9 +170,7 @@ const SearchTrainCard = ({ train }) => {
                                 )}
                                 <button 
                                 className="bg-orange-500 text-white w-full mt-2 py-1 rounded hover:bg-orange-600"
-                                onClick={() => {
-                                    
-                                }}
+                                onClick={() => router.push(`/search/${train.from}/${train.to}/${d.date}/${train.train_number}/${selectedClass}/${quota}`)}
                                 >
                                     BOOK
                                 </button>
