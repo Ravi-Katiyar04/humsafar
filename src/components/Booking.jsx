@@ -32,7 +32,7 @@ export default function Booking(prop) {
   const handleSearch = () => {
     if (!source || !destination || !journeyDate)
       return alert('Please enter source, destination, and date.');
-    router.push(`/search/${sourceStationCode}&d/${destinationStationCode}&/${journeyDate}`);
+    router.push(`/search//${sourceStationCode}/${destinationStationCode}/${journeyDate}`);
   };
 
   useEffect(() => {
