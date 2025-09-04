@@ -1,15 +1,26 @@
 "use client"
 import React, { useEffect, useState } from "react";
+import AddTraveller from "@/components/AddTraveller";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function TrainBookingPage() {
     const sections = ["Train Details", "Contact Details", "Payment"];
     const [activeIndex, setActiveIndex] = useState(0);
-    const [travellers, setTravellers] = useState([{ name: "ravi", gender: "Male", age: 25, berth: "Lower" }]);
     const [mobile, setMobile] = useState("8287710866");
     const [email, setEmail] = useState("8287710866@ixigo-dummy.com");
     const [address, setAddress] = useState("SULTANPUR Uttar Pradesh, SULTANPUR, Uttar Pradesh, 228001");
     const [insurance, setInsurance] = useState(true);
+    const [addPassengerOpen, setAddPassengerOpen] = useState(true);
+
+    const [bookingData, setBookingData] = useState({
+        train: 11201,
+        class: "",
+        class: "SL",
+        quota: "",
+        passengers: [],
+        paymentStatus: "",
+        pnr: "",
+    });
 
     // Track active section based on scroll position
     useEffect(() => {
@@ -30,39 +41,26 @@ export default function TrainBookingPage() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    return (
-        <div className="min-h-screen bg-gray-100">
-            {/* Progress Bar */}
-            <div className="sticky top-0 z-50 bg-white shadow">
-                <div className="flex items-center justify-between px-6 py-4">
-                    {sections.map((step, i) => (
-                        <div
-                            key={i}
-                            className={`flex-1 flex items-center ${i < sections.length - 1 ? "after:content-[''] after:flex-1 after:h-1 after:bg-gray-200 after:mx-2" : ""
-                                }`}
-                        >
-                            <div
-                                className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${i <= activeIndex
-                                    ? "bg-blue-600 border-blue-600 text-white"
-                                    : "bg-gray-100 border-gray-300 text-gray-400"
-                                    }`}
-                            >
-                                <i
-                                    className={`fas ${i < activeIndex ? "fa-check" : "fa-circle"
-                                        } text-sm`}
-                                ></i>
-                            </div>
-                            <span
-                                className={`ml-2 font-medium ${i <= activeIndex ? "text-blue-600" : "text-gray-400"
-                                    }`}
-                            >
-                                {step}
-                            </span>
-                        </div>
-                    ))}
-                </div>
-            </div>
+    console.log("Booking Data:", bookingData.passengers);
 
+    return (
+        <div className="min-h-screen relative bg-gray-100">
+
+            {addPassengerOpen && (
+                <div className="fixed inset-0 z-[9999] flex">
+                    {/* Left Drawer */}
+                    <div className="w-80 h-full bg-white shadow-xl p-4 overflow-y-auto">
+                        <AddTraveller
+                           setAddPassengerOpen={setAddPassengerOpen}
+                            passengers={bookingData.passengers}
+                        />
+                        {/* Overlay */}
+                    
+                    </div>
+                     
+                     {/* <div className="fixed inset-0 bg-black opacity-50"></div>   */}
+                </div>
+            )}
             {/* Scrollable Sections */}
             <div className="max-w-4xl  mx-auto px-6 space-y-4">
                 {/* Train Details */}
@@ -125,25 +123,17 @@ export default function TrainBookingPage() {
                     <div className="w-full  bg-white shadow-md rounded-lg p-6">
                         <h3 className="text-2xl font-semibold mb-4">Travellers</h3>
                         <ul className="mt-2 space-y-2 border-b-2 border-gray-300 pb-2">
-                            {travellers.map((t, idx) => (
+                            {bookingData.passengers?.map((t, idx) => (
                                 <li key={idx} className="flex items-center space-x-2">
-                                    {/* <i className="fa-solid fa-user text-3xl text-gray-600 "></i> */}
-                                    {/* <span>
-                                        <div className="font-semibold text-gray-800">
-                                            {t.name}
-                                        </div>
-                                        <div className="text-xs text-gray-500">
-                                            {t.gender} • {t.age} • {t.berth}
-                                        </div>
-                                    </span> */}
+
                                     <label className="flex items-center gap-2">
                                         <input className="w-6 h-6" type="checkbox" checked={insurance} onChange={() => setInsurance(!insurance)} />
                                         <span>
                                             <div className="font-semibold text-gray-800">
-                                                {t.name}
+                                                {t.fullName}
                                             </div>
                                             <div className="text-xs text-gray-500">
-                                                {t.gender} • {t.age} • {t.berth}
+                                                {t.gender} • {t.age} • {t.berthPreference}
                                             </div>
                                         </span>
                                     </label>
@@ -151,7 +141,9 @@ export default function TrainBookingPage() {
                                 </li>
                             ))}
                         </ul>
-                        <button className="text-orange-500 mt-2 flex items-center gap-2">
+                        <button
+                            onClick={() => setAddPassengerOpen(true)}
+                         className="text-orange-500 mt-2 flex items-center gap-2 cursor-pointer">
                             <i className="fa-solid fa-plus"></i> Add New Traveller
                         </button>
                     </div>
@@ -235,6 +227,8 @@ export default function TrainBookingPage() {
                     </button>
                 </section>
             </div>
+
+
         </div>
     );
 }
