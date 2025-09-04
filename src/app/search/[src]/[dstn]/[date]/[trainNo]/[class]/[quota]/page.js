@@ -4,8 +4,6 @@ import AddTraveller from "@/components/AddTraveller";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function TrainBookingPage() {
-    const sections = ["Train Details", "Contact Details", "Payment"];
-    const [activeIndex, setActiveIndex] = useState(0);
     const [mobile, setMobile] = useState("8287710866");
     const [email, setEmail] = useState("8287710866@ixigo-dummy.com");
     const [address, setAddress] = useState("SULTANPUR Uttar Pradesh, SULTANPUR, Uttar Pradesh, 228001");
@@ -34,14 +32,16 @@ export default function TrainBookingPage() {
                     current = i;
                 }
             });
-            setActiveIndex(current);
         };
 
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    console.log("Booking Data:", bookingData.passengers);
+    const handleRemovePassenger = (index) => {
+        const updatedPassengers = bookingData.passengers.filter((_, i) => i !== index);
+        setBookingData((prev) => ({ ...prev, passengers: updatedPassengers }));
+    };
 
     return (
         <div className="min-h-screen relative bg-gray-100">
@@ -124,7 +124,7 @@ export default function TrainBookingPage() {
                         <h3 className="text-2xl font-semibold mb-4">Travellers</h3>
                         <ul className="mt-2 space-y-2 border-b-2 border-gray-300 pb-2">
                             {bookingData.passengers?.map((t, idx) => (
-                                <li key={idx} className="flex items-center space-x-2">
+                                <li key={idx} className="flex items-center justify-between space-x-2">
 
                                     <label className="flex items-center gap-2">
                                         <input className="w-6 h-6" type="checkbox" checked={insurance} onChange={() => setInsurance(!insurance)} />
@@ -137,6 +137,12 @@ export default function TrainBookingPage() {
                                             </div>
                                         </span>
                                     </label>
+
+                                    <button
+                                    onClick={() => handleRemovePassenger(idx)}
+                                    className="text-orange-500 cursor-pointer ">
+                                        <i className="fa-solid fa-trash"></i>
+                                    </button>
 
                                 </li>
                             ))}
