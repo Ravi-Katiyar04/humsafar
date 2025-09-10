@@ -1,9 +1,14 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import AddTraveller from "@/components/AddTraveller";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import Link from "next/link";
+import { useParams , useRouter} from 'next/navigation';
 
 export default function TrainBookingPage() {
+    const params = useParams();
+    const { src, dstn, date, trainNo, class: travelClass, quota } = params;
+    console.log(src, dstn, date, trainNo, travelClass, quota);
+    const router = useRouter();
     const [mobile, setMobile] = useState("8287710866");
     const [email, setEmail] = useState("8287710866@ixigo-dummy.com");
     const [address, setAddress] = useState("SULTANPUR Uttar Pradesh, SULTANPUR, Uttar Pradesh, 228001");
@@ -11,10 +16,15 @@ export default function TrainBookingPage() {
     const [addPassengerOpen, setAddPassengerOpen] = useState(true);
 
     const [bookingData, setBookingData] = useState({
-        train: 11201,
-        class: "",
-        class: "SL",
-        quota: "",
+        trainNumber: trainNo,
+        date: date,
+        src: src,
+        dstn: dstn,
+        address: address,
+        mobile: mobile,
+        email: email,
+        class: travelClass,
+        quota: quota,
         passengers: [],
         paymentStatus: "",
         pnr: "",
@@ -43,6 +53,10 @@ export default function TrainBookingPage() {
         setBookingData((prev) => ({ ...prev, passengers: updatedPassengers }));
     };
 
+    const handleBook = () => {
+        router.push(`/payment?bookingData=${encodeURIComponent(JSON.stringify(bookingData))}`);
+    };
+
     return (
         <div className="min-h-screen relative bg-gray-100">
 
@@ -51,14 +65,14 @@ export default function TrainBookingPage() {
                     {/* Left Drawer */}
                     <div className="w-80 h-full bg-white shadow-xl p-4 overflow-y-auto">
                         <AddTraveller
-                           setAddPassengerOpen={setAddPassengerOpen}
+                            setAddPassengerOpen={setAddPassengerOpen}
                             passengers={bookingData.passengers}
                         />
                         {/* Overlay */}
-                    
+
                     </div>
-                     
-                     {/* <div className="fixed inset-0 bg-black opacity-50"></div>   */}
+
+                    {/* <div className="fixed inset-0 bg-black opacity-50"></div>   */}
                 </div>
             )}
             {/* Scrollable Sections */}
@@ -98,12 +112,12 @@ export default function TrainBookingPage() {
 
                         {/* Links */}
                         <div className="flex justify-between text-sm">
-                            <a href="#" className="text-blue-600 hover:underline">
+                            <Link href="#" className="text-blue-600 hover:underline">
                                 Forgot User ID?
-                            </a>
-                            <div>Don’t have an account? <a href="#" className="text-blue-600 hover:underline">
+                            </Link>
+                            <div>Don’t have an account? <Link href="https://www.irctc.co.in/nget/profile/user-signup" className="text-blue-600 hover:underline">
                                 Register
-                            </a></div>
+                            </Link></div>
                         </div>
                     </div>
 
@@ -139,8 +153,8 @@ export default function TrainBookingPage() {
                                     </label>
 
                                     <button
-                                    onClick={() => handleRemovePassenger(idx)}
-                                    className="text-orange-500 cursor-pointer ">
+                                        onClick={() => handleRemovePassenger(idx)}
+                                        className="text-orange-500 cursor-pointer ">
                                         <i className="fa-solid fa-trash"></i>
                                     </button>
 
@@ -149,7 +163,7 @@ export default function TrainBookingPage() {
                         </ul>
                         <button
                             onClick={() => setAddPassengerOpen(true)}
-                         className="text-orange-500 mt-2 flex items-center gap-2 cursor-pointer">
+                            className="text-orange-500 mt-2 flex items-center gap-2 cursor-pointer">
                             <i className="fa-solid fa-plus"></i> Add New Traveller
                         </button>
                     </div>
@@ -228,7 +242,9 @@ export default function TrainBookingPage() {
 
                 {/* Payment */}
                 <section className="booking-section sticky bottom-0 z-50 cursor-pointer">
-                    <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
+                    <button
+                        onClick={handleBook}
+                        className="w-full cursor-pointer bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
                         Proceed To Pay
                     </button>
                 </section>

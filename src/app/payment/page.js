@@ -1,5 +1,13 @@
 "use client"
 import React, { useMemo, useState } from "react";
+import FareSummary from "@/components/FareSummary";
+import JourneyCard from "@/components/JourneyCard";
+// import RazorpayCheckout from "@/components/RazorpayCheckout";
+import { useSearchParams } from 'next/navigation';
+import SafeBadges from "@/components/SafeBadges";
+import { useRouter } from "next/navigation"
+import {toast} from 'react-toastify';
+
 
 
 const banks = [
@@ -26,6 +34,9 @@ const MethodKey = {
 };
 
 export default function PaymentPage() {
+  const searchParams = useSearchParams();
+  const bookingData = searchParams.get('bookingData') ? JSON.parse(searchParams.get('bookingData')) : null;
+  console.log("Booking Data:", bookingData);
   const [method, setMethod] = useState(MethodKey.UPI);
   const [upiId, setUpiId] = useState("");
   const [selectedBank, setSelectedBank] = useState(banks[0].id);
@@ -63,8 +74,9 @@ export default function PaymentPage() {
         {/* Right column: Payment methods */}
         <section className="w-3/5">
           <div className="overflow-hidden rounded-2xl bg-white shadow-lg">
+
             <div className="flex ">
-              {/* Methods list */}
+
               <div className="bg-gray-100 w-2/5">
                 <nav className="flex flex-col">
 
@@ -140,7 +152,7 @@ export default function PaymentPage() {
                 </nav>
               </div>
 
-              {/* Method detail panel */}
+
               <div className="p-4 md:p-6">
                 {method === MethodKey.QR && (
                   <QRBlock payAmount={payAmount} upiId={upiId} setUpiId={setUpiId} />
@@ -179,95 +191,23 @@ export default function PaymentPage() {
             </div>
           </div>
         </section>
+
       </main>
     </div>
   );
 }
 
-function FareSummary({ amount }) {
-  const [open, setOpen] = useState(true);
-  return (
-    <div className="rounded-2xl bg-white shadow-lg">
-      <button
-        onClick={() => setOpen((s) => !s)}
-        className="flex w-full items-center justify-between px-5 py-4"
-        aria-expanded={open}
-      >
-        <div className="text-2xl font-bold">Fare Summary</div>
-        <i className={`fa-solid fa-chevron-${open ? "up" : "down"} text-neutral-500`} />
-      </button>
-      <div className={`${open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} grid transition-all duration-300 ease-in-out`}> 
-        <div className="overflow-hidden">
-          <div className="border-t px-5 pb-5">
-            <div className="mt-4 flex items-center gap-2 text-green-700">
-              <i className="fa-solid fa-shield-halved" />
-              <div>
-                <div className="text-sm font-semibold">Amount To Be Paid</div>
-                <div className="text-2xl font-bold">₹{amount}</div>
-                <div className="text-xs">Protected with Assured</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-function JourneyCard() {
-  return (
-    <div className="rounded-2xl bg-white p-5 shadow-lg">
-      <div className="mb-3 flex items-center gap-2 text-neutral-700">
-        <i className="fa-solid fa-train" />
-        <span className="font-semibold">19670 Humsafar Express</span>
-        <span className="ml-auto rounded-full bg-emerald-50 px-3 py-0.5 text-xs font-semibold text-emerald-700">
-          AVAILABLE‑170
-        </span>
-      </div>
 
-      <div className="text-2xl font-bold tracking-wide">SLN 08:30 – CNB 13:45</div>
-      <div className="mt-1 text-sm text-neutral-600">Fri, 05 Sep • 3A • General</div>
 
-      <div className="mt-4 flex items-start gap-2 text-sm text-neutral-600">
-        <i className="fa-regular fa-circle-question mt-0.5" />
-        <span>Berth/coach numbers are assigned by the Indian Railways</span>
-      </div>
 
-      <div className="mt-4">
-        <div className="text-sm font-semibold">Travellers</div>
-        <div className="text-sm">1. ravi</div>
-      </div>
-
-      <div className="mt-5 flex items-center gap-2 text-sm text-neutral-700">
-        <i className="fa-solid fa-circle-check text-indigo-600" />
-        <span>Authorised IRCTC Partner</span>
-      </div>
-    </div>
-  );
-}
-
-function SafeBadges() {
-  return (
-    <div className="flex flex-col items-center">
-      <div className="text-sm font-semibold text-neutral-700">100% Safe Payment Process</div>
-      <div className="mt-4 flex flex-wrap items-center gap-4 text-neutral-500">
-        <i className="fa-brands fa-cc-visa text-2xl" title="Verified by Visa" />
-        <i className="fa-brands fa-cc-amex text-2xl" title="Amex SafeKey" />
-        <i className="fa-brands fa-cc-mastercard text-2xl" title="Mastercard SecureCode" />
-        <span className="text-xs">RuPay</span>
-        <span className="text-xs">PCI DSS</span>
-      </div>
-    </div>
-  );
-}
 
 function MethodButton({ icon, label, sub, badge, active, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`flex w-full border-r border-r-gray-400 items-start gap-3 px-4 py-3 text-left transitio ${
-        active ? "bg-white border-l-4 border-r-0 border-l-blue-600" : ""
-      }`}
+      className={`flex w-full border-r border-r-gray-400 items-start gap-3 px-4 py-3 text-left transitio ${active ? "bg-white border-l-4 border-r-0 border-l-blue-600" : ""
+        }`}
       aria-pressed={active}
     >
       <i className={`${icon} mt-1 text-lg`} />
@@ -277,8 +217,8 @@ function MethodButton({ icon, label, sub, badge, active, onClick }) {
         </div>
         {sub && <div className="text-sm text-neutral-500">{sub}</div>}
         {badge && (
-            <div className={`rounded-full w-fit px-2 py-1 mt-1 text-[10px] bg-green-600 text-white font-semibold`}>{badge}</div>
-          )}
+          <div className={`rounded-full w-fit px-2 py-1 mt-1 text-[10px] bg-green-600 text-white font-semibold`}>{badge}</div>
+        )}
       </div>
     </button>
   );
@@ -292,21 +232,191 @@ function Pill({ children }) {
   );
 }
 
-function PayButton({ label, onClick }) {
+// function PayButton({ label, onClick }) {
+//   return (
+//     <button
+//       onClick={onClick}
+//       className="w-full rounded-xl bg-blue-600 px-5 py-3 text-white shadow hover:bg-orange-600 focus:outline-none focus:ring focus:ring-orange-300"
+//     >
+//       {label}
+//     </button>
+//   );
+// }
+function PayButton({ label, onClick, payAmount }) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handlePayment = async () => {
+    setLoading(true);
+
+    // Load Razorpay script
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+    if (!res) {
+      alert("Failed to load Razorpay SDK.");
+      return;
+    }
+
+    // Create order from backend
+    const orderRes = await fetch("/api/payment/order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: payAmount }),
+    });
+    const { orderId, amount } = await orderRes.json();
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Use NEXT_PUBLIC for frontend
+      amount,
+      currency: "INR",
+      name: "Railway Booking",
+      description: "Train Ticket Payment",
+      order_id: orderId,
+      // handler: async function (response) {
+      //   const verifyRes = await fetch("/api/payment/verify", {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify(response),
+      //   });
+      //   const result = await verifyRes.json();
+      //   if (result.success) {
+      //     alert("✅ Payment Successful!");
+      //     router.push('/payment/success');
+      //   } else {
+      //     alert("❌ Payment Verification Failed!");
+      //   }
+      // },
+      handler: async function (response) {
+        const verifyRes = await fetch("/api/payment/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(response),
+        });
+        const result = await verifyRes.json();
+        if (result.success) {
+          // alert("✅ Payment Successful!");
+          toast.success('Payment Successful!');
+          router.push(`/ticket/${result.ticketId}`); // ✅ Redirect to ticket page
+        } else {
+          // alert("❌ Payment Verification Failed!");
+          toast.error('Payment Verification Failed!');
+        }
+      },
+      prefill: {
+        name: "Ravi Katiyar",
+        email: "ravi@example.com",
+        contact: "9876543210",
+      },
+      theme: { color: "#3399cc" },
+    };
+
+
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+    setLoading(false);
+  };
+
   return (
     <button
-      onClick={onClick}
-      className="w-full rounded-xl bg-blue-600 px-5 py-3 text-white shadow hover:bg-orange-600 focus:outline-none focus:ring focus:ring-orange-300"
+      onClick={handlePayment}
+      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      disabled={loading}
     >
-      {label}
+      {loading ? "Processing..." : label}
     </button>
   );
+
 }
+
+// export default function RazorpayCheckout() {
+//   const [loading, setLoading] = useState(false);
+
+//   const loadScript = (src) => {
+//     return new Promise((resolve) => {
+//       const script = document.createElement("script");
+//       script.src = src;
+//       script.onload = () => resolve(true);
+//       script.onerror = () => resolve(false);
+//       document.body.appendChild(script);
+//     });
+//   };
+
+//   const handlePayment = async () => {
+//     setLoading(true);
+
+//     // Load Razorpay script
+//     const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+//     if (!res) {
+//       alert("Failed to load Razorpay SDK.");
+//       return;
+//     }
+
+//     // Create order from backend
+//     const orderRes = await fetch("/api/payment/order", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ amount: 500 }), // ₹500 ticket
+//     });
+//     const { orderId, amount } = await orderRes.json();
+
+//     const options = {
+//       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Use NEXT_PUBLIC for frontend
+//       amount,
+//       currency: "INR",
+//       name: "Railway Booking",
+//       description: "Train Ticket Payment",
+//       order_id: orderId,
+//       handler: async function (response) {
+//         const verifyRes = await fetch("/api/payment/verify", {
+//           method: "POST",
+//           headers: { "Content-Type": "application/json" },
+//           body: JSON.stringify(response),
+//         });
+//         const result = await verifyRes.json();
+//         if (result.success) {
+//           alert("✅ Payment Successful!");
+//         } else {
+//           alert("❌ Payment Verification Failed!");
+//         }
+//       },
+//       prefill: {
+//         name: "Ravi Katiyar",
+//         email: "ravi@example.com",
+//         contact: "9876543210",
+//       },
+//       theme: { color: "#3399cc" },
+//     };
+
+//     const paymentObject = new window.Razorpay(options);
+//     paymentObject.open();
+//     setLoading(false);
+//   };
+
+//   return (
+//     <button
+//       onClick={handlePayment}
+//       className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+//       disabled={loading}
+//     >
+//       {loading ? "Processing..." : "Pay ₹500"}
+//     </button>
+//   );
+// }
 
 function UPIBlock({ payAmount, upiId, setUpiId }) {
   return (
     <div className="space-y-6">
-        
+
       <div className="relative mt-2">
         <label className="mb-2 block text-sm font-semibold">Enter UPI ID Manually</label>
         <div className="flex gap-3">
@@ -371,7 +481,7 @@ function CardBlock({ payAmount }) {
         <label className="flex items-center gap-2 text-sm">
           <input type="checkbox" className="h-4 w-4 rounded border" defaultChecked /> Save my card for future payments.
         </label>
-        <PayButton label={`Securely Pay ₹${payAmount}`} onClick={() => alert("Card payment")}/>
+        <PayButton payAmount={payAmount} label={`Securely Pay ₹${payAmount}`} onClick={() => alert("Card payment")} />
       </div>
     </div>
   );
@@ -392,7 +502,7 @@ function NetBankingBlock({ banks, selectedBank, setSelectedBank, payAmount }) {
               className="h-4 w-4"
             />
             <span className="font-medium">{b.name}</span>
-            {selectedBank === b.id && <span className="ml-auto"><PayButton label={`Securely Pay ₹${payAmount}`} onClick={() => alert(`NetBanking: ${b.name}`)} /></span>}
+            {selectedBank === b.id && <span className="ml-auto"><PayButton payAmount={payAmount} label={`Securely Pay ₹${payAmount}`} onClick={() => alert(`NetBanking: ${b.name}`)} /></span>}
           </label>
         ))}
       </div>
@@ -415,7 +525,7 @@ function WalletBlock({ wallet, setWallet, payAmount }) {
             className="h-4 w-4"
           />
           <span className="font-medium">{w.name}</span>
-          {wallet === w.id && <span className="ml-auto"><PayButton label={`Securely Pay ₹${payAmount}`} onClick={() => alert(`Wallet: ${w.name}`)} /></span>}
+          {wallet === w.id && <span className="ml-auto"><PayButton payAmount={payAmount} label={`Securely Pay ₹${payAmount}`} onClick={() => alert(`Wallet: ${w.name}`)} /></span>}
         </label>
       ))}
     </div>
