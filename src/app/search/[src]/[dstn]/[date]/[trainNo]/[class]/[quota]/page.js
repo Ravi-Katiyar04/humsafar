@@ -1,34 +1,31 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import AddTraveller from "@/components/AddTraveller";
 import Link from "next/link";
-import { useParams , useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import axios from "axios";
+
 
 export default function TrainBookingPage() {
-    const params = useParams();
-    const { src, dstn, date, trainNo, class: travelClass, quota } = params;
-    console.log(src, dstn, date, trainNo, travelClass, quota);
+
+
     const router = useRouter();
+    const [irctcId, setIrctcId] = useState("");
     const [mobile, setMobile] = useState("8287710866");
     const [email, setEmail] = useState("8287710866@ixigo-dummy.com");
     const [address, setAddress] = useState("SULTANPUR Uttar Pradesh, SULTANPUR, Uttar Pradesh, 228001");
-    const [insurance, setInsurance] = useState(true);
+    const [freeCancellation,setFreeCancellation]=useState(true);
+    const [GST,setGST]=useState(false);
+    const [boardingDetails,setBoardingDetails]=useState("Sultanpur - SLN (28 Sep, 19:40)");
+    const [additionalPreferences, setAdditionalPreferences] = useState({
+        insurance: false,
+        autoUpgradation: false,
+        confirmedBerth: false,
+    });
     const [addPassengerOpen, setAddPassengerOpen] = useState(true);
 
-    const [bookingData, setBookingData] = useState({
-        trainNumber: trainNo,
-        date: date,
-        src: src,
-        dstn: dstn,
-        address: address,
-        mobile: mobile,
-        email: email,
-        class: travelClass,
-        quota: quota,
-        passengers: [],
-        paymentStatus: "",
-        pnr: "",
-    });
+    const [passengers, setPassengers] = useState([]);
+
 
     // Track active section based on scroll position
     useEffect(() => {
@@ -49,12 +46,30 @@ export default function TrainBookingPage() {
     }, []);
 
     const handleRemovePassenger = (index) => {
-        const updatedPassengers = bookingData.passengers.filter((_, i) => i !== index);
-        setBookingData((prev) => ({ ...prev, passengers: updatedPassengers }));
+        const updatedPassengers = passengers.filter((_, i) => i !== index);
+        setPassengers(updatedPassengers);
     };
 
-    const handleBook = () => {
-        router.push(`/payment?bookingData=${encodeURIComponent(JSON.stringify(bookingData))}`);
+    const handleProceed = async () => {
+        axios.post("/api/booking/updateBooking", {
+            passengers,
+            mobile,
+            email,
+            address,
+            additionalPreferences,
+            irctcId,
+            freeCancellation,
+            GST,
+            boardingDetails
+        })
+        .then(() => router.push("/payment"))
+        .catch((err) => alert(err.response?.data?.error || "Failed to save passenger"));
+    };
+    const handleChange = (option) => {
+        setAdditionalPreferences((prev) => ({
+            ...prev,
+            [option]: !prev[option],
+        }));
     };
 
     return (
@@ -66,7 +81,7 @@ export default function TrainBookingPage() {
                     <div className="w-80 h-full bg-white shadow-xl p-4 overflow-y-auto">
                         <AddTraveller
                             setAddPassengerOpen={setAddPassengerOpen}
-                            passengers={bookingData.passengers}
+                            passengers={passengers}
                         />
                         {/* Overlay */}
 
@@ -80,8 +95,8 @@ export default function TrainBookingPage() {
                 {/* Train Details */}
                 <section className="booking-section sticky top-18 z-50">
                     <div className=" flex flex-col items-center bg-white">
-                        <h2 className="text-lg font-bold my-1">14863 Marudhar Exp</h2>
-                        <p className="text-sm text-gray-600">SL • Sun, 28 Sep</p>
+                        <h2 className="text-lg font-bold my-1"></h2>
+                        <p className="text-sm text-gray-600"> • </p>
                         <div className="text-white bg-green-600 block text-center w-full font-semibold text-sm mt-1">
                             Current Availability - RAC 54 / RAC 50
                         </div>
@@ -100,6 +115,9 @@ export default function TrainBookingPage() {
                             <input
                                 type="text"
                                 placeholder="IRCTC User ID"
+                                value={irctcId}
+                                onChange={(e) => setIrctcId(e.target.value)}
+                                required
                                 className="w-full border border-gray-300 rounded-lg py-2 pr-16 pl-3 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                             />
                             <button className="absolute right-1 top-1/2 -translate-y-1/2 bg-blue-600 text-white text-sm px-4 py-1 rounded-md hover:bg-blue-700">
@@ -126,8 +144,9 @@ export default function TrainBookingPage() {
                 <section className="irctc-id-section">
                     <div className="w-full  bg-white shadow-md rounded-lg p-6">
                         <h3 className="text-2xl font-semibold mb-4">Boarding Details</h3>
-                        <select className="w-full border p-2 rounded mt-2">
-                            <option>Sultanpur - SLN (28 Sep, 19:40)</option>
+                        <select className="w-full border p-2 rounded mt-2" onChange={(e) => setBoardingDetails(e.target.value)}>
+                            <option value={boardingDetails}>{boardingDetails}</option>
+                            <option value={boardingDetails}>{boardingDetails}</option>
                         </select>
                     </div>
                 </section>
@@ -137,11 +156,11 @@ export default function TrainBookingPage() {
                     <div className="w-full  bg-white shadow-md rounded-lg p-6">
                         <h3 className="text-2xl font-semibold mb-4">Travellers</h3>
                         <ul className="mt-2 space-y-2 border-b-2 border-gray-300 pb-2">
-                            {bookingData.passengers?.map((t, idx) => (
+                            {passengers?.map((t, idx) => (
                                 <li key={idx} className="flex items-center justify-between space-x-2">
 
                                     <label className="flex items-center gap-2">
-                                        <input className="w-6 h-6" type="checkbox" checked={insurance} onChange={() => setInsurance(!insurance)} />
+                                        {/* <input className="w-6 h-6" type="checkbox" checked={insurance} onChange={() => setInsurance(!insurance)} /> */}
                                         <span>
                                             <div className="font-semibold text-gray-800">
                                                 {t.fullName}
@@ -202,14 +221,14 @@ export default function TrainBookingPage() {
                         <h3 className="text-2xl font-semibold mb-4">Additional Preferences</h3>
                         <div className="mt-2 space-y-2">
                             <label className="flex items-center gap-2">
-                                <input type="checkbox" checked={insurance} onChange={() => setInsurance(!insurance)} />
+                                <input type="checkbox" checked={additionalPreferences.insurance} onChange={() => handleChange("insurance")} />
                                 Travel Insurance (₹0.45/person)
                             </label>
                             <label className="flex items-center gap-2">
-                                <input type="checkbox" /> Auto Upgradation
+                                <input type="checkbox" checked={additionalPreferences.autoUpgradation} onChange={() => handleChange("autoUpgradation")} /> Auto Upgradation
                             </label>
                             <label className="flex items-center gap-2">
-                                <input type="checkbox" /> Book only If confirmed berth allotted
+                                <input type="checkbox" checked={additionalPreferences.confirmedBerth} onChange={() => handleChange("confirmedBerth")} /> Book only If confirmed berth allotted
                             </label>
                         </div>
                     </div>
@@ -220,11 +239,11 @@ export default function TrainBookingPage() {
                         <h3 className="text-2xl font-semibold mb-4">Free Cancellation</h3>
                         <div className="mt-2 space-y-2 border rounded p-2">
                             <label className="flex items-center gap-2">
-                                <input type="radio" name="cancel" defaultChecked />
+                                <input type="radio" name="cancel" checked={freeCancellation === true} onChange={() => setFreeCancellation(true)} />
                                 Yes (₹35/person)
                             </label>
                             <label className="flex items-center gap-2">
-                                <input type="radio" name="cancel" />
+                                <input type="radio" name="cancel" checked={freeCancellation === false} onChange={() => setFreeCancellation(false)} />
                                 No
                             </label>
                         </div>
@@ -235,7 +254,7 @@ export default function TrainBookingPage() {
                     <div className="w-full  bg-white shadow-md rounded-lg p-6">
                         <h3 className="text-2xl font-semibold mb-4">GST</h3>
                         <label className="flex items-center gap-2 mt-2">
-                            <input type="checkbox" /> Add GST to claim tax benefits
+                            <input type="checkbox" onChange={() => setGST(!GST)} /> Add GST to claim tax benefits
                         </label>
                     </div>
                 </section>
@@ -243,7 +262,7 @@ export default function TrainBookingPage() {
                 {/* Payment */}
                 <section className="booking-section sticky bottom-0 z-50 cursor-pointer">
                     <button
-                        onClick={handleBook}
+                        onClick={handleProceed}
                         className="w-full cursor-pointer bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
                         Proceed To Pay
                     </button>

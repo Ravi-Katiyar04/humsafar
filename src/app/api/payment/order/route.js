@@ -1,53 +1,37 @@
-// import Razorpay from "razorpay";
-// import { NextResponse } from "next/server";
-
-// export async function POST(req) {
-//   try {
-//     const { amount } = await req.json();
-
-//     const razorpay = new Razorpay({
-//       key_id: process.env.RAZORPAY_KEY_ID,
-//       key_secret: process.env.RAZORPAY_SECRET,
-//     });
-
-//     const options = {
-//       amount: amount * 100, // Amount in paise (₹500 => 50000)
-//       currency: "INR",
-//       receipt: `receipt_${Date.now()}`,
-//     };
-
-//     const order = await razorpay.orders.create(options);
-//     return NextResponse.json({ orderId: order.id, amount: order.amount });
-//   } catch (error) {
-//     console.error(error);
-//     return NextResponse.json({ error: "Failed to create order" }, { status: 500 });
-//   }
-// }
-
-
-import Razorpay from "razorpay";
+// app/api/payment/order/route.js
 import { NextResponse } from "next/server";
+import connectDB from "@/lib/db";
+import TempBooking from "@/models/TempBooking";
+import { cookies } from "next/headers";
+import Razorpay from "razorpay";
+
+const rz = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_SECRET,
+});
 
 export async function POST(req) {
-  try {
-    const { amount } = await req.json();
+  await connectDB();
+  const cookieStore = await cookies();
+  const bookingId = cookieStore.get("bookingId")?.value;
+  if (!bookingId) return NextResponse.json({ error: "no booking" }, { status: 400 });
 
-    const razorpay = new Razorpay({
-      key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_SECRET,
-    });
+  const temp = await TempBooking.findById(bookingId);
+  if (!temp) return NextResponse.json({ error: "booking not found" }, { status: 404 });
+  if (temp.status !== "pending") return NextResponse.json({ error: "booking not pending" }, { status: 400 });
 
-    const options = {
-      amount: amount * 100, // Razorpay works in paise
-      currency: "INR",
-      receipt: `receipt_${Date.now()}`,
-    };
+  // amount validation - use server stored amount and convert to paise
+  const amountInPaise = Math.round(Number(temp.amount) * 100);
 
-    const order = await razorpay.orders.create(options);
-    return NextResponse.json({ orderId: order.id, amount: order.amount });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: "Order creation failed" });
-  }
+  const options = {
+    amount: amountInPaise,
+    currency: "INR",
+    receipt: `receipt_${temp._id}`,
+  };
+
+  const order = await rz.orders.create(options);
+
+
+  return NextResponse.json({ ok: true, order });
 }
 

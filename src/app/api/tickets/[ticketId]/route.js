@@ -6,7 +6,7 @@ export async function GET(req, { params }) {
   try {
     await connectDB();
 
-    const { ticketId } = params;
+    const { ticketId } =await params;
     const ticket = await Ticket.findById(ticketId);
 
     if (!ticket) {

@@ -1,10 +1,14 @@
 import React, { useState, useEffect, use } from "react";
 import { getSeatAvailability } from "@/data.js";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { format, add } from "date-fns"; // date-fns for date manipulation used to remove hydaration error in Next.js
+import axios from "axios";
+
 
 function formatDuration(timeStr) {
     const [hours, minutes] = timeStr.split(":").map(Number);
-    const router = useRouter();
+
+
 
     let result = "";
     if (hours > 0) result += `${hours}hr `;
@@ -13,9 +17,36 @@ function formatDuration(timeStr) {
     return result.trim();
 }
 
+function getFormattedDate(dateStr, from_std, duration) {
+    if (!dateStr) return "";
+
+    const [day, month, year] = dateStr.split("-").map(Number);
+
+    // If no departure time or duration, just return base date
+    if (!from_std || !duration) {
+        const baseDate = new Date(year, month - 1, day);
+        return format(baseDate, "EEE, dd MMM");
+    }
+
+    const [hours, minutes] = from_std.split(":").map(Number);
+    const [durHours, durMinutes] = duration.split(":").map(Number);
+
+    // Departure date with time
+    let departure = new Date(year, month - 1, day, hours, minutes);
+
+    // Add journey duration
+    const arrival = add(departure, { hours: durHours, minutes: durMinutes });
+
+    // Format consistently (SSR-safe)
+    return format(arrival, "EEE, dd MMM");
+}
+
+
+
 const SearchTrainCard = ({ train }) => {
     const router = useRouter();
     const dateStr = train?.train_date || "01-01-2025"; // Default date if not provided
+    const ticketPrice = 100; // Static price for demonstration
 
     const [availability, setAvailability] = useState(getSeatAvailability()?.data);
 
@@ -30,26 +61,6 @@ const SearchTrainCard = ({ train }) => {
     const [formattedDate, setFormattedDate] = useState("");
     const [formattedArrivalDate, setFormattedArrivalDate] = useState("");
 
-    useEffect(() => {
-        const [day, month, year] = dateStr.split("-").map(Number);
-        const date = new Date(year, month - 1, day);
-        setFormattedDate(date.toLocaleDateString("en-GB", {
-            weekday: "short",
-            day: "2-digit",
-            month: "short",
-        }));
-    }, [dateStr]);
-
-    const dateFormatter = (date) => {
-        const [day, month, year] = date.split("-").map(Number);
-        const newdate = new Date(year, month - 1, day);
-        const formattedDate = newdate.toLocaleDateString("en-GB", {
-            weekday: "short",
-            day: "2-digit",
-            month: "short",
-        });
-        return formattedDate;
-    }
 
     // const handleAvailabilityClick = () => {
     //     setShowAvailability(!showAvailability);
@@ -68,25 +79,34 @@ const SearchTrainCard = ({ train }) => {
 
     // };
 
-    useEffect(() => {
-        if (train) {
-            const [day, month, year] = dateStr.split("-").map(Number);
-            const [hours, minutes] = train.from_std.split(":").map(Number);
-            const [durHours, durMinutes] = train.duration.split(":").map(Number);
-            const departure = new Date(year, month - 1, day, hours, minutes);
-            departure.setHours(departure.getHours() + durHours);
-            departure.setMinutes(departure.getMinutes() + durMinutes);
-            setFormattedArrivalDate(departure.toLocaleDateString("en-GB", {
-                weekday: "short",
-                day: "2-digit",
-                month: "short",
-            }));
+
+
+    const handleBook = async (d) => {
+
+        const { data } = await axios.post("/api/booking/createBooking", {
+            train,
+            ticketPrice,
+            selectedClass,
+            quota,
+            duration: formatDuration(train.duration),
+            formattedDate:getFormattedDate(d.date, d.from_std, d.duration),
+            formattedArrivalDate: getFormattedDate(d.date, train.from_std, train.duration),
+            bookingDate: d.date
+        });
+        if (data.ok) {
+            // cookie is set by server; now navigate to passenger page
+            // Adjust the passenger page route as per your routing scheme
+            router.push(`/search/${train.from}/${train.to}/${train.train_date}/${train.train_number}/${selectedClass}/${quota}`);
+        } else {
+            alert(data.error || "Error creating booking");
         }
-    }, [train]);
+    };
+
+
 
 
     if (!train) return null;
-    
+
     return (
         <div className="bg-white rounded-xl shadow-md p-4 w-full mx-auto">
             {/* Train Header */}
@@ -105,7 +125,7 @@ const SearchTrainCard = ({ train }) => {
                     <div>
                         <p className="text-sm font-semibold">{train.from}</p>
                         <p className="text-lg font-bold">{train.from_std}</p>
-                        <p className="text-gray-500 text-sm">{formattedDate}</p>
+                        <p className="text-gray-500 text-sm">{getFormattedDate(dateStr, "", "")}</p>
                     </div>
                     <div className="flex flex-col items-center mx-2">
                         <span className="text-gray-500 text-sm">{formatDuration(train.duration)}</span>
@@ -114,7 +134,7 @@ const SearchTrainCard = ({ train }) => {
                     <div>
                         <p className="text-sm font-semibold">{train.to}</p>
                         <p className="text-lg font-bold">{train.to_sta}</p>
-                        <p className="text-gray-500 text-sm">{formattedArrivalDate}</p>
+                        <p className="text-gray-500 text-sm">{getFormattedDate(dateStr, train.from_std, train.duration)}</p>
                     </div>
                 </div>
 
@@ -163,14 +183,14 @@ const SearchTrainCard = ({ train }) => {
                                         {d.tag}
                                     </span>
                                 )}
-                                <p className="font-medium">{dateFormatter(d.date)}</p>
+                                <p className="font-medium">{getFormattedDate(d.date)}</p>
                                 <p className={` font-semibold`}>{d.status}</p>
                                 {d.confirmedAvailability && (
                                     <p className="text-green-700 text-xs">Available</p>
                                 )}
-                                <button 
-                                className="bg-orange-500 text-white w-full mt-2 py-1 rounded hover:bg-orange-600"
-                                onClick={() => router.push(`/search/${train.from}/${train.to}/${d.date}/${train.train_number}/${selectedClass}/${quota}`)}
+                                <button
+                                    className="bg-orange-500 text-white w-full mt-2 py-1 rounded hover:bg-orange-600"
+                                    onClick={() => handleBook(d)}
                                 >
                                     BOOK
                                 </button>

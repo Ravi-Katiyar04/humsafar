@@ -149,9 +149,6 @@ export default function SearchPage({ params }) {
           {sortedResults.length === 0 && !loading && !error && (
             <div className="text-center text-gray-500">No trains found for the selected route and date.</div>
           )}
-          {/* {sortedResults.length > 0 && results.map((train, index) => (
-            <SearchTrainCard key={index} train={train} />
-          ))} */}
           {(sortedResults.length ? sortedResults : results).map((train) => (
             <SearchTrainCard key={train.train_number} train={train} />
           ))}
