@@ -24,7 +24,8 @@ export default function SearchPage({ params }) {
   const [filters, setFilters] = useState({
     classes: [],
     quota: "",
-    timeRange: ""
+    timeRange: "",
+    timerangeKey: "",
   });
 
   const toMinutes = (timeStr) => {
@@ -102,7 +103,7 @@ export default function SearchPage({ params }) {
     }
 
     if (filters.timeRange) {
-
+      // Convert time ranges to total minutes
       const [startStr, endStr] = filters.timeRange.split(" - ");
       const [startHour, startMinute] = startStr.split(":").map(Number);
       const [endHour, endMinute] = endStr.split(":").map(Number);
@@ -111,9 +112,26 @@ export default function SearchPage({ params }) {
       const endTotalMinutes = endHour * 60 + endMinute;
 
 
-
       filtered = filtered.filter(train => {
-        const [depHour, depMinute] = train.from_std.split(":").map(Number);
+        
+        if (filters.timerangeKey === "arrival") {
+          const [depHour, depMinute] = train.from_sta.split(":").map(Number);
+          const depTotalMinutes = depHour * 60 + depMinute;
+
+          // 🔑 Check for overnight range (end < start)
+          if (endTotalMinutes < startTotalMinutes) {
+            // e.g. 18:00 - 06:00
+            return (
+              depTotalMinutes >= startTotalMinutes || depTotalMinutes <= endTotalMinutes
+            );
+          }
+
+          // Normal case
+          return (
+            depTotalMinutes >= startTotalMinutes && depTotalMinutes <= endTotalMinutes
+          );
+        }
+        const [depHour, depMinute] = train.to_std.split(":").map(Number);
         const depTotalMinutes = depHour * 60 + depMinute;
 
         // 🔑 Check for overnight range (end < start)

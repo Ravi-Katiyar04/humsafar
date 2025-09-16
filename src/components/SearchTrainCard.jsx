@@ -100,10 +100,6 @@ const SearchTrainCard = ({ train }) => {
         }
     };
 
-
-
-
-    // if (!train) return null;
     if (!train)
         return (
             <div className="flex items-center justify-center h-screen">

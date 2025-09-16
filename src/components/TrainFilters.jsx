@@ -28,9 +28,10 @@ export default function TrainFilters({ setFilters, filters }) {
         setFilters(prev => ({ ...prev, quota }));
     };
 
-    const handleTimeRangeChange = (range) => {
-        setFilters(prev => ({ ...prev, timeRange: range }));
+    const handleTimeRangeChange = ( range, rangekey ) => {
+        setFilters(prev => ({ ...prev, timeRange: range, timerangeKey: rangekey }));
     };
+
 
     return (
         <div className="bg-white rounded-lg shadow-md p-4 w-full mx-auto">
@@ -100,8 +101,8 @@ export default function TrainFilters({ setFilters, filters }) {
                         {timeRanges.map((t, i) => (
                             <button
                                 key={i}
-                                className={`border rounded-lg py-1 cursor-pointer px-2 text-sm ${filters.timeRange === t.range ? 'bg-blue-700 border-blue-700 text-white' : ''}`}
-                                onClick={() => handleTimeRangeChange(t.range)}
+                                className={`border rounded-lg py-1 cursor-pointer px-2 text-sm ${filters.timerangeKey ==="departure" && filters.timeRange === t.range ? 'bg-blue-700 border-blue-700 text-white' : ''}`}
+                                onClick={() => handleTimeRangeChange(t.range, "departure")}
 
                             >
                                 <div className="font-medium">{t.range}</div>
@@ -129,11 +130,11 @@ export default function TrainFilters({ setFilters, filters }) {
                                 {timeRanges.map((t, i) => (
                                     <button
                                         key={i}
-                                        className="border rounded-lg py-1 px-2 text-sm hover:bg-blue-50"
-                                        onClick={() => handleTimeRangeChange(t.range)}
+                                        className={`border rounded-lg py-1 cursor-pointer px-2 text-sm ${filters.timerangeKey ==="arrival" && filters.timeRange === t.range ? 'bg-blue-700 border-blue-700 text-white' : ''}`}
+                                        onClick={() => handleTimeRangeChange(t.range, "arrival")}
                                     >
                                         <div className="font-medium">{t.range}</div>
-                                        <div className="text-xs text-gray-500">{t.label}</div>
+                                        <div className="text-xs">{t.label}</div>
                                     </button>
                                 ))}
                             </div>
