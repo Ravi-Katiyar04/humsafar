@@ -137,7 +137,7 @@ export default function PaymentPage() {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // ensure this is defined
       amount: order.amount,
       currency: order.currency,
-      name: "Your App Name",
+      name: "Humsafar",
       description: "Train ticket",
       order_id: order.id,
       handler: async function (response) {
