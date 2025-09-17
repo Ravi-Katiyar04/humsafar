@@ -23,9 +23,26 @@ export default function TrainBookingPage() {
         confirmedBerth: false,
     });
     const [addPassengerOpen, setAddPassengerOpen] = useState(true);
-
+    const [trainDetails, setTrainDetails] = useState({});
     const [passengers, setPassengers] = useState([]);
 
+    useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get("/api/booking/get");
+        if (res.data.ok) {
+          setTrainDetails(res.data.bookingData.train)
+        }
+        else {
+          alert(res.data.error || "No booking found");
+          router.push("/");
+        }
+      } catch (err) {
+        console.error("Failed to fetch booking:", err);
+      }
+    })();
+
+  }, []);
 
     // Track active section based on scroll position
     useEffect(() => {
@@ -93,10 +110,10 @@ export default function TrainBookingPage() {
             {/* Scrollable Sections */}
             <div className="max-w-4xl  mx-auto px-6 space-y-4">
                 {/* Train Details */}
-                <section className="booking-section sticky top-18 z-50">
+                <section className="booking-section sticky top-0 z-50">
                     <div className=" flex flex-col items-center bg-white">
-                        <h2 className="text-lg font-bold my-1"></h2>
-                        <p className="text-sm text-gray-600"> • </p>
+                        <h2 className="text-lg font-bold my-1">{trainDetails.number} - {trainDetails.name}</h2>
+                        <p className="text-sm text-gray-600">{trainDetails.class} • {trainDetails.departureDate} </p>
                         <div className="text-white bg-green-600 block text-center w-full font-semibold text-sm mt-1">
                             Current Availability - RAC 54 / RAC 50
                         </div>
