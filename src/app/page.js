@@ -11,7 +11,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Booking title={"IRCTC Ticket Booking on HumSafar"} btntext={"Search"} />
+      <Booking currentPath="/" title={"IRCTC Ticket Booking on HumSafar"} btntext={"Search"} />
 
       <main className={`${inter.className} p-4 max-w-11/12 mx-auto text-gray-600 font-serif font-semibold`}>
         <Services />

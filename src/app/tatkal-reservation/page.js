@@ -4,6 +4,7 @@ import Booking from "@/components/Booking";
 import FAQSection from "@/components/FAQSection";
 import Link from 'next/link';
 
+
 import {tatkalTicketPageFaq} from '@/data.js';
 
 export default function TatkalBooking() {
@@ -19,9 +20,8 @@ export default function TatkalBooking() {
     };
 
     return (
-        <div className="min-h-screen py-6 bg-gray-100">
-            {/* Header Section */}
-            <Booking title={"Tatkal Railway Reservation"} btntext={"Search"}/>
+        <div className="min-h-screen pb-6 bg-gray-100">
+            <Booking currentPath="/tatkal-reservation" title={"Tatkal Railway Reservation"} btntext={"Search"}/>
 
             {/* Content Section */}
             <div className="bg-gray-100 max-w-11/12 mx-auto px-4 text-[16px]">

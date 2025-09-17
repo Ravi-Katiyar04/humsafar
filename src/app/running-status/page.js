@@ -48,7 +48,7 @@ export default function RunningStatus() {
     <div className="min-h-screen  bg-gray-100 text-gray-600  text-[14px] ">
 
 
-      <Header currentPath="/running-status" />
+      
 
       <div className="min-h-fit p-2 bg-cover bg-center flex flex-col items-center justify-start "
         style={{
@@ -58,7 +58,9 @@ export default function RunningStatus() {
         <section className="bg-white p-6 w-full max-w-7xl rounded-lg shadow-md mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">Train Running Status</h1>
 
-          <SearchBar />
+          <Header currentPath="/running-status" />
+
+          <SearchBar currentPath="/running-status" />
 
 
 

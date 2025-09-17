@@ -99,10 +99,7 @@ export default function PNRStatus() {
     };
 
     return (
-        <div className="min-h-screen  bg-gray-100 text-gray-600  text-[14px] ">
-
-
-            <Header currentPath="/pnr-status-enquiry" />
+        <div className="min-h-screen relative  bg-gray-100 text-gray-600  text-[14px] ">
 
             <div className="min-h-fit p-2 bg-cover bg-center flex flex-col items-center justify-start "
                 style={{
@@ -110,8 +107,9 @@ export default function PNRStatus() {
                 }}>
                 <p className=" my-4 text-blue-50  ">Home / PNR Status</p>
                 <section className="bg-white p-6 w-full max-w-7xl rounded-lg shadow-md mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-4">PNR Status</h1>
-
+                    
+                    <h1 className="text-3xl font-bold text-gray-800 mb-2">PNR Status</h1>
+                    <Header currentPath="/pnr-status-enquiry" />
                     <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                         <input
                             type="text"

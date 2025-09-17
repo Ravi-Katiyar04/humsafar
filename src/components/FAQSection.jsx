@@ -53,7 +53,7 @@ export default function FAQSection({faqData}) {
     <section className="bg-white p-6 rounded-lg shadow-md mb-8">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Frequently Asked Questions (FAQs)</h2>
       <div className="space-y-4">
-        {faqData.map((faq, index) => (
+        {faqData?.map((faq, index) => (
           <div key={index} className="border border-gray-200 rounded-lg">
             <button
               className="flex justify-between items-center w-full p-4 text-left font-semibold text-gray-800 focus:outline-none"

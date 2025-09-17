@@ -71,10 +71,7 @@ export default function VandeBharat() {
     return (
         <div className="min-h-screen bg-gray-100 text-gray-600  text-[14px] ">
 
-
-            <Header currentPath={'/vande-bharat'} />
-
-            <Booking title={"Vande Bharat Express Trains"} btntext={"Search"}/>
+            <Booking currentPath={'/vande-bharat'} title={"Vande Bharat Express Trains"} btntext={"Search"}/>
 
             <main className='max-w-11/12 mx-auto  py-8 md:flex gap-20 '>
 

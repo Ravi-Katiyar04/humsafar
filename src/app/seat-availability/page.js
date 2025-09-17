@@ -71,9 +71,7 @@ export default function SeatAvailability() {
     <div className="min-h-screen  bg-gray-100 text-gray-600  text-[14px] ">
 
 
-      <Header currentPath="/seat-availability" />
-
-      <Booking title="Check Seat Availability" btntext="Check Availability" />
+      <Booking currentPath="/seat-availability" title="Check Seat Availability" btntext="Check Availability" />
 
       <div className="max-w-11/12 mx-auto my-4 text-gray-500">
         <span className="text-blue-700">Home</span> &nbsp;»&nbsp;
