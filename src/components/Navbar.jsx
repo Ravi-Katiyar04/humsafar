@@ -52,37 +52,48 @@ export default function Navbar() {
         <div className="hidden md:flex space-x-4 items-center">
           <Link
             href="/"
-            className={`hover:underline ${pathname === '/' ? 'underline' : ''}`}
+            className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${pathname === "/"
+                ? "text-blue-600 border-b-2 border-blue-600"
+                : "text-gray-700 hover:text-blue-600"
+              }`}
           >
             Home
           </Link>
 
+
           {!isLoggedIn ? (
-            <Link href="/login" className="bg-white text-blue-700 px-3 py-1 rounded hover:bg-gray-100">
+            <Link
+              href="/login"
+              className="px-5 py-2 rounded-lg border border-blue-600 bg-white text-blue-600 font-medium shadow-lg hover:bg-blue-50 hover:shadow-md transition duration-200"
+            >
               Login
             </Link>
+
           ) : (
             <div className="relative">
               <button
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
-                className="text-2xl flex items-center justify-center text-blue-700 px-3 py-1"
+                className="flex cursor-pointer items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 shadow-sm hover:shadow-md transition duration-200"
               >
-                <i className="fas text-black text-4xl cursor-pointer fa-user-circle"></i>
+                <i className="fa-regular fa-user-circle text-3xl text-gray-700"></i>
+
                 {user && (
-                  <div className="text-sm text-gray-600 cursor-pointer">
-                    <span className="ml-2 text-black text-xl block">Hello</span>
-                    <span className="ml-2 text-black text-xl">{user.name}</span>
+                  <div className="text-left leading-tight">
+                    <span className="block text-xs text-gray-500">Hello,</span>
+                    <span className="block text-sm font-medium text-gray-800">
+                      {user.name}
+                    </span>
                   </div>
                 )}
               </button>
 
               {showProfileMenu && (
-                <div className="absolute right-0 mt-2 z-50">
+                <div className="absolute right-0 mt-2 w-48 rounded-lg border bg-white shadow-lg z-50">
                   <ProfileMenu setShowProfileMenu={setShowProfileMenu} />
                 </div>
-
               )}
             </div>
+
           )}
         </div>
 
