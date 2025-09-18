@@ -83,8 +83,8 @@ export default function Booking(prop) {
           <div className='flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 justify-center items-center bg-gray-100 px-2 rounded-lg'>
             <div className=' flex items-baseline-last gap-2'>
               <div className='hidden md:flex items-baseline text-gray-600 gap-1'>
-                <i class="fa-solid fa-person-walking text-2xl"></i>
-                <i class="fa-solid fa-train text-3xl"></i>
+                <i className="fa-solid fa-person-walking text-2xl"></i>
+                <i className="fa-solid fa-train text-3xl"></i>
               </div>
               <div className="flex-1 text-left relative">
 
@@ -125,8 +125,8 @@ export default function Booking(prop) {
 
             <div className=' flex items-baseline-last gap-2'>
               <div className='hidden md:flex items-baseline text-gray-600 gap-1'>
-                <i class="fa-solid fa-person-walking fa-flip-horizontal text-2xl"></i>
-                <i class="fa-solid fa-train text-3xl"></i>
+                <i className="fa-solid fa-person-walking fa-flip-horizontal text-2xl"></i>
+                <i className="fa-solid fa-train text-3xl"></i>
               </div>
               <div className="flex-1 text-left my-4 relative">
                 <label className="text-xs text-black font-semibold mb-1" htmlFor="destination">To</label>
