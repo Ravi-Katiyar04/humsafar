@@ -1,5 +1,5 @@
 import React, { useState, useEffect, use } from "react";
-import { getSeatAvailability } from "@/data.js";
+import { getSeatAvailability,getFareDetails } from "@/data.js";
 import { useRouter } from "next/navigation";
 import { format, add } from "date-fns"; // date-fns for date manipulation used to remove hydaration error in Next.js
 import axios from "axios";
@@ -52,6 +52,7 @@ const SearchTrainCard = ({ train }) => {
     const ticketPrice = 100; // Static price for demonstration
 
     const [availability, setAvailability] = useState(getSeatAvailability()?.data);
+    const [ticketFare, setTicketFare] = useState(getFareDetails()?.data);
 
     const [selectedClass, setSelectedClass] = useState(train?.class_type[0]);
     const [quota, setQuota] = useState("GN");
@@ -164,7 +165,9 @@ const SearchTrainCard = ({ train }) => {
                     >
                         <div className="flex justify-between items-center mb-2">
                             <div>{c}</div>
-                            <div>₹ 75</div>
+                            <div> ₹ 
+                                {ticketFare.general.find((cls) => cls.classType === c)?.fare || "N/A"}
+                            </div>
                         </div>
                         <p className="text-green-800">AVL 70</p>
                         <p className="text-green-700">Available</p>
