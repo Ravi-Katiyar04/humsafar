@@ -16,7 +16,11 @@ function formatDuration(timeStr) {
 
     return result.trim();
 }
-
+function formatDate(inputDate) {
+  // inputDate expected format: YYYY-MM-DD
+  const [year, month, day] = inputDate.split("-");
+  return `${day}-${month}-${year}`;
+}
 function getFormattedDate(dateStr, from_std, duration) {
     if (!dateStr) return "";
 
@@ -40,7 +44,6 @@ function getFormattedDate(dateStr, from_std, duration) {
     // Format consistently (SSR-safe)
     return format(arrival, "EEE, dd MMM");
 }
-
 
 
 const SearchTrainCard = ({ train }) => {
@@ -181,6 +184,7 @@ const SearchTrainCard = ({ train }) => {
                 <div className="mt-4 bg-blue-100 pt-4 pl-6">
                     <div className="flex gap-6 overflow-x-auto pb-4">
                         {availability.availabilityClassList[0]?.availabilities.map((d, i) => (
+
                             <div
                                 key={i}
                                 className="min-w-[140px] bg-gray-50 border border-orange-600 rounded-lg text-center text-sm shadow-sm"
@@ -191,7 +195,7 @@ const SearchTrainCard = ({ train }) => {
                                             {d.tag}
                                         </span>
                                     )}
-                                    <p className="font-medium">{getFormattedDate(d.date)}</p>
+                                    <p className="font-medium">{getFormattedDate(formatDate(d.date),"", "")}</p>
                                     <p className={` font-semibold`}>{d.status}</p>
                                     {d.confirmedAvailability && (
                                         <p className="text-green-700 text-xs">Available</p>

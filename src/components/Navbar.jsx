@@ -52,7 +52,7 @@ export default function Navbar() {
         <div className="hidden md:flex space-x-4 items-center">
           <Link
             href="/"
-            className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${pathname === "/"
+            className={`px-3 py-2 text-sm font-bold transition-colors duration-200 ${pathname === "/"
                 ? "text-blue-600 border-b-2 border-blue-600"
                 : "text-gray-700 hover:text-blue-600"
               }`}
@@ -88,7 +88,7 @@ export default function Navbar() {
               </button>
 
               {showProfileMenu && (
-                <div className="absolute right-0 mt-2 w-48 rounded-lg border bg-white shadow-lg z-50">
+                <div className="absolute right-0 mt-2 w-48 rounded-lg bg-white shadow-lg z-50">
                   <ProfileMenu setShowProfileMenu={setShowProfileMenu} />
                 </div>
               )}
