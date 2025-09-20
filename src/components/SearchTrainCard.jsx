@@ -49,7 +49,7 @@ function getFormattedDate(dateStr, from_std, duration) {
 const SearchTrainCard = ({ train }) => {
     const router = useRouter();
     const dateStr = train?.train_date || "01-01-2025"; // Default date if not provided
-    const ticketPrice = 100; // Static price for demonstration
+    // const ticketPrice = 100; // Static price for demonstration
 
     const [availability, setAvailability] = useState(getSeatAvailability()?.data);
     const [ticketFare, setTicketFare] = useState(getFareDetails()?.data);
@@ -87,7 +87,7 @@ const SearchTrainCard = ({ train }) => {
 
         const { data } = await axios.post("/api/booking/createBooking", {
             train,
-            ticketPrice,
+            ticketPrice: ticketFare.general.find((cls) => cls.classType === selectedClass)?.fare,
             selectedClass,
             quota,
             duration: formatDuration(train.duration),
