@@ -39,6 +39,7 @@ const TempBookingSchema = new mongoose.Schema({
     email: String,
   },
   boardingDetails: String,
+  availability: String, // e.g., "AVAILABLE-180"
   freeCancellation: { type: Boolean, default: false },
   additionalPreferences: {
     insurance: { type: Boolean, default: false },

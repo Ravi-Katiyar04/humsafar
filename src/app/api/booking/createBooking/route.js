@@ -8,7 +8,7 @@ export async function POST(req) {
   await connectDB();
   const body = await req.json();
   // expect body.train {name, number, price, class, src, dest, date}
-  const { train, ticketPrice, selectedClass, quota,bookingDate, duration, formattedDate, formattedArrivalDate } = body;
+  const { train, ticketPrice, selectedClass, quota,bookingDate, duration, formattedDate, formattedArrivalDate,availability } = body;
   if (!train || !train.train_number) {
     return NextResponse.json({ error: "train required" }, { status: 400 });
   }
@@ -35,6 +35,7 @@ export async function POST(req) {
       arrivalDate: formattedArrivalDate || "",
     },
     amount: Number(ticketPrice) || 0,
+    availability:availability || "",
   });
 
   // set httpOnly cookie bookingId

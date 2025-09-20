@@ -5,7 +5,7 @@ export default function JourneyCard({bookingData}) {
         <i className="fa-solid fa-train" />
         <span className="font-semibold">{bookingData.train.number} {bookingData.train.name}</span>
         <span className="ml-auto rounded-full bg-emerald-50 px-3 py-0.5 text-xs font-semibold text-emerald-700">
-          AVAILABLE‑170
+          {bookingData.availability}
         </span>
       </div>
 

@@ -88,6 +88,7 @@ const SearchTrainCard = ({ train }) => {
         const { data } = await axios.post("/api/booking/createBooking", {
             train,
             ticketPrice: ticketFare.general.find((cls) => cls.classType === selectedClass)?.fare,
+            availability:availability.availabilityClassList[0]?.availabilities.find((avl) => avl.date === d.date)?.status || "AVAILABLE-180",
             selectedClass,
             quota,
             duration: formatDuration(train.duration),
