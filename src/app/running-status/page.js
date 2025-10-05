@@ -18,7 +18,7 @@ export default function RunningStatus() {
     {
       icon: 'fa-location-dot',
       title: 'Most Accurate and Live Train Running Status',
-      description: 'Want to track online train status? ixigo provides the most accurate and real-time train status, offering passengers up-to-date information for a seamless travel experience.',
+      description: 'Want to track online train status? HumSafar provides the most accurate and real-time train status, offering passengers up-to-date information for a seamless travel experience.',
     },
     {
       icon: 'fa-bell',
@@ -28,12 +28,12 @@ export default function RunningStatus() {
     {
       icon: 'fa-clock-rotate-left',
       title: 'Get Delay Prediction of Upcoming Stations',
-      description: 'ixigo offers a unique feature that predicts delays at upcoming stations, helping passengers check their live train status accurately.',
+      description: 'HumSafar offers a unique feature that predicts delays at upcoming stations, helping passengers check their live train status accurately.',
     },
     {
       icon: 'fa-map-location-dot',
       title: 'Check Train Location without Internet',
-      description: 'ixigo enables users to track train locations without an internet connection, ensuring uninterrupted access to real-time information.',
+      description: 'HumSafar enables users to track train locations without an internet connection, ensuring uninterrupted access to real-time information.',
     },
     {
       icon: 'fa-train-subway',
@@ -127,7 +127,7 @@ export default function RunningStatus() {
 
           <section className="mb-8">
             <h1 className="text-xl font-bold mb-4 text-black">Where is My Train - Spot Your Train Online</h1>
-            <p className="my-2" >If you ever find yourself asking, &quot;Where is my train?&quot;, ixigo has you covered. With its live train tracker, you can easily check the IRCTC train running status and locate your train.</p>
+            <p className="my-2" >If you ever find yourself asking, &quot;Where is my train?&quot;, HumSafar has you covered. With its live train tracker, you can easily check the IRCTC train running status and locate your train.</p>
 
             <p className='my-2'>Below is the additional information, you get to know:</p>
             <ul className="list-disc ml-5 space-y-1 text-[14px]">
@@ -157,10 +157,10 @@ export default function RunningStatus() {
             <p className="mb-2 text-[14px]">You can track IRCTC live train status in the following ways:</p>
 
             <ul className="list-decimal ml-5 space-y-2 ">
-              <li><span className='font-semibold my-2 text-black  text-[16px]'>Check Current Running Status of Train on the ixigo Website</span>
+              <li><span className='font-semibold my-2 text-black  text-[16px]'>Check Current Running Status of Train on the HumSafar Website</span>
                 <ol className="list-none pl-6 space-y-2">
                   <li>
-                    <strong>Step 1:</strong> Visit the trains page of the ixigo website and select&quot;Running Status&quot;.
+                    <strong>Step 1:</strong> Visit the trains page of the HumSafar website and select&quot;Running Status&quot;.
                   </li>
                   <li>
                     <strong>Step 2:</strong> Enter your five-digit train number or train name and click search.
@@ -171,10 +171,10 @@ export default function RunningStatus() {
                 </ol>
               </li>
 
-              <li><span className='font-semibold my-2 text-black  text-[16px]'>Check Railway Running Status on the ixigo Mobile App</span>
+              <li><span className='font-semibold my-2 text-black  text-[16px]'>Check Railway Running Status on the HumSafar Mobile App</span>
                 <ol className="list-none pl-6 space-y-2">
                   <li>
-                    <strong>Step 1:</strong> Open the ixigo Trains app and tap on the ‘Running Status’ icon.
+                    <strong>Step 1:</strong> Open the HumSafar Trains app and tap on the ‘Running Status’ icon.
                   </li>
                   <li>
                     <strong>Step 2:</strong>   Enter your five-digit train number/name and proceed. You can also search using the origin and destination station names.
@@ -223,7 +223,7 @@ export default function RunningStatus() {
                 Tap on the <span className="font-semibold">More Info</span> tab to access the Station Timetable, Average Delays, and information about Heritage Trains.
               </li>
             </ul>
-            <p className='my-2'>Next time you opt for <Link href="/" className='text-blue-600 font-semibold'>train ticket booking</Link> (or <Link href="/tatkal-reservation" className='text-blue-600 font-semibold'>tatkal ticket booking</Link>), use ixigo money to save on tickets. Once you have checked the current running status of your train, you can also make a <Link href="/pnr-status-enquiry" className='text-blue-600 font-semibold'>PNR status</Link> enquiry. On ixigo, you can also <Link href="/seat-availability" className='text-blue-600 font-semibold'>check seat availability</Link>  in your train.</p>
+            <p className='my-2'>Next time you opt for <Link href="/" className='text-blue-600 font-semibold'>train ticket booking</Link> (or <Link href="/tatkal-reservation" className='text-blue-600 font-semibold'>tatkal ticket booking</Link>), use HumSafar money to save on tickets. Once you have checked the current running status of your train, you can also make a <Link href="/pnr-status-enquiry" className='text-blue-600 font-semibold'>PNR status</Link> enquiry. On ixigo, you can also <Link href="/seat-availability" className='text-blue-600 font-semibold'>check seat availability</Link>  in your train.</p>
           </section>
 
           <FAQSection faqData={faqs} />

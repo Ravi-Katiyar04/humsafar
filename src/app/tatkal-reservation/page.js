@@ -33,12 +33,12 @@ export default function TatkalBooking() {
 
                 <section className="mb-8">
                     <h1 className="text-xl font-bold my-6 text-black">Book Tatkal Train Tickets Online</h1>
-                    <p className="my-2" >You can book Tatkal tickets for a maximum of only 4 passengers per PNR. Book tickets through your IRCTC login ID online on ixigo. Check Tatkal quota seat availability for your train and ticket confirmation probability/prediction.</p>
+                    <p className="my-2" >You can book Tatkal tickets for a maximum of only 4 passengers per PNR. Book tickets through your IRCTC login ID online on HumSafar. Check Tatkal quota seat availability for your train and ticket confirmation probability/prediction.</p>
 
                     <p className="my-2">Here’s how you can quickly book Tatkal tickets in a few easy steps:</p>
 
                     <ul className="list-disc ml-8 space-y-1">
-                        <li>Log in to your IRCTC account on ixigo</li>
+                        <li>Log in to your IRCTC account on HumSafar</li>
                         <li>Select your travel source station and destination</li>
                         <li>Choose your date of journey</li>
                         <li>Now select quota as ‘Tatkal’ and search for trains</li>

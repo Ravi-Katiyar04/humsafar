@@ -89,7 +89,7 @@ export default function TravelGuarantee() {
                                     </div>
                                 </div>
                                 <p className="text-xs mt-3 text-gray-500">
-                                    Here &apos;refund of the ticket fare&apos; refers to the amount that does not include ixigo service charges, convenience charge, payment gateway charges, discounts and Travel Guarantee charges. Also, the refund amount will depend on your selected travel mode at the time of claiming the coupon.
+                                    Here &apos;refund of the ticket fare&apos; refers to the amount that does not include HumSafar service charges, convenience charge, payment gateway charges, discounts and Travel Guarantee charges. Also, the refund amount will depend on your selected travel mode at the time of claiming the coupon.
                                 </p>
                                 <div className="text-xs mt-4 text-gray-500">
                                     <p className='font-bold'>NOTE:</p>
@@ -107,7 +107,7 @@ export default function TravelGuarantee() {
                             <div className="mt-16 mb-16 p-6 bg-gray-100 rounded-lg">
                                 <h2 className="text-2xl text-black font-bold mb-4">Travel Guarantee Feature Terms and Conditions</h2>
                                 <ul className="list-decimal pl-6 space-y-2 text-sm">
-                                    <li>The Travel Guarantee feature is applicable only for selected trains and classes booked via ixigo.</li>
+                                    <li>The Travel Guarantee feature is applicable only for selected trains and classes booked via HumSafar.</li>
                                     <li>Travel Guarantee is a paid feature and an opt-in fee will be charged if selected.</li>
                                     <li>Terms and conditions are subject to change without prior notice.</li>
                                     <li>
@@ -135,14 +135,14 @@ export default function TravelGuarantee() {
                                             <li>Train cancellation by IRCTC: If the train is cancelled by IRCTC, a full refund of the ticket fare for your booking will be initiated automatically. In this case, Travel Guarantee charges will also be refunded.</li>
                                         </ul>
                                     </li>
-                                    <li>Note: Here &apos;ticket fare&apos; is the booking amount that does not include ixigo service charges, convenience charge, payment gateway charges, discounts and Travel Guarantee charges, etc.</li>
+                                    <li>Note: Here &apos;ticket fare&apos; is the booking amount that does not include HumSafar service charges, convenience charge, payment gateway charges, discounts and Travel Guarantee charges, etc.</li>
                                     <li>If a waitlisted ticket is cancelled, you will receive a refund as per the IRCTC cancellation policy.</li>
                                     <li>Train chart preparation schedule is controlled by the Indian Railways. The chart is usually prepared 8 hours prior to the train’s departure time from the source station. For early morning trains, the chart is typically prepared on the previous night.</li>
-                                    <li>ixigo will not be responsible for the availability of an alternative mode of travel, choice of travel date or fare difference, if the ticket is not confirmed after opting for Travel Guarantee.</li>
-                                    <li>IRCTC convenience charges, ixigo service charges, payment gateway charges, offer discounts, etc. are non-refundable if you have opted for Travel Guarantee.</li>
+                                    <li>HumSafar will not be responsible for the availability of an alternative mode of travel, choice of travel date or fare difference, if the ticket is not confirmed after opting for Travel Guarantee.</li>
+                                    <li>IRCTC convenience charges, HumSafar service charges, payment gateway charges, offer discounts, etc. are non-refundable if you have opted for Travel Guarantee.</li>
                                     <li>All disputes arising out of or in connection to this feature are subject to the exclusive jurisdiction of the courts in Gurugram only.</li>
-                                    <li>By opting for Travel Guarantee, it is assumed that the passenger has given ixigo the permission to use their name, image and any other details or information available on their social media profiles, in any manner, to promote the offer or ixigo brand name or services.</li>
-                                    <li>ixigo shall not be liable for any indirect, punitive, special, incidental or consequential damages arising out of or in connection with the offer. Notwithstanding anything contrary contained hereunder, in no event the aggregate liability of ixigo under this offer shall exceed the amount of the coupon availed by the customer amount under this offer.</li>
+                                    <li>By opting for Travel Guarantee, it is assumed that the passenger has given HumSafar the permission to use their name, image and any other details or information available on their social media profiles, in any manner, to promote the offer or HumSafar brand name or services.</li>
+                                    <li>HumSafar shall not be liable for any indirect, punitive, special, incidental or consequential damages arising out of or in connection with the offer. Notwithstanding anything contrary contained hereunder, in no event the aggregate liability of HumSafar under this offer shall exceed the amount of the coupon availed by the customer amount under this offer.</li>
                                     <li>
                                         For bookings made under Travel Guarantee:
                                         <ul className="list-disc pl-6 mt-2 space-y-1">
@@ -178,7 +178,7 @@ export default function TravelGuarantee() {
                                 <ul className="list-decimal pl-6 space-y-2 text-sm">
                                     <li>The Travel Guarantee Coupon can only be claimed once for the selected travel mode (train/bus/flight).</li>
                                     <li>It can only be claimed within 7 days (from the date of chart preparation). When using the Travel Guarantee Coupon for your next booking, your new travel date should also be within this 7-day period.</li>
-                                    <li>The coupon will expire within 7 days once issued by ixigo. You’ll receive the instructions on how to claim the coupon via WhatsApp and email.</li>
+                                    <li>The coupon will expire within 7 days once issued by HumSafar. You’ll receive the instructions on how to claim the coupon via WhatsApp and email.</li>
                                     <li>In the case of a flight booking, the coupon can only be redeemed for a one-way domestic flight.</li>
                                     <li>The coupon code cannot be clubbed with any other offer and is non-transferable.</li>
                                     <li>The travel mode must be selected when claiming the coupon, and this mode cannot be changed afterwards.</li>
@@ -186,7 +186,7 @@ export default function TravelGuarantee() {
                                     <li>For flight/bus bookings, the coupon code discount amount can be up to the ticket fare.</li>
                                     <li>While using the coupon, if the booking amount is higher than the coupon amount, then you need to pay the fare difference. If the booking amount is lower than the coupon amount, the balance amount will lapse and will not be refunded.</li>
                                     <li>The Travel Guarantee coupon cannot be exchanged, transferred to another account/used for bookings with another account or encashed.</li>
-                                    <li>ixigo reserves the right to deny acceptance of any Travel Guarantee Coupon due to duplicity. ixigo shall not be held responsible in this regard.</li>
+                                    <li>HumSafar reserves the right to deny acceptance of any Travel Guarantee Coupon due to duplicity. HumSafar shall not be held responsible in this regard.</li>
                                     <li>At the time of claiming the coupon, you will be eligible for a refund based on your selected travel mode. The total refund value under Travel Guarantee will be:
                                         <ul className="list-disc list-inside ml-6">
                                             <li>3X for flight</li>
@@ -203,7 +203,7 @@ export default function TravelGuarantee() {
                                     <li>Once redeemed, the Travel Guarantee coupon is non-refundable. The coupon amount will not be refunded if the new booking (regardless of the selected travel mode e.g., bus, flight, or train) is cancelled by the user. Additionally, for train bookings, the coupon amount will not be refunded if the ticket remains waitlisted at the time of chart preparation or if a TDR is filed and approved by IRCTC.</li>
                                     <li>The number of passengers in the alternate mode of travel must be equal to or less than the number of passengers in the original train booking where you had opted for Travel Guarantee. Passenger names must also be the same as in your original train booking.</li>
                                     <li>Under Travel Guarantee, you are allowed to claim only up to three coupons per month.</li>
-                                    <li>In the event of suspected fraudulent activity or misuse of Travel Guarantee, ixigo reserves the right, at its sole discretion, to reject any coupon claims without prior notice.</li>
+                                    <li>In the event of suspected fraudulent activity or misuse of Travel Guarantee, HumSafar reserves the right, at its sole discretion, to reject any coupon claims without prior notice.</li>
                                     <li>If the service for the selected travel mode (e.g., bus, flight, or train) is suspended or cancelled, and you booked the ticket using the Travel Guarantee Coupon, the coupon will not be refunded and will lapse. Any amount paid above the value of the coupon will be refunded to your original payment method.</li>
                                 </ul>
                                 <p className="mt-4 text-gray-900">Additionally, the Travel Guarantee charges will be refunded for train or bus bookings made with the coupon if the train is cancelled by IRCTC or the bus is cancelled by the operator.</p>

@@ -62,7 +62,7 @@ export default function SearchTrain() {
                         <p className="mb-4 ">Railways not only offer convenience but are also cost-effective and easy to book. It&#39;s no wonder that travellers from across the country rely on it for their journeys.</p>
                         <p className="mb-4 ">Consequently, the list of Indian Railway stations is vast and can be overwhelming, presenting a challenge for both experienced travellers and newcomers when it comes to selecting the right train stations for their journey.</p>
                         <p className="mb-4 ">Even though the Indian Railway Enquiry Service is accessible for assistance, it can become confusing at times, particularly if you are not familiar with station codes. At such a juncture, Railway station code search becomes tough.</p>
-                        <p className="mb-4 ">Acknowledging this problem, ixigo has developed a simple list of railway stations with names that not only provides data on trains between major stations but also sheds light on information about all trains operating along India&#39;s railway routes at any given time.</p>
+                        <p className="mb-4 ">Acknowledging this problem, HumSafar has developed a simple list of railway stations with names that not only provides data on trains between major stations but also sheds light on information about all trains operating along India&#39;s railway routes at any given time.</p>
                     </section>
 
                     <section className="mb-8 bg-white pb-6 rounded-lg shadow-sm border border-gray-200">

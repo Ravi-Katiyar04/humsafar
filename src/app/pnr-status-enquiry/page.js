@@ -182,7 +182,7 @@ export default function PNRStatus() {
                             <li><span className='font-semibold my-2 text-black  text-[16px]'>Check PNR status on the Humsafar website:</span>
                                 <ol className="list-none pl-6 space-y-2">
                                     <li>
-                                        <strong>Step 1:</strong>  Visit the trains page of the ixigo website and select &#39;PNR Status Enquiry&#39;.
+                                        <strong>Step 1:</strong>  Visit the trains page of the HumSafar website and select &#39;PNR Status Enquiry&#39;.
                                     </li>
                                     <li>
                                         <strong>Step 2:</strong>  Enter your 10-digit IRCTC PNR number and click the &#39;Search&#39; button.
@@ -196,7 +196,7 @@ export default function PNRStatus() {
                             <li><span className='font-semibold my-2 text-black  text-[16px]'>Check PNR status on the Humsafar mobile app:</span>
                                 <ol className="list-none pl-6 space-y-2">
                                     <li>
-                                        <strong>Step 1:</strong>  Open the ixigo Trains app and tap the &#39;PNR Status&#39; icon.
+                                        <strong>Step 1:</strong>  Open the HumSafar Trains app and tap the &#39;PNR Status&#39; icon.
                                     </li>
                                     <li>
                                         <strong>Step 2:</strong> Enter your 10-digit PNR number and complete your PNR enquiry.

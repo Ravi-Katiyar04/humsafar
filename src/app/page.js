@@ -36,8 +36,8 @@ export default function HomePage() {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-2 text-black">Types of IRCTC Tickets Booking</h2>
           <ul className="list-disc ml-5 space-y-1 text-[14px]">
-            <li><strong className="text-black text-[16px] block">General Booking</strong> General ticket booking can be done easily through the ixigo website and app. It can also be booked at the Passenger Reservation System (PRS) counters. One of the key benefits of general booking is the flexibility to change your travel dates. You can reschedule waitlisted, RAC, or confirmed tickets to an earlier or later date.</li>
-            <li><strong className="text-black text-[16px] block">Tatkal Booking</strong> <Link href="/tatkal-reservation" className="text-blue-600"> Tatkal ticket booking</Link>  facility enables a passenger to book a ticket one day in advance of the actual date of journey. It can be booked online at ixigo easily. Tatkal booking opens at 10 AM for AC Classes and 11 AM for Non-AC Classes one day in advance, excluding the journey date.</li>
+            <li><strong className="text-black text-[16px] block">General Booking</strong> General ticket booking can be done easily through the HumSafar website and app. It can also be booked at the Passenger Reservation System (PRS) counters. One of the key benefits of general booking is the flexibility to change your travel dates. You can reschedule waitlisted, RAC, or confirmed tickets to an earlier or later date.</li>
+            <li><strong className="text-black text-[16px] block">Tatkal Booking</strong> <Link href="/tatkal-reservation" className="text-blue-600"> Tatkal ticket booking</Link>  facility enables a passenger to book a ticket one day in advance of the actual date of journey. It can be booked online at HumSafar easily. Tatkal booking opens at 10 AM for AC Classes and 11 AM for Non-AC Classes one day in advance, excluding the journey date.</li>
             <li><strong className="text-black text-[16px] block">Premium Tatkal</strong>Premium Tatkal works on dynamic pricing, i.e. passengers will be charged a higher price in case of increased demand and a lower price if the demand is less. Confirmed tickets are only booked under premium tatkal quota and could not be cancelled once booked.</li>
             <li><strong className="text-black text-[16px] block">Unreserved Ticketing System (UTS)</strong> The &quot;Unreserved Ticketing System on Mobile&quot; (UTS) is an application that allows passengers to book an unreserved, paperless ticket for journeys between any two stations. This app eliminates the need for passengers to visit a ticket counter to purchase an unreserved ticket. Once a ticket is booked, passengers can collect their unreserved paperless ticket from an automatic ticket vending machine located throughout the country.</li>
             <li><strong className="text-black text-[16px] block">Full Tariff Rate (FTR)</strong>If you need to book an entire coach or train for events like tours, weddings, and parties, you can use our platform to receive discounts on Full Tariff Rate (FTR) reservations. You can register in advance, with a maximum lead time of 6 months and a minimum of 30 days. A security deposit of INR 50,000 is required for each coach booked. If you are booking a special train, you must reserve at least 18 coaches. For a smooth booking experience at an affordable price, be sure to make your reservation with us.</li>
@@ -45,10 +45,10 @@ export default function HomePage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2 text-black">How to Book IRCTC Train Ticket & Use IRCTC Login on ixigo</h2>
-          <h6 className=" mb-2">Steps to Book Train Tickets Online with ixigo!</h6>
+          <h2 className="text-xl font-semibold mb-2 text-black">How to Book IRCTC Train Ticket & Use IRCTC Login on HumSafar</h2>
+          <h6 className=" mb-2">Steps to Book Train Tickets Online with HumSafar!</h6>
           <ul className="list-disc ml-5 space-y-1 text-[14px]">
-            <li><strong className="text-black text-[16px] block">Visit ixigo and Choose Your Destination</strong> Open the ixigo website or app, select your source and destination, and choose your journey date.</li>
+            <li><strong className="text-black text-[16px] block">Visit HumSafar and Choose Your Destination</strong> Open the HumSafar website or app, select your source and destination, and choose your journey date.</li>
             <li><strong className="text-black text-[16px] block">Select Class and Find Available Trains</strong> Choose your preferred class such as First Class, Second AC, Third AC, or Sleeper. Select the train that best suits your journey from the list of available trains.</li>
             <li><strong className="text-black text-[16px] block">Add Passenger Details and IRCTC User ID</strong>Fill in the passenger details and choose your berth preferences. Log in using your IRCTC user ID and password. Create a new IRCTC user ID, if you don&#39;t have one.</li>
             <li><strong className="text-black text-[16px] block">Choose a Payment Method and Complete Booking</strong> You can choose from several payment options and proceed to complete your train ticket booking.</li>
@@ -58,11 +58,11 @@ export default function HomePage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-2 text-black">Easy & Fast IRCTC Login</h2>
-          <p className="mb-2 text-[14px]">With ixigo, you can register on IRCTC, navigate the next-generation IRCTC login process, reset your IRCTC password and more. You can also recover a deactivated IRCTC ID, update profile details, and easily manage your bookings.</p>
+          <p className="mb-2 text-[14px]">With HumSafar, you can register on IRCTC, navigate the next-generation IRCTC login process, reset your IRCTC password and more. You can also recover a deactivated IRCTC ID, update profile details, and easily manage your bookings.</p>
           <h4 className=" font-semibold mb-2 text-black">Create Your IRCTC Login ID and Password</h4>
           <p className=" mb-2 text-[14px]">Having an IRCTC ID and password is the first step towards your train ticket booking process. Create IRCTC login ID and password by following the below steps:</p>
           <ul className="list-disc ml-5 space-y-1 text-[14px]">
-            <li>Open the ixigo Trains app.</li>
+            <li>Open the HumSafar Trains app.</li>
             <li>Tap on the profile icon at the bottom right of the page.</li>
             <li>Now, tap on &#39;Link your IRCTC Account&#39;.</li>
             <li>You will see &#39;IRCTC username&#39;. Tap on it.</li>
@@ -75,7 +75,7 @@ export default function HomePage() {
           <h4 className=" font-semibold my-2 text-black">Recover Your IRCTC Login ID</h4>
           <p className=" mb-2 text-[14px]">You can easily recover your IRCTC login ID by following the below steps:</p>
           <ul className="list-disc ml-5 space-y-1 text-[14px]">
-            <li>Open the ixigo app.</li>
+            <li>Open the HumSafar app.</li>
             <li>Tap on the profile icon at the bottom right of the page.</li>
             <li>Now, go to &#39;Link your IRCTC Account&#39;.</li>
             <li>Then, click on &#39;Forgot your IRCTC User ID&#39;.</li>
@@ -85,7 +85,7 @@ export default function HomePage() {
           <h4 className=" font-semibold my-2 text-black">Register as a New User on IRCTC</h4>
           <p className=" mb-2 text-[14px]">Here are the steps to register as a new user on IRCTC:</p>
           <ul className="list-disc ml-5 space-y-1 text-[14px]">
-            <li>Open the ixigo trains app.</li>
+            <li>Open the HumSafar trains app.</li>
             <li>Tap on the profile icon at the bottom right of the page.</li>
             <li>Now, go to &#39;Link your IRCTC Account&#39;.</li>
             <li>Then, click on &#39;Register on IRCTC&#39;.</li>
@@ -163,16 +163,16 @@ export default function HomePage() {
           <h2 className="text-xl font-semibold mb-2 text-black">Top Features You Must Know!</h2>
           <ul className="list-disc ml-5 space-y-1 text-[14px]">
             <li><strong className="text-black text-[16px] block">Live Train Running Status</strong>
-              Check your Train Running Status on ixigo by just adding the train number and get your train details through <Link href="/running-status" className="text-blue-600">Live Running Train Status.</Link>
+              Check your Train Running Status on HumSafar by just adding the train number and get your train details through <Link href="/running-status" className="text-blue-600">Live Running Train Status.</Link>
             </li>
             <li><strong className="text-black text-[16px] block">Free Cancellation & Booking Modification</strong>Get full refunds on your train ticket cancellations by choosing Assured Flex. You can also modify your booking.</li>
-            <li><strong className="text-black text-[16px] block">Check PNR Status</strong> <Link href="/pnr-status-enquiry" className="text-blue-600">PNR Status</Link> allows you to check the current status of your booked ticket, letting you know if it&#39;s confirmed or not. ixigo helps you to find out the Indian Railways PNR Status Prediction with high accuracy of booked train ticket through its app or its website.</li>
+            <li><strong className="text-black text-[16px] block">Check PNR Status</strong> <Link href="/pnr-status-enquiry" className="text-blue-600">PNR Status</Link> allows you to check the current status of your booked ticket, letting you know if it&#39;s confirmed or not. HumSafar helps you to find out the Indian Railways PNR Status Prediction with high accuracy of booked train ticket through its app or its website.</li>
 
             <li><strong className="text-black text-[16px] block">Seat Availability and Enquiry</strong> Use our <Link href="/seat-availability" className="text-blue-600">train seat availability</Link>    feature to find out the seat or berth availability on your train and check the lowest train ticket price. You can make online IRCTC train ticket reservations according to your preferred options - date of travel, train halt in minutes and IRCTC train route.</li>
 
             <li><strong className="text-black text-[16px] block">Order Food on Train</strong>Get fresh &amp; delicious meals delivered right to your seat with our <Link href="https://www.ecatering.irctc.co.in" target="_blank" className="text-blue-600">&#39;Order Food on Train&#39;</Link>  feature.</li>
 
-            <li><strong className="text-black text-[16px] block">Travel Guarantee</strong> <Link href="/travel-guarantee" className="text-blue-600">&#39;Travel Guarantee&#39;</Link>  by ixigo is a unique feature that ensures either a confirmed seat or a refund* if your waitlisted booking is not confirmed during chart preparation. The refund amount varies based on the selected travel mode (3X for flights, 3X for buses, or 2X for trains).
+            <li><strong className="text-black text-[16px] block">Travel Guarantee</strong> <Link href="/travel-guarantee" className="text-blue-600">&#39;Travel Guarantee&#39;</Link>  by HumSafar is a unique feature that ensures either a confirmed seat or a refund* if your waitlisted booking is not confirmed during chart preparation. The refund amount varies based on the selected travel mode (3X for flights, 3X for buses, or 2X for trains).
 
               <ul className="list-disc ml-5 space-y-1 text-[14px]">
                 <p className="my-2" >The benefits are as follows:</p>

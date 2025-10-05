@@ -104,7 +104,7 @@ export default function SeatAvailability() {
 
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4 text-black">Train Seat Availability Search on App</h2>
-            <p className="mb-2 text-[14px]">One of the biggest concerns of train travellers is knowing about the availability of trains and its seat on their route. With the train seat availability feature of Indian Railways on ixigo trains app, one can easily check for any train and book their tickets online.</p>
+            <p className="mb-2 text-[14px]">One of the biggest concerns of train travellers is knowing about the availability of trains and its seat on their route. With the train seat availability feature of Indian Railways on HumSafar trains app, one can easily check for any train and book their tickets online.</p>
             <table className="w-full border border-gray-300 text-[14px] text-left">
               <tbody>
                 <tr>

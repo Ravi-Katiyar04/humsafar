@@ -126,7 +126,7 @@ export default function PNRDetailsCard({ pnrData }) {
                     </li>
                     <li>
                         Please verify them with Indian Railways before boarding. The confirmation chances,
-                        cancellation charges, platform numbers and berth types are projections alone and ixigo
+                        cancellation charges, platform numbers and berth types are projections alone and HumSafar
                         does not take responsibility if the predictions are not accurate.
                     </li>
                     <li>

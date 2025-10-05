@@ -12,7 +12,7 @@ export default function TrainBookingPage() {
     const router = useRouter();
     const [irctcId, setIrctcId] = useState("");
     const [mobile, setMobile] = useState("8287710866");
-    const [email, setEmail] = useState("8287710866@ixigo-dummy.com");
+    const [email, setEmail] = useState("8287710866@HumSafar-dummy.com");
     const [address, setAddress] = useState("SULTANPUR Uttar Pradesh, SULTANPUR, Uttar Pradesh, 228001");
     const [freeCancellation,setFreeCancellation]=useState(true);
     const [GST,setGST]=useState(false);

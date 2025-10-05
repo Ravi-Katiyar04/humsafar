@@ -33,11 +33,11 @@ export default function PlatformLocatorPage() {
                     the necessary information to quickly locate their platform and ensure that they board their train on time.
                 </p>
                 <p className="mb-4">
-                    ixigo’s Platform Locator feature is easy to use and tells you the train platform number at every station along the way.
+                    HumSafar Platform Locator feature is easy to use and tells you the train platform number at every station along the way.
                     You just need to enter the train name or number and hit the “Search” button. This can be done even before you arrive at the railway station.
                 </p>
                 <p className="mb-4">
-                    Train travel can be unpredictable, so ixigo’s goal is to provide you with all the details you need to make informed decisions
+                    Train travel can be unpredictable, so HumSafar goal is to provide you with all the details you need to make informed decisions
                     about your journey. You can be confident that you are receiving the most accurate information available with our train platform finder.
                 </p>
                 <p className="mb-4">

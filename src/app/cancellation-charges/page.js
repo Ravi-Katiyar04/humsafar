@@ -103,7 +103,7 @@ export default function Cancellation() {
           </h2>
 
           <p className=" text-gray-700 mb-6">
-            Assured Flex is one of the most amazing features of the ixigo app that provides <span className="font-semibold">FREE CANCELLATION</span> and Reschedule on train bookings to users. So, if you are unsure of your travel plans, then no need to stress as you can still get full refunds.
+            Assured Flex is one of the most amazing features of the HumSafar app that provides <span className="font-semibold">FREE CANCELLATION</span> and Reschedule on train bookings to users. So, if you are unsure of your travel plans, then no need to stress as you can still get full refunds.
           </p>
 
           <h3 className="text-xl font-semibold text-gray-800 mb-3">

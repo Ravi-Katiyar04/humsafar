@@ -43,7 +43,7 @@ export default function ProfilePage() {
                     </div>
                     <div className="flex items-center gap-3">
                         <i className="fa fa-user text-blue-600" />
-                        <span>ixigoer since 2023</span>
+                        <span>HumSafar since 2023</span>
                     </div>
                 </div>
 
