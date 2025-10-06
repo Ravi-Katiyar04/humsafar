@@ -16,6 +16,8 @@ export default function Booking(prop) {
   const [destination, setDestination] = useState('');
   const [journeyDate, setJourneyDate] = useState('');
   const [activeInput, setActiveInput] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
 
   const handleSelect = (station) => {
@@ -45,7 +47,8 @@ export default function Booking(prop) {
         const res = await axios.get(
           `/api/searchStation?query=${query}`
         );
-        setStations(res.data.data);
+        console.log(res.data);
+        setStations(res.data);
       } catch (err) {
         setError(err.message);
       }
@@ -95,13 +98,13 @@ export default function Booking(prop) {
                   placeholder='Enter Source Station'
                   className="w-full border-b-2 cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
                   value={source}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(e) => {  setSource(e.target.value); setQuery(e.target.value); }}
                   onClick={() => setActiveInput("source")}
                   required
                 />
                 {activeInput === "source" && (
                   <div className="absolute z-10 bg-white border border-gray-300 w-full max-h-48 overflow-y-auto shadow-2xl rounded-md">
-                    {stations.map((station) => (
+                    {stations?.map((station) => (
                       <div
                         key={station.code}
                         className="px-3 py-2 hover:bg-blue-100 text-sm cursor-pointer"
@@ -136,14 +139,14 @@ export default function Booking(prop) {
                   placeholder='Enter Destination Station'
                   className="w-full border-b-2 cursor-pointer border-gray-300 focus:outline-none focus:border-blue-700 transition-colors"
                   value={destination}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(e) => {setDestination(e.target.value); setQuery(e.target.value); }}
                   onClick={() => setActiveInput("destination")}
                   required
                 />
 
                 {activeInput === "destination" && (
                   <div className="absolute z-10 bg-white border border-gray-300 w-full max-h-48 overflow-y-auto shadow-lg rounded-md">
-                    {stations.map((station) => (
+                    {stations?.map((station) => (
                       <div
                         key={station.code}
                         className="px-3 py-2 hover:bg-blue-100 text-sm cursor-pointer"
