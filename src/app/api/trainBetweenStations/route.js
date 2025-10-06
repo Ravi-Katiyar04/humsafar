@@ -25,6 +25,7 @@ export async function GET(req) {
         if (!response.data || response.data.length === 0) {
             return Response.json({ error: 'Train not found or no data available.' }, { status: 404 });
         }
+        console.log(response.data);
         return Response.json(response.data, { status: 200 });
     } catch (error) {
         console.error('Train Status Error:', error);
