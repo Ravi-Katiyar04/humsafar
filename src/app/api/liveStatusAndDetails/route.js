@@ -3,13 +3,14 @@ import axios from 'axios';
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const trainNumber = searchParams.get('trainNumber');
+    const date= searchParams.get('departure_date');
 
     const options = {
         method: 'GET',
         url: 'https://irctc1.p.rapidapi.com/api/v1/liveTrainStatus',
         params: {
             trainNo: trainNumber,
-            startDay: '1'
+            startDay: '0'
         },
         headers: {
             'x-rapidapi-key': process.env.RAPIDAPI_KEY,
@@ -22,6 +23,7 @@ export async function GET(req) {
         if (!response.data || response.data.length === 0) {
             return Response.json({ error: 'Train not found or no data available.' }, { status: 404 });
         }
+        console.log(response.data)
         return Response.json(response.data, { status: 200 });
     } catch (error) {
         console.error('Train Status Error:', error);
