@@ -1,21 +1,48 @@
 "use client";
-import React from 'react';
+import React, { use } from 'react';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';;
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const SearchTrainByStation = () => {
     const router = useRouter();
-    const [sourceStation, setSourceStation] = useState("Bengaluru (YPR)");
+    const [sourceStation, setSourceStation] = useState('');
+    const [sourceStationCode, setSourceStationCode] = useState('');
+    const [stations, setStations] = useState('');
+    const [error, setError] = useState('');
 
     const handleSearch = () => {
-    router.push(`/search-station/${sourceStation}`);
+        router.push(`/search-station/${sourceStation}`);
     }
+
+    const handleSelect = (station) => {
+        setSourceStationCode(station.code);
+    }
+
+    useState(() => {
+        const fetchTrainStatus = async () => {
+            if (!sourceStationCode) return;
+            setStations(null);
+
+            try {
+                const res = await axios.get(
+                    `/api/searchStation?query=${sourceStationCode}`
+                );
+                setStations(res.data);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+
+        fetchTrainStatus();
+
+    }, [sourceStation]);
 
     return (
         <div className="bg-gradient-to-r from-purple-900 to-pink-700 py-10 px-4 text-center">
             <h1 className="text-3xl font-semibold mb-8">Indian Railway Stations</h1>
 
-            <div  className="bg-white rounded-lg p-4 shadow max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div className="bg-white rounded-lg p-4 shadow max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between">
                 <div className="flex-1 text-left py-2 pr-6">
                     <label className="text-xs text-black mb-1 font-semibold" htmlFor="source">STATION NAME/CODE</label>
                     <input
@@ -27,6 +54,18 @@ const SearchTrainByStation = () => {
                         onChange={(e) => setSourceStation(e.target.value)}
                         required
                     />
+
+                    {stations && (<div className="absolute z-10 bg-white border border-gray-300 w-full max-h-48 overflow-y-auto shadow-2xl rounded-md">
+                        {stations?.slice(0, 15).map((station) => (
+                            <div
+                                key={station.code}
+                                className="px-3 py-2 hover:bg-blue-100 text-sm cursor-pointer"
+                                onClick={() => handleSelect(station)}
+                            >
+                                {station.name} ({station.code})
+                            </div>
+                        ))}
+                    </div>)}
                 </div>
 
 
