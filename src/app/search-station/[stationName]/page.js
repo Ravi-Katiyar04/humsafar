@@ -6,35 +6,47 @@ import RailwayInfo from '@/components/RailwayInfo';
 import TopTrainRoutes from '@/components/TopTrainRoutes';
 import SearchTrainByStation from '@/components/SearchTrainByStation';
 import Link from "next/link";
-export default function SearchTrainByStationPage() {
+import { use } from "react";
+import axios from "axios";
 
-    const stations = [
-        { code: 'SDNR', name: 'Seydunganallur', city: 'Seydunganallur', trains: 10 },
-        { code: 'BSE', name: 'Badshahpur', city: 'Badshahpur', trains: 17 },
-        { code: 'BSB', name: 'Varanasi Jn', city: 'Banaras', trains: 270 },
-        { code: 'APD', name: 'Alipur Duar', city: 'Alipur Duar', trains: 10 },
-        { code: 'BSC', name: 'Bulandshahr', city: 'Bulandshahr', trains: 12 },
-        { code: 'BSP', name: 'Bilaspur Jn', city: 'Bilaspur', trains: 174 },
-        { code: 'JTI', name: 'Jaithari', city: 'Jaithari', trains: 12 },
-        { code: 'JTJ', name: 'Jolarpettai', city: 'Jolarpettai', trains: 187 },
-        { code: 'THVM', name: 'Thivim', city: 'Goa', trains: 52 },
-        { code: 'BSL', name: 'Bhusaval Jn', city: 'Bhusawal', trains: 351 },
-        { code: 'GCH', name: 'Gachhipura', city: 'Gachhipura', trains: 6 },
-        { code: 'APL', name: 'Appikatla', city: 'Appikatla', trains: 14 },
-        { code: 'ATNR', name: 'Awatarnagar', city: 'Saran', trains: 11 },
-        { code: 'JSM', name: 'Jaisalmer', city: 'Jaisalmer', trains: 19 },
-        { code: 'BRS', name: 'Birsinghpur', city: 'Umaria', trains: 27 },
-        { code: 'BRR', name: 'Barakar', city: 'Barakar', trains: 36 },
-        { code: 'BRY', name: 'Bareilly', city: 'Bareilly', trains: 18 },
-        { code: 'BRE', name: 'Bharwari', city: 'Bharwari', trains: 14 },
-        { code: 'GDB', name: 'Giddarbaha', city: 'Giddarbaha', trains: 25 },
-        { code: 'BRG', name: 'Bargarh', city: 'Bargarh', trains: 8 },
-        { code: 'BRH', name: 'Baikunthpur Rd', city: 'Baikunthpur', trains: 8 },
-        { code: 'JUC', name: 'Jalandhar City', city: 'Jalandhar', trains: 168 },
-        { code: 'BRC', name: 'Vadodara Jn', city: 'Baroda', trains: 395 },
-        { code: 'BRD', name: 'Bhandara Road', city: 'Bhandara', trains: 47 },
-        { code: 'GDA', name: 'Godhra Jn', city: 'Godhra', trains: 85 }
-    ];
+
+const durationToMinutes = (arrival, departure) => {
+    if (arrival === "Source" ) return "Source";
+    if (departure === "Destination") return "Destination";
+    const arrivalMinutes = Number(arrival.split(":")[0]) * 60 + Number(arrival.split(":")[1]);
+    const departureMinutes = Number(departure.split(":")[0]) * 60 + Number(departure.split(":")[1]);
+    return (departureMinutes - arrivalMinutes) / 60;
+}
+
+export default function SearchTrainByStationPage({ params }) {
+    const { stationName: stationName } = use(params);
+
+    const [trains, setTrains] = useState([]);
+    const [error, setError] = useState(null);
+    const [limit, setLimit] = useState(10);
+
+    useState(() => {
+        const fetchTrainStatus = async () => {
+            if (!stationCode) return;
+            setTrains([]);
+            try {
+                const res = await axios.get(
+                    `/api/getTrainsByStation?stationCode=${stationName}`
+                );
+                if (res.data.status) {
+                    // setTrains(...res.data.data.originating, ...res.data.data.passing, ...res.data.data.destination);
+                    setTrains(res.data.data.passing);
+                    
+                } else {
+                    setError(res.data.error);
+                    setTrains([]);
+                }
+            } catch (err) {
+                setError(err.message);
+            }
+        }
+        fetchTrainStatus();
+    }, [stationName]);
 
 
     const station = {
@@ -83,7 +95,7 @@ export default function SearchTrainByStationPage() {
                                     <span className="text-gray-500 text-sm">Total trains</span>
                                     <span className="font-medium">
                                         <i className="fas fa-train text-blue-600 mr-1"></i>
-                                        {station.totalTrains}
+                                        {trains?.length || 0}
                                     </span>
                                 </div>
                             </div>
@@ -95,19 +107,21 @@ export default function SearchTrainByStationPage() {
                             <table className="min-w-[600px] w-full text-center font-semibold text-sm sm:text-base">
                                 <thead>
                                     <tr className="bg-gray-300 text-black">
-                                        <th className="px-4 py-3 sm:py-4">Station Code</th>
-                                        <th className="px-4 py-3 sm:py-4">Station Name</th>
-                                        <th className="px-4 py-3 sm:py-4">City</th>
-                                        <th className="px-4 py-3 sm:py-4">Trains Passing Through</th>
+                                        <th className="px-4 py-3 sm:py-4">Train Name/No.</th>
+                                        <th className="px-4 py-3 sm:py-4">Arrives</th>
+                                        <th className="px-4 py-3 sm:py-4">Departs</th>
+                                        <th className="px-4 py-3 sm:py-4">Duration</th>
+                                        <th className="px-4 py-3 sm:py-4"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {stations.map((station) => (
-                                        <tr key={station.code} className="hover:bg-gray-100">
-                                            <td className="px-4 py-3 sm:py-4">{station.code}</td>
-                                            <td className="px-4 py-3 sm:py-4">{station.name}</td>
-                                            <td className="px-4 py-3 sm:py-4">{station.city}</td>
-                                            <td className="px-4 py-3 sm:py-4">{station.trains}</td>
+                                    {trains.slice(0, limit).map((train) => (
+                                        <tr key={train.trainNo} className="hover:bg-gray-100">
+                                            <td className="px-4 py-3 sm:py-4 text-blue-600">{train.trainNo} {train.trainName}</td>
+                                            <td className="px-4 py-3 sm:py-4">{train.arrivalTime}</td>
+                                            <td className="px-4 py-3 sm:py-4">{train.departureTime}</td>
+                                            <td className="px-4 py-3 sm:py-4">{durationToMinutes(train.arrivalTime, train.departureTime)}</td>
+                                            <td><button className="bg-blue-500 hover:bg-blue-700 border text-white font-bold py-2 px-4 rounded">Book Now</button></td>
                                         </tr>
                                     ))}
                                 </tbody>
