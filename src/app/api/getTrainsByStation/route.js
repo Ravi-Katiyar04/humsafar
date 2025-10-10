@@ -4,8 +4,6 @@ export async function GET(req) {
     const searchParams = new URL(req.url).searchParams;
     const stnCode = searchParams.get('stationCode');
 
-    console.log('Received PNR Number:', pnrNumber);
-
     const options = {
         method: 'GET',
         url: 'https://irctc1.p.rapidapi.com/api/v3/getTrainsByStation',

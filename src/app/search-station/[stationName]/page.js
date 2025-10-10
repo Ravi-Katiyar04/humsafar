@@ -20,6 +20,7 @@ const durationToMinutes = (arrival, departure) => {
 
 export default function SearchTrainByStationPage({ params }) {
     const { stationName: stationName } = use(params);
+    const stationDetail= stationName.split('-')
 
     const [trains, setTrains] = useState([]);
     const [error, setError] = useState(null);
@@ -27,7 +28,7 @@ export default function SearchTrainByStationPage({ params }) {
 
     useState(() => {
         const fetchTrainStatus = async () => {
-            if (!stationCode) return;
+
             setTrains([]);
             try {
                 const res = await axios.get(
@@ -49,14 +50,6 @@ export default function SearchTrainByStationPage({ params }) {
     }, [stationName]);
 
 
-    const station = {
-        code: "ADI",
-        name: "Ahmedabad Jn",
-        city: "Ahmadabad",
-        totalTrains: 573,
-    };
-
-
 
     return (
         <div className="min-h-screen bg-gray-200">
@@ -66,7 +59,7 @@ export default function SearchTrainByStationPage({ params }) {
             <div className=" w-full max-w-11/12 mx-auto my-4 text-gray-500">
                 <span className="text-blue-700">Home</span> &nbsp;»&nbsp;
                 <span className="text-blue-700 ">Stations</span> &nbsp;»&nbsp;
-                <span className="text-gray-700 font-medium ">Ahmedabad Jn</span>
+                <span className="text-gray-700 font-medium ">{stationDetail[0]}</span>
             </div>
 
             {/* Content Section */}
@@ -75,21 +68,21 @@ export default function SearchTrainByStationPage({ params }) {
                 <div className=' w-full md:w-4/5 min-h-screen' >
 
                     <section className="mb-8">
-                        <h2 className="text-2xl font-semibold mb-2 text-black">Trains from Ahmedabad Jn (ADI) Railway Station</h2>
+                        <h2 className="text-2xl font-semibold mb-2 text-black">Trains from {stationDetail[0]} ({stationDetail[1]}) Railway Station</h2>
                         <div className="bg-gray-100 p-4 rounded-lg shadow-md w-full mx-auto">
                             <h2 className="text-xl font-semibold mb-3">Station Details</h2>
                             <div className="bg-white p-4 rounded-lg shadow-sm flex justify-between items-center">
                                 <div className="flex flex-col">
                                     <span className="text-gray-500 text-sm">Code</span>
-                                    <span className="font-medium">{station.code}</span>
+                                    <span className="font-medium">{stationDetail[1]}</span>
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-gray-500 text-sm">Name</span>
-                                    <span className="font-medium">{station.name}</span>
+                                    <span className="font-medium">{stationDetail[0]}</span>
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-gray-500 text-sm">City</span>
-                                    <span className="font-medium">{station.city}</span>
+                                    <span className="text-gray-500 text-sm">State</span>
+                                    <span className="font-medium">{stationDetail[2]}</span>
                                 </div>
                                 <div className="flex flex-col items-center">
                                     <span className="text-gray-500 text-sm">Total trains</span>
@@ -141,11 +134,11 @@ export default function SearchTrainByStationPage({ params }) {
 
 
                     <section className="mb-8">
-                        <h2 className="text-2xl font-semibold mb-2 text-black">Welcome to Ahmedabad Jn Railway Station, Ahmadabad</h2>
+                        <h2 className="text-2xl font-semibold mb-2 text-black">Welcome to {stationDetail[0]} Railway Station, {stationDetail[2]}</h2>
                         <div className="bg-white p-4 rounded-lg shadow-md w-full mx-auto">
-                            <p className="mb-4 ">The station code for this station is ADI. A total of 573 trains pass through Ahmedabad Jn Railway Station. Get all the information such as - Arrival, Departure, Train Number, Stops, Stoppage time, Days of Run and Timings about the trains passing through Ahmadabad.</p>
-                            <p className="mb-4 ">TSome of the trains that arrive at Ahmedabad Jn Railway Station are 19223 Sbib Jat Exp, 22990 Mhv Bdts Exp, 22991 Bl Bgkt Sup, 22992 Ju Bl Exp</p>
-                            <p className="mb-4 ">For real-time updates and information on the running status of any train, you can check the <Link href="/live-train-status" className="text-blue-600 font-semibold">live train running status</Link> of all the trains arriving or departing from Ahmedabad Jn Railway Station. Use our advanced <Link href="/live-train-status" className="text-blue-600 font-semibold">PNR Status Prediction</Link>PNR Status Prediction feature to know about your chances of confirmation of a waitlisted train ticket. You can also search for trains to other train stations by using the complete <Link href="/live-train-status" className="text-blue-600 font-semibold">train list</Link>  for Ahmadabad to find  <Link href="/live-train-status" className="text-blue-600 font-semibold">train seat availability</Link>  on different trains.</p>
+                            <p className="mb-4 ">The station code for this station is {stationDetail[1]}. A total of {trains?.length || 0} trains pass through {stationDetail[0]} Railway Station. Get all the information such as - Arrival, Departure, Train Number, Stops, Stoppage time, Days of Run and Timings about the trains passing through {stationDetail[0]}.</p>
+                            <p className="mb-4 ">TSome of the trains that arrive at {stationDetail[0]} Railway Station are 19223 Sbib Jat Exp, 22990 Mhv Bdts Exp, 22991 Bl Bgkt Sup, 22992 Ju Bl Exp</p>
+                            <p className="mb-4 ">For real-time updates and information on the running status of any train, you can check the <Link href="/live-train-status" className="text-blue-600 font-semibold">live train running status</Link> of all the trains arriving or departing from {stationDetail[0]} Railway Station. Use our advanced <Link href="/live-train-status" className="text-blue-600 font-semibold">PNR Status Prediction</Link>PNR Status Prediction feature to know about your chances of confirmation of a waitlisted train ticket. You can also search for trains to other train stations by using the complete <Link href="/live-train-status" className="text-blue-600 font-semibold">train list</Link>  for {stationDetail[0]} to find  <Link href="/live-train-status" className="text-blue-600 font-semibold">train seat availability</Link>  on different trains.</p>
                         </div>
                     </section>
 

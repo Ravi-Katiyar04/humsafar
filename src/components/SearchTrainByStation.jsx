@@ -1,32 +1,37 @@
 "use client";
-import React, { use } from 'react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const SearchTrainByStation = () => {
     const router = useRouter();
     const [sourceStation, setSourceStation] = useState('');
-    const [sourceStationCode, setSourceStationCode] = useState('');
+    const [searchForStation, setSearchForStation]=useState('');
     const [stations, setStations] = useState('');
     const [error, setError] = useState('');
 
     const handleSearch = () => {
-        router.push(`/search-station/${sourceStation}`);
+        if(!searchForStation){
+            toast.error('Please select a station');
+            return;
+        }
+        router.push(`/search-station/${searchForStation.name}-${searchForStation.code}-${searchForStation.state_name}`);
     }
 
     const handleSelect = (station) => {
-        setSourceStationCode(station.code);
+        setSourceStation(station.name + ' (' + station.code + ')');
+        setSearchForStation(station);
     }
 
     useState(() => {
         const fetchTrainStatus = async () => {
-            if (!sourceStationCode) return;
+            if (!sourceStation) return;
             setStations(null);
 
             try {
                 const res = await axios.get(
-                    `/api/searchStation?query=${sourceStationCode}`
+                    `/api/searchStation?query=${sourceStation}`
                 );
                 setStations(res.data);
             } catch (err) {
