@@ -1,10 +1,10 @@
 import React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter,useState } from 'next/navigation';
 
 const PlatformLocator = () => {
     const router = useRouter();
-    const [train, setTrain] = React.useState('');
-    const [station, setStation] = React.useState('');
+    const [train, setTrain] = useState('');
+    const [station, setStation] = useState('');
 
     const handleSearch = () => {
         router.push(`/${train}/train-plateform-locator?station=${station}`);

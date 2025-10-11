@@ -3,14 +3,14 @@ import axios from 'axios';
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const trainNumber = searchParams.get('trainNumber');
-    const date= searchParams.get('departure_date');
+    const startDay = searchParams.get('startDay') || '0';
 
     const options = {
         method: 'GET',
         url: 'https://irctc1.p.rapidapi.com/api/v1/liveTrainStatus',
         params: {
             trainNo: trainNumber,
-            startDay: '0'
+            startDay: startDay
         },
         headers: {
             'x-rapidapi-key': process.env.RAPIDAPI_KEY,

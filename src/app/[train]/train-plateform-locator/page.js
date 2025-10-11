@@ -1,18 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect,use } from "react";
 import FAQSection from "@/components/FAQSection";
 import MoreTrainInformation from "@/components/MoreTrainInformation";
 import PlatformLocator from "@/components/PlatformLocator";
+import axios from "axios";
 
-export default function TrainPlatformLocator() {
-    const [train, setTrain] = useState('');
-    const [station, setStation] = useState('');
 
-    const handleSearch = () => {
-        if (!train) return alert("Please enter a train name or number.");
-        console.log("Searching for:", train, station);
+export default function TrainPlatformLocator({ params }) {
+    const { train: train } = use(params);
+    const [trainData, setTrainData] = useState('');
+    const [startDay, setStartDay] = useState('1');
+
+
+    useEffect(() => {
+    const fetchTrainStatus = async () => {
+      setError(null);
+      setTrainData(null);
+
+      try {
+        const res = await axios.get(
+          `/api/liveStatusAndDetails?trainNumber=${trainNumber}&startDay=${startDay}`
+        );
+        setTrainData(res.data.data);
+      } catch (err) {
+        setError(err.message);
+      }
     };
 
+    fetchTrainStatus();
+  }, [train]);
     const features = [
         {
             icon: "fas fa-train",
@@ -53,7 +69,7 @@ export default function TrainPlatformLocator() {
             <div className="max-w-11/12 mx-auto px-4 mt-4 text-sm text-gray-500">
                 <span className="text-blue-700">Home</span> &nbsp;»&nbsp;
                 <span className="text-blue-700">Platform Locator</span>&nbsp;»&nbsp;
-                <span className="text-gray-700 font-medium ">Ltt Jaynagar Exp - 11061</span>
+                <span className="text-gray-700 font-medium ">{trainData.train_name} - {trainData.train_number}</span>
             </div>
 
             {/* Content Section */}
@@ -67,7 +83,7 @@ export default function TrainPlatformLocator() {
                                     3.5
                                 </span>
                                 <h2 className="text-xl font-bold text-gray-800">
-                                    Ltt Jaynagar Exp 11061 Train
+                                    {trainData.train_name} {trainData.train_number} Train
                                 </h2>
                             </div>
                             <span className="text-orange-500 text-sm font-medium cursor-pointer hover:underline">
@@ -78,13 +94,7 @@ export default function TrainPlatformLocator() {
                         {/* Sub Row - Days */}
                         <div className="mt-1 text-sm text-gray-500 flex space-x-1">
                             <span>Runs on:</span>
-                            <span className="font-semibold">S</span>
-                            <span className="font-semibold">M</span>
-                            <span className="font-semibold">T</span>
-                            <span className="font-semibold">W</span>
-                            <span className="font-semibold">T</span>
-                            <span className="font-semibold">F</span>
-                            <span className="font-semibold">S</span>
+                            <span className="font-semibold">{trainData.run_days}</span>
                         </div>
 
                         <hr className="my-3" />
@@ -93,8 +103,9 @@ export default function TrainPlatformLocator() {
                         <div className="flex justify-between items-center">
                             {/* Start */}
                             <div className="text-center">
+                                <p className="text-2xl font-bold">{trainData.source}</p>
                                 <p className="text-2xl font-bold">11:30</p>
-                                <p className="text-gray-600 text-sm">Lokmanyatilak T</p>
+                                <p className="text-gray-600 text-sm">{trainData.source_stn_name}</p>
                             </div>
 
                             {/* Duration */}
@@ -105,13 +116,14 @@ export default function TrainPlatformLocator() {
                                     <span className="w-20 border-t border-gray-400"></span>
                                     <span className="w-2 h-2 bg-gray-400 rounded-full"></span>
                                 </div>
-                                <p className="text-xs">44 Stops</p>
+                                <p className="text-xs">{[...trainData?.previous_stations,...trainData?.upcoming_stations].length()} Stops</p>
                             </div>
 
                             {/* End */}
                             <div className="text-center">
+                                <p className="text-2xl font-bold">{trainData.destination}</p>
                                 <p className="text-2xl font-bold">02:00</p>
-                                <p className="text-gray-600 text-sm">Jaynagar</p>
+                                <p className="text-gray-600 text-sm">{trainData.dest_stn_name}</p>
                             </div>
                         </div>
 
@@ -140,7 +152,7 @@ export default function TrainPlatformLocator() {
 
                     <div className="bg-white shadow-md rounded-lg p-6 max-w-md border border-gray-200">
                         <h2 className="font-bold text-gray-800 mb-5">
-                            Why book Train Tickets with ixigo?
+                            Why book Train Tickets with HumSafar?
                         </h2>
                         <ul className="space-y-2">
                             {features.map((feature, idx) => (
@@ -169,7 +181,7 @@ export default function TrainPlatformLocator() {
                             </tr>
                         </thead>
                         <tbody>
-                            {stations.map((station, index) => (
+                            {[...trainData?.previous_stations,...trainData?.upcoming_stations].map((station, index) => (
                                 <tr
                                     key={index}
                                     className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
@@ -178,17 +190,15 @@ export default function TrainPlatformLocator() {
                                         {/* Timeline dot */}
                                         <div className="relative flex flex-col items-center mr-3">
                                             <i className="fas fa-circle text-orange-500 text-xs"></i>
-                                            {index !== stations.length - 1 && (
-                                                <div className="w-px flex-1 bg-orange-500"></div>
-                                            )}
+                                            
                                         </div>
-                                        <span>{station.name}</span>
+                                        <span>{station.station_code}-{station.station_name}</span>
                                     </td>
-                                    <td className="px-6 py-4">{station.platform}</td>
-                                    <td className="px-6 py-4">{station.arrives}</td>
+                                    <td className="px-6 py-4">{station.platform_number}</td>
+                                    <td className="px-6 py-4">{station.sta}</td>
                                     <td className="px-6 py-4">{station.halt}</td>
-                                    <td className="px-6 py-4">{station.departs}</td>
-                                    <td className="px-6 py-4">{station.day}</td>
+                                    <td className="px-6 py-4">{station.std}</td>
+                                    <td className="px-6 py-4">{station.a_day}</td>
                                     <td className="px-6 py-4">
                                         <button className="px-4 py-1 border border-orange-500 text-orange-500 rounded hover:bg-orange-50">
                                             BOOK
