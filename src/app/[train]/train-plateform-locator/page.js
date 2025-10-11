@@ -48,17 +48,6 @@ export default function TrainPlatformLocator({ params }) {
         },
     ];
 
-    const stations = [
-        { name: "LTT - Lokmanyatilak T", platform: 4, arrives: "-", halt: "-", departs: "11:30", day: 1 },
-        { name: "TNA - Thane", platform: 7, arrives: "11:53", halt: 2, departs: "11:55", day: 1 },
-        { name: "KYN - Kalyan Jn", platform: 4, arrives: "12:12", halt: 3, departs: "12:15", day: 1 },
-        { name: "NK - Nashik Road", platform: 2, arrives: "14:50", halt: 5, departs: "14:55", day: 1 },
-        { name: "MMR - Manmad Jn", platform: 2, arrives: "16:00", halt: 5, departs: "16:05", day: 1 },
-        { name: "CSN - Chalisgaon Jn", platform: 2, arrives: "16:53", halt: 2, departs: "16:55", day: 1 },
-        { name: "PC - Pachora Jn", platform: 3, arrives: "17:28", halt: 2, departs: "17:30", day: 1 },
-        { name: "JL - Jalgaon Jn", platform: 3, arrives: "18:13", halt: 2, departs: "18:15", day: 1 },
-    ];
-
 
     return (
         <div className="min-h-screen bg-white">
