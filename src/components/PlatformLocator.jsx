@@ -1,14 +1,39 @@
 import React from 'react';
-import { useRouter,useState } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const PlatformLocator = () => {
     const router = useRouter();
-    const [train, setTrain] = useState('');
+    const [trains, setTrains] = useState('');
+    const [error, setError] = useState(null);
+    const [query, setQuery] = useState("");
+    const [selectedTrain, setSelectedTrain] = useState('');
     const [station, setStation] = useState('');
 
     const handleSearch = () => {
-        router.push(`/${train}/train-plateform-locator?station=${station}`);
+        router.push(`/${selectedTrain}/train-plateform-locator?station=${station}`);
     };
+
+    useEffect(() => {
+        const fetchTrainStatus = async () => {
+
+            try {
+                const res = await axios.get(
+                    `/api/searchTrainQuery?query=${encodeURIComponent(query)}`);
+                if (!res.data || res.data.length === 0) {
+                    throw new Error('Train not found or no data available.');
+                }
+                setTrains(res.data);
+
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+
+        fetchTrainStatus();
+    }, [setQuery, query]);
 
     return (
         <div className="bg-gradient-to-r from-purple-900 to-pink-700 py-10 text-center ">
@@ -23,9 +48,27 @@ const PlatformLocator = () => {
                         type="text"
                         placeholder="Enter the train name or number"
                         className="w-full border-b border-gray-400 focus:outline-none focus:border-b-2 focus:border-blue-700 transition-colors"
-                        value={train}
-                        onChange={(e) => setTrain(e.target.value)}
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
                     />
+
+                    {trains.length > 0 ? (
+                        trains.map((train) => (
+                            <div key={train.train_number} className="flex items-center p-4 hover:bg-gray-200 cursor-pointer"
+                                onClick={() => {
+                                    setSelectedTrain(train.train_number);
+                                }}
+                            >
+                                <i className="fas fa-train text-gray-600 text-2xl mr-4"></i>
+                                <div>
+                                    <p className="font-semibold text-gray-800">{train.train_number} {train.train_name}</p>
+                                    <p className="text-sm text-gray-500">{train.src_stn_name} ({train.src_stn_code}) - {train.dstn_stn_name} ({train.dstn_stn_code})</p>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="p-4 text-gray-500">No trains found.</p>
+                    )}
                 </div>
 
                 {/* Station Input */}
