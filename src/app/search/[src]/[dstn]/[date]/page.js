@@ -150,7 +150,7 @@ export default function SearchPage({ params }) {
     setFilterResult(filtered);
   }, [filters, results]);
 
-  if (results.length === 0 && !error) {
+  if (results?.length === 0 && !error) {
     return (
       <div className="flex flex-col h-screen items-center justify-center py-10">
         {/* Outer spinner ring */}
